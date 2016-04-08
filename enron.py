@@ -22,7 +22,7 @@ def listEmailFiles(employeeFolder):
 	sentFolder = os.path.abspath(employeeFolder+os.sep+"sent")
 	_print(sentFolder)
 	if os.path.isdir(sentFolder):
-		_print("Parsing mail for "+sentFolder)
+		#_print("Parsing mail for "+sentFolder)
 		#get abs path to all sent emails for this employee
 		allSent = [os.path.join(sentFolder, sent) for sent in os.listdir(sentFolder) ]
 	else:
@@ -46,7 +46,7 @@ def getSenderEmailId(emails):
 		lines = mail.readlines()
 		mail.close()
 		for line in lines:
-			if line.find("From: ") >= 0 and line.find("@enron.com") >= 0:
+			if line.find("From: ") >= 0: # and line.lower().find("@enron.com") >= 0: #the "@enron" was too constraining; removed this since many employees used external addresses
 				curAddr = line.strip().split(" ")[1]
 				if curAddr in addrs.keys():
 					addrs[curAddr] += 1
@@ -142,6 +142,7 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 	_print(employeeFolders)
 	#foreach employee, parse all of their sent emails
 	for emp in employeeFolders:
+    _print("processing "+emp)
 		emails = listEmailFiles(emp)
 		if len(emails) > 0:
 			#probe a few sent emails for the unique sender address
@@ -155,12 +156,12 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 				else: #else, append to existing list
 					emailDict[senderAddr] += targets
 				#disallow self-links?
-			_print("sender: "+senderAddr)
+			#_print("sender: "+senderAddr)
 		else:
 			#for reporting: record employees for whom no emails are found
 			missingEmployees.append(emp)
 
-	_print("Emaildict: "+str(emailDict))
+	#_print("Emaildict: "+str(emailDict))
 	for k in emailDict.keys():
 		_print(k+": "+str(emailDict[k]))
 		#raw_input("dbg")
@@ -203,7 +204,7 @@ def _addUnweightedLink(src,dest,g):
 #enronRootDir = "./maildir"
 #_print("sep="+os.sep)
 enronRootDir = "./maildir"
-g = BuildStaticGraph(enronRootDir)
+g = BuildStaticGraph(enronRootDir,False)
 _print(g)
 _print("vertices: "+str([v for v in g.vs]))
 _print("edges: "+str([e for e in g.es]))
