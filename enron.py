@@ -245,20 +245,74 @@ def BuildStaticGraph(mailDir,params):
 
 	#the union of all senders and targets forms the complete graph node set
 	allAddrs = [sender for sender in emailDict.keys()] + [target for key in emailDict.keys() for target in emailDict[key]]
-	print("all addrs: "+str(allAddrs))
-	nodes = [set(allAddrs)] #uniquify the set of addresses/node-ids
-	print("all nodes: "+str(nodes))
-	print("adding vertices...")
+	#print("all addrs: "+str(allAddrs))
+	nodes = list(set(allAddrs)) #uniquify the set of addresses/node-ids
+	#print("all nodes: "+str(nodes))
+	#print("adding vertices...")
 	g.add_vertices(nodes)
 	
+	#print("dict:"+str(emailDict))
+
+	#holds tuples of (sender,target) with an associated frequency
+	edgeDict = {}
+	#now construct the edges, based on logic of params (directed/undirected, weighted/unweighted, filter freq, etc)
+	#build an undirected edge list
+	if not params.IsDirected:
+		#build weighted, undirected edge dictionary: key=(emailAddr1,emailAddr2) -> val=frequency
+		for sender in emailDict.keys():
+			for target in emailDict[sender].keys():
+				#since undirected, check for either key: (sender, target) or (target,sender), symmetrically
+				key = (sender,target)
+				revKey = (key[1],key[0])
+				emailCount = emailDict[sender][target]
+				if key in edgeDict.keys():
+					edgeDict[key] += emailCount
+				elif revKey in edgeDict.keys():
+					edgeDict[revKey] += emailCount
+				else: #neither key found, so this is a new edge entry
+					edgeDict[key] = emailCount
+		#post loop: edgeDict contains all undirected edges and their email frequencies
+	else:
+		#same as prior case, but simpler: just don't check for key symmetry
+		for sender in emailDict.keys():
+			for target in emailDict[sender].keys():
+				#since directed, check and store unique keys, where (senderAddr,targetAddr) != (targetAddr,senderAddr)
+				key = (sender,target)
+				emailCount = emailDict[sender][target]
+				if key in edgeDict.keys():
+					edgeDict[key] += emailCount
+				else: #key not found, so this is a new edge entry
+					edgeDict[key] = emailCount
+		#post loop: edgeDict contains all directed edges and their email frequencies
+	#post: edgeDict contains keys (senderAddr,destAddr) mapping to email frequencies
+	#The construction above unions symmetric key frequencies for undirected graphs, so no further isDirected checks are needed
+
+	#print("edgeDict:"+str(edgeDict))
 	
+	#get the edges (the keys) from edgeDict, after filtering low frequency edges
+	if params.FrequencyFilter > 1:
+		edges = [(key[0],key[1],edgeDict[key]) for key in edgeDict.keys() if edgeDict[key] >= params.FrequencyFilter]
+	else:
+		edges = [(key[0],key[1],edgeDict[key]) for key in edgeDict.keys()]
+	#post: edges is a list of tuples in the form (sourceAddr,destAddr,frequency)
+	#print("edges: "+str(edges))
+	#add edges to igraph.Graph (not the frequencies, yet)
+	edgeList = [(edge[0],edge[1]) for edge in edges]
+	#print("edge list: "+str(edgeList))
+	g.add_edges(edgeList)
 
-
-
+	#update the edge weights; unfortunately the python-igraph api doesn't allow doing this in edge construction, it has to be done iteratively
+	if params.IsWeighted:
+		for edge in edges:
+			edgeId = g.get_eid(edge[0], edge[1], g.is_directed())
+			g.es[edgeId]["weight"] = edge[2]
+		#print("edges: ",str([edge for edge in g.es]))
 	#add_vertices(n) where n is a number of list of strings for new vertex names
 	#add_edges() where passed are tuples of nodes ids or names of endpoints
 
 	print("graph construction completed")
+	print(str([v for v in g.vs]))
+	print(str(g))
 	return g
 
 #igraph's disgustingly inefficient api for check if node exists, by id. Is there a better way?
@@ -307,7 +361,7 @@ g = Graph.Read("testGraph.gml")
 _print(g)
 """
 
-params = ModelParams(filterExternal=False,frequencyFilter=1,isDirected=False,isWeighted=False,allowReflexive=False)
+params = ModelParams(filterExternal=False,frequencyFilter=1,isDirected=True,isWeighted=True,allowReflexive=False)
 
 enronRootDir = "./testdir"
 g = BuildStaticGraph(enronRootDir,params)
