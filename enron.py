@@ -148,25 +148,30 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 	i = 0.0
 	#foreach employee, parse all of their sent emails
 	for emp in employeeFolders:
+		#if i > 10.0:
+		#	break
 		i+=1.0
 		_print("\rprocessing "+emp+"  progress: "+str(int((i/numEmployees) * 100))+"%        ")
 		emails = listEmailFiles(emp)
 		if len(emails) > 0:
 			#probe a few sent emails for the unique sender address
 			senderAddr = getSenderEmailId(emails)
-			#set up the links
-			for email in emails:
-				#list the target addresses of this email (there could be more than one)
-				targets = listTargetAddresses(email,filterExternal=False)
-				#small exception: filter out emails sent to one self to eliminate reflexive loops on the graph
-				targets = [targetAddr for targetAddr in targets if targetAddr != senderAddr]
-				#add these email peer to this sender's outlink list
-				if senderAddr not in emailDict.keys():
-				  emailDict[senderAddr] = targets
-				else: #append to existing email list
-					emailDict[senderAddr] += targets
-				#disallow self-links? for now, yes, since we're analyzing relationships
-			#_print("sender: "+senderAddr)
+			if len(senderAddr) > 0:
+				#set up the links
+				for email in emails:
+					#list the target addresses of this email (there could be more than one)
+					targets = listTargetAddresses(email,filterExternal=False)
+					#small exception: filter out emails sent to one self to eliminate reflexive loops on the graph
+					targets = [targetAddr for targetAddr in targets if targetAddr != senderAddr]
+					#add these email peer to this sender's outlink list
+					if senderAddr not in emailDict.keys():
+						emailDict[senderAddr] = targets
+					else: #append to existing email list
+						emailDict[senderAddr] += targets
+					#disallow self-links? for now, yes, since we're analyzing relationships
+				#_print("sender: "+senderAddr)
+			else:
+				print("ERROR sender address empty for emp="+emp)
 		else:
 			#for reporting: record employees for whom no emails are found
 			missingEmployees.append(emp)
@@ -181,6 +186,9 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 	for sender in emailDict.keys():
 		for target in emailDict[sender]:
 			_addUnweightedLink(sender,target,g)
+
+	#add_vertices(n) where n is a number of list of strings for new vertex names
+	#add_edges() where passed are tuples of nodes ids or names of endpoints
 
 	print("graph construction completed")
 	return g
@@ -231,16 +239,18 @@ g = Graph.Read("testGraph.gml")
 _print(g)
 """
 
+
 enronRootDir = "./maildir"
 g = BuildStaticGraph(enronRootDir,False)
 print("writing graph to file...")
-g.write_gml("enronGraph.gml")
+g.write_lgl("enronGraph.lgl")
 #_print("vertices: "+str([v for v in g.vs]))
 #_print("edges: "+str([e for e in g.es]))
 #g.write_gml("enronGraph.gml")
-#_print("Verifying written graph can be read...")
-g = Graph.Read("enronGraph.gml")
+_print("Verifying written graph can be read...")
+g = Graph.Read("enronGraph.lgl")
 _print(g)
+
 
 #g = Graph()
 #g.add_vertices(3)
