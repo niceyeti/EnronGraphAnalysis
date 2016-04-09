@@ -20,7 +20,7 @@ Employee folder must be an absolute path.
 def listEmailFiles(employeeFolder):
 	allSent = []
 	sentFolder = os.path.abspath(employeeFolder+os.sep+"sent")
-	_print(sentFolder)
+	#_print(sentFolder)
 	if os.path.isdir(sentFolder):
 		#_print("Parsing mail for "+sentFolder)
 		#get abs path to all sent emails for this employee
@@ -66,7 +66,6 @@ def getSenderEmailId(emails):
 
 """
 Given some list of email addresses, removes any that do not contain "@enron".
-External addresses are printed, for debugging
 """
 def _filterExternalAddrs(emails):
 	#remove external emails
@@ -140,9 +139,12 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 	missingEmployees = []
 	employeeFolders = [os.path.abspath(os.path.join(mailDir,emp)) for emp in os.listdir(mailDir)]
 	_print(employeeFolders)
+	numEmployees = float(len(employeeFolders))
+	i = 0.0
 	#foreach employee, parse all of their sent emails
 	for emp in employeeFolders:
-    _print("processing "+emp)
+		i+=1.0
+		_print("\rprocessing "+emp+"  progress: "+str(int((i/numEmployees) * 100))+"%        ")
 		emails = listEmailFiles(emp)
 		if len(emails) > 0:
 			#probe a few sent emails for the unique sender address
@@ -176,11 +178,11 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 #igraph's disgustingly inefficient api for check if node exists, by id. Is there a better way?
 def _hasVertex(name,g):
 	for node in g.vs:
-		_print("name? "+node["name"]+" == "+"name")
+		#_print("name? "+node["name"]+" == "+name)
 		if node["name"] == name:
-			_print("true")
+			#_print("true")
 			return True
-	_print("false")
+	#_print("false")
 	return False
 
 #Utility for adding unweighted graph links to g for a sender and receiver
@@ -203,11 +205,11 @@ def _addUnweightedLink(src,dest,g):
 
 #enronRootDir = "./maildir"
 #_print("sep="+os.sep)
-enronRootDir = "./maildir"
+enronRootDir = "./testdir"
 g = BuildStaticGraph(enronRootDir,False)
 _print(g)
-_print("vertices: "+str([v for v in g.vs]))
-_print("edges: "+str([e for e in g.es]))
+#_print("vertices: "+str([v for v in g.vs]))
+#_print("edges: "+str([e for e in g.es]))
 g.write_gml("enronGraph.gml")
 #g = Graph.Read("enronGraph.gml")
 
