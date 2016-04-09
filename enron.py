@@ -1,17 +1,19 @@
-#A bunch of code for playing around with constructing graphs and graph metrics from the Enron email data set
+from __future__ import print_function
 from igraph import *
 import sys
 import os
 import matplotlib
 import pylab
 
+
 #Print wrapper so both 2.7 and 3.0 print functions can be used.
 def _print(*args):
-	argList = [arg for arg in args]
-	if sys.version_info[0] < 3:
-		print argList
-	else:
-		print(argList)
+	print(*args)
+	#argList = [arg for arg in args]
+	#if sys.version_info[0] < 3:
+	#	print args
+	#else:
+	#	print(args)
 
 """
 Given an employee's root folder, returns the email file list within [employee]/sent as absolute paths.
@@ -93,16 +95,19 @@ def listTargetAddresses(emailFile,filterExternal=True):
 	addrString = ""
 	toSection = False
 	for line in lines:
+		#"Subject: " comes after any addressees, so break there, we know we have the targets
 		if line.find("Subject:") >= 0:
 			break
+		#first line of "To: " section
 		if line.find("To:") == 0:
 			addrString += line[3:].strip()
 			toSection = True
+		#keep consuming "To: " lines until we hit "Subject: " prior to this check.
 		elif toSection:
 			addrString += (line.strip()+",")
 		#signals the end of the "To:" section
 	
-	addrs = addrString.replace(" ","").split(",")
+	addrs = [addr for addr in addrString.replace(" ","").split(",") if len(addr) > 0]
 
 	#remove external emails
 	if filterExternal:
@@ -153,26 +158,31 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 			for email in emails:
 				#list the target addresses of this email (there could be more than one)
 				targets = listTargetAddresses(email,filterExternal=False)
+				#small exception: filter out emails sent to one self to eliminate reflexive loops on the graph
+				targets = [targetAddr for targetAddr in targets if targetAddr != senderAddr]
+				#add these email peer to this sender's outlink list
 				if senderAddr not in emailDict.keys():
 				  emailDict[senderAddr] = targets
-				else: #else, append to existing list
+				else: #append to existing email list
 					emailDict[senderAddr] += targets
-				#disallow self-links?
+				#disallow self-links? for now, yes, since we're analyzing relationships
 			#_print("sender: "+senderAddr)
 		else:
 			#for reporting: record employees for whom no emails are found
 			missingEmployees.append(emp)
 
 	#_print("Emaildict: "+str(emailDict))
-	for k in emailDict.keys():
-		_print(k+": "+str(emailDict[k]))
+	#for k in emailDict.keys():
+		#_print(k+": "+str(emailDict[k]))
 		#raw_input("dbg")
 
 	#finally, build the igraph object from the emailDict
+	print("building graph")
 	for sender in emailDict.keys():
 		for target in emailDict[sender]:
 			_addUnweightedLink(sender,target,g)
 
+	print("graph construction completed")
 	return g
 
 #igraph's disgustingly inefficient api for check if node exists, by id. Is there a better way?
@@ -187,6 +197,10 @@ def _hasVertex(name,g):
 
 #Utility for adding unweighted graph links to g for a sender and receiver
 def _addUnweightedLink(src,dest,g):
+	if src == "" or dest == "":
+		print("WARN: empty string passed for node src or dest in addUnweightedLink (edge ignored): src="+src+" dest="+dest)
+		return
+
 	hasSrc = _hasVertex(src,g)
 	hasDest = _hasVertex(dest,g)
 	#add the vertices, as needed
@@ -198,20 +212,35 @@ def _addUnweightedLink(src,dest,g):
 	if not hasSrc or not hasDest: #if either node didn't already exist, just add new edge
 		g.add_edge(src,dest)
 	else:  #else need to look up existing edge or create one
-		edgeId = g.get_eid(src, dest, g.is_directed())
-		if edgeId == -1:
+		try:
+			#igraph api claims get_eid returns -1 if edge is not found, but it actually throws an exception; I just handle both
+			edgeId = g.get_eid(src, dest, g.is_directed())
+			if edgeId == -1:
+				g.add_edge(src,dest)		
+		except:
 			g.add_edge(src,dest)
 		# else: nothing, graph is undirected, unweighted for now
 
 #enronRootDir = "./maildir"
 #_print("sep="+os.sep)
+"""
 enronRootDir = "./testdir"
 g = BuildStaticGraph(enronRootDir,False)
+g.write_gml("testGraph.gml")
+g = Graph.Read("testGraph.gml")
 _print(g)
+"""
+
+enronRootDir = "./maildir"
+g = BuildStaticGraph(enronRootDir,False)
+print("writing graph to file...")
+g.write_gml("enronGraph.gml")
 #_print("vertices: "+str([v for v in g.vs]))
 #_print("edges: "+str([e for e in g.es]))
-g.write_gml("enronGraph.gml")
-#g = Graph.Read("enronGraph.gml")
+#g.write_gml("enronGraph.gml")
+#_print("Verifying written graph can be read...")
+g = Graph.Read("enronGraph.gml")
+_print(g)
 
 #g = Graph()
 #g.add_vertices(3)
