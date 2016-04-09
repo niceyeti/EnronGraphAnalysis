@@ -6,6 +6,32 @@ import matplotlib
 import pylab
 
 
+"""
+This class is just a simple encapsulation of the data model construction parameters,
+holding information like, should external (outside the @enron network) emails be filtered?
+what frequency of emails for nodes (u,v) is sufficient for assigning and edge? etc.
+The class doesn't encapsulate any behavior, just data.
+
+@FilterExternal: Toggles whether or not to filter external emails. This seems logical, however
+many within the Enron network used external addresses like @aol during the early net years, so it
+is best to set this to false and then filter emails by low frequency.
+@FrequencyFilter: The number of emails which must be exchanged (symmetrically/undirected, for simplicity)
+in order for (u,v) to have an edge. This is a good de-noise parameter to eliminate all but somewhat-regular
+email traffic.
+@IsDirected: Whether or not to build a directed or undirected graph
+@IsWeighted: Whether or not to track email frequencies per edges (email counts between employees)
+@AllowReflexive: Whether or not to allow self-loops (sending email to oneself). We are mostly interested
+in the relational, inter-node characteristics of the network, and certain algorithms may require disallowing reflexive
+relations, so is best that this is false.
+"""
+class ModelParams(object):
+	def __init__(self,filterExternal=False,frequencyFilter=1,isDirected=False,isWeighted=False,allowReflexive=False):
+		self.FilterExternal = filterExternal
+		self.FrequencyFilter = frequencyFilter
+		self.IsDirected = isDirected
+		self.IsWeighted = isWeighted
+		self.AllowReflexive = allowReflexive
+
 #Print wrapper so both 2.7 and 3.0 print functions can be used.
 def _print(*args):
 	print(*args)
@@ -37,6 +63,8 @@ A resolution function, this takes a list of some employee emails, reads a few of
 about the sender's email address, returning this sender address as a string. The usage for this function
 is that the Enron data is noisy, so its best to evaluate a few emails for a particular sender's address, which will
 be used as that node's nuique id.
+
+Sender's email is returned as lower-cased, for case-insensitivity.
 """
 def getSenderEmailId(emails):
 	addrs = {}
@@ -49,7 +77,7 @@ def getSenderEmailId(emails):
 		mail.close()
 		for line in lines:
 			if line.find("From: ") >= 0: # and line.lower().find("@enron.com") >= 0: #the "@enron" was too constraining; removed this since many employees used external addresses
-				curAddr = line.strip().split(" ")[1]
+				curAddr = line.strip().split(" ")[1].lower()
 				if curAddr in addrs.keys():
 					addrs[curAddr] += 1
 				else:
@@ -63,7 +91,7 @@ def getSenderEmailId(emails):
 			addr = key
 			break
 	
-	return addr
+	return addr.lower()
 	
 
 """
@@ -84,11 +112,14 @@ Given an emailFile path, open the email and parse out all the target addresses f
 			lynn.blair@enron.com, mike.bryant@enron.com, terry.kowalke@enron.com, 
 			jean.blair@enron.com, james.carr@enron.com, jodie.floyd@enron.com, 
 	Return list of email addresses
-	
-	@filterExternal: True by default, this specifies that emails outside of the enron network should be
-	excluded (eg, address does not contain "@enron")
+
+	@emailFile: An individual email file in the dataset, corresponding with (sent by) sourceAddr	
+	@sourceAddr: The sender address (and assumed node id) of this email
+	@params: A ModelParams object for various kinds of filtering
+
+	returns: list of target addresses, lower-cased and filtered according to params. Note the list may still contain dupes.
 """
-def listTargetAddresses(emailFile,filterExternal=True):
+def listTargetAddresses(emailFile,sourceAddr,params):
 	mail = open(emailFile,"r")
 	lines = [line.strip() for line in mail.readlines()]
 	mail.close()
@@ -100,24 +131,33 @@ def listTargetAddresses(emailFile,filterExternal=True):
 			break
 		#first line of "To: " section
 		if line.find("To:") == 0:
-			addrString += line[3:].strip()
+			addrString += line[3:]
 			toSection = True
 		#keep consuming "To: " lines until we hit "Subject: " prior to this check.
 		elif toSection:
-			addrString += (line.strip()+",")
+			addrString += (line+",")
 		#signals the end of the "To:" section
 	
-	addrs = [addr for addr in addrString.replace(" ","").split(",") if len(addr) > 0]
+	addrs = [addr.strip() for addr in addrString.lower().replace(" ","").split(",") if len(addr.strip()) > 0]
+
+	#remove self-loops
+	if not params.AllowReflexive:
+		addrs = _filterReflexiveAddrs(addrs,sourceAddr)
 
 	#remove external emails
-	if filterExternal:
+	if params.FilterExternal:
 		addrs = _filterExternalAddrs(addrs)
-			
-	#_print("Found addrs: "+str(addrs))
-	#input("debug")
+
+	#print("Found addrs: "+str(addrs))
+	#raw_input("debug")
 	
 	return addrs
 	
+#Given a list of target email addresses and their source sender's adress, remove sender's address from targets.
+#IOW, this removes oneself from one's own target address (when someone sent an email to themselves).
+def _filterReflexiveAddrs(targets,sourceAddr):
+	return [addr for addr in targets if addr != sourceAddr]
+
 """
 Takes in location of EnronData and returns a whom-talks-to-whom frequency graph.
 input: enron email dataset location (its assumed folder is structured as: /maildir/[person]/sent)
@@ -131,19 +171,17 @@ Algorithm:
   
   *Self-links are allowed (self emailing)
 
-  @filterexternal: If true, exernal emails are disallowed; if "@enron" isn't in the email, it won't be included. This is
-  problematic however, as many employees used non Enron addresses in the days of @aol.com.
+	@params: A ModelParams object for toggling how to filter and de-noise the email samples.
 
-  return frequencies as a digraph
+
 """
-def BuildStaticGraph(mailDir,filterExternal=True):
+def BuildStaticGraph(mailDir,params):
 	g = Graph()
 	g["MyName"] = "Enron static email network"
-	emailDict = {}  #index by:
-	
+	emailDict = {}  #a nested dictionary of senders (key1) -> target (key2) -> email count
 	missingEmployees = []
 	employeeFolders = [os.path.abspath(os.path.join(mailDir,emp)) for emp in os.listdir(mailDir)]
-	_print(employeeFolders)
+	#_print(employeeFolders)
 	numEmployees = float(len(employeeFolders))
 	i = 0.0
 	#foreach employee, parse all of their sent emails
@@ -160,15 +198,21 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 				#set up the links
 				for email in emails:
 					#list the target addresses of this email (there could be more than one)
-					targets = listTargetAddresses(email,filterExternal=False)
-					#small exception: filter out emails sent to one self to eliminate reflexive loops on the graph
-					targets = [targetAddr for targetAddr in targets if targetAddr != senderAddr]
-					#add these email peer to this sender's outlink list
+					targets = listTargetAddresses(email,senderAddr,params)
+					targets = set(targets) #uniquify the targets
+					#add these email peer to this sender's outlink list as a set.
 					if senderAddr not in emailDict.keys():
-						emailDict[senderAddr] = targets
-					else: #append to existing email list
-						emailDict[senderAddr] += targets
-					#disallow self-links? for now, yes, since we're analyzing relationships
+						innerDict = {}
+						for target in targets:
+							innerDict[target] = 1
+						emailDict[senderAddr] = innerDict
+					else: #append to existing email peer set
+						for target in targets:
+							#add a frequency entry for this target if not already present
+							if target not in emailDict[senderAddr].keys():
+								emailDict[senderAddr][target] = 1
+							else: #else, target already present, so update target's email count/frequency in inner dictionary
+								emailDict[senderAddr][target] += 1
 				#_print("sender: "+senderAddr)
 			else:
 				print("ERROR sender address empty for emp="+emp)
@@ -181,11 +225,35 @@ def BuildStaticGraph(mailDir,filterExternal=True):
 		#_print(k+": "+str(emailDict[k]))
 		#raw_input("dbg")
 
+	print(str(emailDict))
+
 	#finally, build the igraph object from the emailDict
+	"""
 	print("building graph")
 	for sender in emailDict.keys():
 		for target in emailDict[sender]:
 			_addUnweightedLink(sender,target,g)
+	"""
+
+	#g = _convertDictToIGraph(emailDict,params)
+
+	#Now convert the python data structures to an igraph. An important system/api note is that online
+	#commentary prefers building the entire igraph Graph all at once as opposed to iterating over some iterable
+	#and calling add_edge(). This is because the overheard of adding an edge to an existing graph is much
+	#higher than simply making all edges/nodes at once. So always use add_edges() and add_vertices() instead of adding
+	#items one at a time.
+
+	#the union of all senders and targets forms the complete graph node set
+	allAddrs = [sender for sender in emailDict.keys()] + [target for key in emailDict.keys() for target in emailDict[key]]
+	print("all addrs: "+str(allAddrs))
+	nodes = [set(allAddrs)] #uniquify the set of addresses/node-ids
+	print("all nodes: "+str(nodes))
+	print("adding vertices...")
+	g.add_vertices(nodes)
+	
+	
+
+
 
 	#add_vertices(n) where n is a number of list of strings for new vertex names
 	#add_edges() where passed are tuples of nodes ids or names of endpoints
@@ -239,9 +307,10 @@ g = Graph.Read("testGraph.gml")
 _print(g)
 """
 
+params = ModelParams(filterExternal=False,frequencyFilter=1,isDirected=False,isWeighted=False,allowReflexive=False)
 
-enronRootDir = "./maildir"
-g = BuildStaticGraph(enronRootDir,False)
+enronRootDir = "./testdir"
+g = BuildStaticGraph(enronRootDir,params)
 print("writing graph to file...")
 g.write_lgl("enronGraph.lgl")
 #_print("vertices: "+str([v for v in g.vs]))
@@ -250,7 +319,6 @@ g.write_lgl("enronGraph.lgl")
 _print("Verifying written graph can be read...")
 g = Graph.Read("enronGraph.lgl")
 _print(g)
-
 
 #g = Graph()
 #g.add_vertices(3)
