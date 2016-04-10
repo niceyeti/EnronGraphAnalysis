@@ -32,14 +32,31 @@ class ModelParams(object):
 		self.IsWeighted = isWeighted
 		self.AllowReflexive = allowReflexive
 
-#Print wrapper so both 2.7 and 3.0 print functions can be used.
-def _print(*args):
-	print(*args)
-	#argList = [arg for arg in args]
-	#if sys.version_info[0] < 3:
-	#	print args
-	#else:
-	#	print(args)
+	def ToString(self):
+		output = ""
+		if self.FilterExternal:
+			output += "  filterExternal=True"
+		else:
+			output += "  filterExternal=False"
+
+		if self.IsDirected:
+			output += "  isDirected=True"
+		else:
+			output += "  isDirected=False"
+
+		if self.IsWeighted:
+			output += "  isWeighted=True"
+		else:
+			output += "  isWeighted=False"
+
+		if self.AllowReflexive:
+			output += "  allowReflexive=True"
+		else:
+			output += "  allowReflexive=False"
+
+		output += ("  filterFrequency="+str(self.FrequencyFilter))
+
+		return output
 
 """
 Given an employee's root folder, returns the email file list within [employee]/sent as absolute paths.
@@ -48,13 +65,11 @@ Employee folder must be an absolute path.
 def listEmailFiles(employeeFolder):
 	allSent = []
 	sentFolder = os.path.abspath(employeeFolder+os.sep+"sent")
-	#_print(sentFolder)
 	if os.path.isdir(sentFolder):
-		#_print("Parsing mail for "+sentFolder)
 		#get abs path to all sent emails for this employee
 		allSent = [os.path.join(sentFolder, sent) for sent in os.listdir(sentFolder) ]
 	else:
-		_print("ERROR sent/ folder not found for "+employeeFolder)
+		print("ERROR sent/ folder not found for "+employeeFolder)
 		
 	return allSent
 		
@@ -92,19 +107,13 @@ def getSenderEmailId(emails):
 			break
 	
 	return addr.lower()
-	
 
 """
 Given some list of email addresses, removes any that do not contain "@enron".
 """
-def _filterExternalAddrs(emails):
+def filterExternalAddrs(emails):
 	#remove external emails
-	addrs = [addr for addr in emails if "@enron" in addr]
-	#removed = [addr for addr in emails if "@enron" not in addr]
-	#if removed != None and len(removed) > 0:
-	#	_print("filtered external emails: ",removed)
-
-	return addrs
+	return [addr for addr in emails if "@enron" in addr]
 	
 """
 Given an emailFile path, open the email and parse out all the target addresses from the "To: " parameter as
@@ -125,6 +134,7 @@ def listTargetAddresses(emailFile,sourceAddr,params):
 	mail.close()
 	addrString = ""
 	toSection = False
+
 	for line in lines:
 		#"Subject: " comes after any addressees, so break there, we know we have the targets
 		if line.find("Subject:") >= 0:
@@ -140,13 +150,13 @@ def listTargetAddresses(emailFile,sourceAddr,params):
 	
 	addrs = [addr.strip() for addr in addrString.lower().replace(" ","").split(",") if len(addr.strip()) > 0]
 
-	#remove self-loops
+	#removes self-loops
 	if not params.AllowReflexive:
-		addrs = _filterReflexiveAddrs(addrs,sourceAddr)
+		addrs = filterReflexiveAddrs(addrs,sourceAddr)
 
-	#remove external emails
+	#removes external email addresses (this may be undesirable; see function header)
 	if params.FilterExternal:
-		addrs = _filterExternalAddrs(addrs)
+		addrs = filterExternalAddrs(addrs)
 
 	#print("Found addrs: "+str(addrs))
 	#raw_input("debug")
@@ -155,7 +165,7 @@ def listTargetAddresses(emailFile,sourceAddr,params):
 	
 #Given a list of target email addresses and their source sender's adress, remove sender's address from targets.
 #IOW, this removes oneself from one's own target address (when someone sent an email to themselves).
-def _filterReflexiveAddrs(targets,sourceAddr):
+def filterReflexiveAddrs(targets,sourceAddr):
 	return [addr for addr in targets if addr != sourceAddr]
 
 """
@@ -175,32 +185,33 @@ Algorithm:
 
 
 """
-def BuildStaticGraph(mailDir,params):
+def BuildEnronGraph(mailDir,params):
 	g = Graph()
-	g["MyName"] = "Enron static email network"
+	g["MyName"] = "Enron email network"
 	emailDict = {}  #a nested dictionary of senders (key1) -> target (key2) -> email count
 	missingEmployees = []
 	employeeFolders = [os.path.abspath(os.path.join(mailDir,emp)) for emp in os.listdir(mailDir)]
-	#_print(employeeFolders)
+	#print(employeeFolders)
 	numEmployees = float(len(employeeFolders))
 	i = 0.0
+
+	print("Building graph using parameters: "+params.ToString())
+
 	#foreach employee, parse all of their sent emails
 	for emp in employeeFolders:
-		#if i > 10.0:
-		#	break
 		i+=1.0
-		_print("\rprocessing "+emp+"  progress: "+str(int((i/numEmployees) * 100))+"%        ")
+		print("\rprocessing "+emp+"    progress: "+str(int((i/numEmployees) * 100))+"%        ")
 		emails = listEmailFiles(emp)
 		if len(emails) > 0:
 			#probe a few sent emails for the unique sender address
 			senderAddr = getSenderEmailId(emails)
 			if len(senderAddr) > 0:
-				#set up the links
+				#set up the links from this sender to others they've sent to
 				for email in emails:
-					#list the target addresses of this email (there could be more than one)
+					#list the target addresses of this email (there may be more than one)
 					targets = listTargetAddresses(email,senderAddr,params)
-					targets = set(targets) #uniquify the targets
-					#add these email peer to this sender's outlink list as a set.
+					targets = set(targets) #uniquifies the targets
+					#add these email peers to this sender's outlinks and track their email counts
 					if senderAddr not in emailDict.keys():
 						innerDict = {}
 						for target in targets:
@@ -213,16 +224,15 @@ def BuildStaticGraph(mailDir,params):
 								emailDict[senderAddr][target] = 1
 							else: #else, target already present, so update target's email count/frequency in inner dictionary
 								emailDict[senderAddr][target] += 1
-				#_print("sender: "+senderAddr)
 			else:
 				print("ERROR sender address empty for emp="+emp)
 		else:
 			#for reporting: record employees for whom no emails are found
 			missingEmployees.append(emp)
 
-	#_print("Emaildict: "+str(emailDict))
+	#print("Emaildict: "+str(emailDict))
 	#for k in emailDict.keys():
-		#_print(k+": "+str(emailDict[k]))
+		#print(k+": "+str(emailDict[k]))
 		#raw_input("dbg")
 
 	print(str(emailDict))
@@ -235,13 +245,34 @@ def BuildStaticGraph(mailDir,params):
 			_addUnweightedLink(sender,target,g)
 	"""
 
-	#g = _convertDictToIGraph(emailDict,params)
+	g = convertEmailDictToIGraph(emailDict,params)
 
-	#Now convert the python data structures to an igraph. An important system/api note is that online
-	#commentary prefers building the entire igraph Graph all at once as opposed to iterating over some iterable
-	#and calling add_edge(). This is because the overheard of adding an edge to an existing graph is much
-	#higher than simply making all edges/nodes at once. So always use add_edges() and add_vertices() instead of adding
-	#items one at a time.
+	print("graph construction completed")
+	print("g.isDirected="+str(g.is_directed()))
+	print(str([v for v in g.vs]))
+	print(str(g))
+
+	return g
+
+"""
+Converts an emailDict to an igraph structure according to the flags held in the @params parameters.
+
+@emailDict: A dictionary of dictionaries. The outer dict contains senderAddr keys mapping to dictionaries. The inner dict
+(for a particular senderAddr) contains targetAddrs mapping to email frequency counts.
+@params: The graph construction parameters for filtering, etc.
+
+As much as possible, manipulate the emailDict dictionary data structure in python for desired metrics or dataset representations,
+then simply output it to an igraph structure as a final step, using this function. Avoid modifying/working on an igrpah graph,
+since the igraph api hasn't been very stable nor very efficient. Its much better to do everything in python-land before shoving
+everything into igraph just to use their analytics api.
+
+This function also serves another purpose: commentary prefers building the entire igraph Graph all at once as opposed to gradually
+iterating over some iterable and calling add_edge(). This is because the overheard of adding an edge to an existing graph is much
+higher than simply making all edges/nodes at once. So always use add_edges() and add_vertices() instead of adding
+items one at a time.
+"""
+def convertEmailDictToIGraph(emailDict,params):
+	g = Graph(directed=params.IsDirected)
 
 	#the union of all senders and targets forms the complete graph node set
 	allAddrs = [sender for sender in emailDict.keys()] + [target for key in emailDict.keys() for target in emailDict[key]]
@@ -251,9 +282,7 @@ def BuildStaticGraph(mailDir,params):
 	#print("adding vertices...")
 	g.add_vertices(nodes)
 	
-	#print("dict:"+str(emailDict))
-
-	#holds tuples of (sender,target) with an associated frequency
+	#holds tuples of (sender,target), each with an associated frequency.
 	edgeDict = {}
 	#now construct the edges, based on logic of params (directed/undirected, weighted/unweighted, filter freq, etc)
 	#build an undirected edge list
@@ -286,7 +315,6 @@ def BuildStaticGraph(mailDir,params):
 		#post loop: edgeDict contains all directed edges and their email frequencies
 	#post: edgeDict contains keys (senderAddr,destAddr) mapping to email frequencies
 	#The construction above unions symmetric key frequencies for undirected graphs, so no further isDirected checks are needed
-
 	#print("edgeDict:"+str(edgeDict))
 	
 	#get the edges (the keys) from edgeDict, after filtering low frequency edges
@@ -296,6 +324,7 @@ def BuildStaticGraph(mailDir,params):
 		edges = [(key[0],key[1],edgeDict[key]) for key in edgeDict.keys()]
 	#post: edges is a list of tuples in the form (sourceAddr,destAddr,frequency)
 	#print("edges: "+str(edges))
+
 	#add edges to igraph.Graph (not the frequencies, yet)
 	edgeList = [(edge[0],edge[1]) for edge in edges]
 	#print("edge list: "+str(edgeList))
@@ -307,22 +336,87 @@ def BuildStaticGraph(mailDir,params):
 			edgeId = g.get_eid(edge[0], edge[1], g.is_directed())
 			g.es[edgeId]["weight"] = edge[2]
 		#print("edges: ",str([edge for edge in g.es]))
-	#add_vertices(n) where n is a number of list of strings for new vertex names
-	#add_edges() where passed are tuples of nodes ids or names of endpoints
 
-	print("graph construction completed")
-	print(str([v for v in g.vs]))
-	print(str(g))
 	return g
 
-#igraph's disgustingly inefficient api for check if node exists, by id. Is there a better way?
+def usage():
+	print("Usage: 'python BuildGraph [path to enron dataset /maildir directory] [options listed below]")
+	print("The unzipped Enron email dataset contains a 'maildir' directory; provide its path, including 'maildir' in the path.")
+	print("Options:\n\t--directed/--undirected: build a directed or undirected version of the enron emails")
+	print("\t--weighted/--unweighted: whether or not to include edge weights (email counts between peers; asymmetric for directed graph)")
+	print("\t--filterExternal: pass this to omit external emails, from outside the @enron email network.")
+	print("\t--disallowReflexive/--allowReflexive: Whether or not to allow reflexive loops (nodes emailing themselves). An edge case, but some algorithms may need this.")
+	print("\t--fequencyFilter=[some int k]: A de-noising parameter. Node pairs sharing fewer than k emails will not have an edge.")
+	print("Comments: Don't use --filterExternal; while seemingly a good idea, many important users had external email addresses like '@aol'. The other params are self-explanatory.")
+	print("Example:  python ./BuildGraph ./maildir --filterExternal --filterFrequency=9 --weighted --undirected")
+
+#enronRootDir = "./maildir"
+#print("sep="+os.sep)
+"""
+enronRootDir = "./testdir"
+g = BuildEnronGraph(enronRootDir,False)
+g.write_gml("testGraph.gml")
+g = Graph.Read("testGraph.gml")
+print(g)
+"""
+
+if "help" in sys.argv:
+	usage()
+elif len(sys.argv) < 3:
+	print("ERROR: insufficient parameters: "+str(sys.argv))
+	usage()
+else:
+	#get graph params
+	isWeighted = "--weighted" in sys.argv
+	isDirected = "--isDirected" in sys.argv and "--undirected" not in sys.argv
+	filterExternal = "--filterExternal" in sys.argv
+	allowReflexive = "--allowReflexive" in sys.argv and "--disallowReflexive" not in sys.argv
+	filterFrequency = 1
+	if len([arg for arg in sys.argv if "--filterFrequency=" in arg]) > 0:
+		filterFrequency = [arg for arg in sys.argv if "--filterFrequency=" in arg][0]
+		filterFrequency = int(freq.split("=")[1])
+
+	pathToMailDir = sys.argv[1]
+	if not os.path.isdir(pathToMailDir):
+		print("ERROR: /maildir of Enron dataset not found at location specified: "+pathToMailDir)
+		usage()
+		exit()
+
+	outputFile = sys.argv[2]
+	params = ModelParams(filterExternal, filterFrequency, isDirected, isWeighted, allowReflexive)
+	g = BuildEnronGraph(pathToMailDir,params)
+	print("writing graph to file...")
+	g.write_lgl(outputFile)
+	#print("vertices: "+str([v for v in g.vs]))
+	#print("edges: "+str([e for e in g.es]))
+	#g.write_gml("enronGraph.gml")
+	print("Verifying written graph can be read...")
+	g = Graph.Read(outputFile)
+	print(g)
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+Obsolete
+
+
+#igraph's ugly api for check if node exists, by id. Is there a better way?
 def _hasVertex(name,g):
 	for node in g.vs:
-		#_print("name? "+node["name"]+" == "+name)
+		#print("name? "+node["name"]+" == "+name)
 		if node["name"] == name:
-			#_print("true")
+			#print("true")
 			return True
-	#_print("false")
+	#print("false")
 	return False
 
 #Utility for adding unweighted graph links to g for a sender and receiver
@@ -346,36 +440,8 @@ def _addUnweightedLink(src,dest,g):
 			#igraph api claims get_eid returns -1 if edge is not found, but it actually throws an exception; I just handle both
 			edgeId = g.get_eid(src, dest, g.is_directed())
 			if edgeId == -1:
-				g.add_edge(src,dest)		
+				g.add_edge(src,dest)
 		except:
 			g.add_edge(src,dest)
 		# else: nothing, graph is undirected, unweighted for now
-
-#enronRootDir = "./maildir"
-#_print("sep="+os.sep)
 """
-enronRootDir = "./testdir"
-g = BuildStaticGraph(enronRootDir,False)
-g.write_gml("testGraph.gml")
-g = Graph.Read("testGraph.gml")
-_print(g)
-"""
-
-params = ModelParams(filterExternal=False,frequencyFilter=1,isDirected=True,isWeighted=True,allowReflexive=False)
-
-enronRootDir = "./testdir"
-g = BuildStaticGraph(enronRootDir,params)
-print("writing graph to file...")
-g.write_lgl("enronGraph.lgl")
-#_print("vertices: "+str([v for v in g.vs]))
-#_print("edges: "+str([e for e in g.es]))
-#g.write_gml("enronGraph.gml")
-_print("Verifying written graph can be read...")
-g = Graph.Read("enronGraph.lgl")
-_print(g)
-
-#g = Graph()
-#g.add_vertices(3)
-#g.add_edges([(0,1),(1,2),(2,0)])
-#g.write_gml("dummy.gml")
-#_print(str(g))
