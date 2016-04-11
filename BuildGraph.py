@@ -344,19 +344,11 @@ def usage():
 	print("\t--weighted/--unweighted: whether or not to include edge weights (email counts between peers; asymmetric for directed graph)")
 	print("\t--filterExternal: pass this to omit external emails, from outside the @enron email network.")
 	print("\t--disallowReflexive/--allowReflexive: Whether or not to allow reflexive loops (nodes emailing themselves). An edge case, but some algorithms may need this.")
-	print("\t--fequencyFilter=[some int k]: A de-noising parameter. Node pairs sharing fewer than k emails will not have an edge.")
+	print("\t--frequencyFilter=[some int k]: A de-noising parameter. Node pairs sharing fewer than k emails will not have an edge.")
 	print("Comments: Don't use --filterExternal; while seemingly a good idea, many important users had external email addresses like '@aol'. The other params are self-explanatory.")
 	print("Example:  python ./BuildGraph ./maildir --filterExternal --filterFrequency=9 --weighted --undirected")
 
-#enronRootDir = "./maildir"
-#print("sep="+os.sep)
-"""
-enronRootDir = "./testdir"
-g = BuildEnronGraph(enronRootDir,False)
-g.write_gml("testGraph.gml")
-g = Graph.Read("testGraph.gml")
-print(g)
-"""
+
 
 if "help" in sys.argv:
 	usage()
@@ -383,14 +375,14 @@ else:
 	outputFile = sys.argv[2]
 	params = ModelParams(filterExternal, filterFrequency, isDirected, isWeighted, allowReflexive)
 	g = BuildEnronGraph(pathToMailDir,params)
-	print("writing graph to file...")
-	g.write_lgl(outputFile)
+	print("writing graph to "+outputFile)
+	g.write_gml(outputFile)
 	#print("vertices: "+str([v for v in g.vs]))
 	#print("edges: "+str([e for e in g.es]))
 	#g.write_gml("enronGraph.gml")
 	print("Verifying written graph can be read...")
-	g = Graph.Read(outputFile)
-	print(g)
+	g_read = Graph.Read(outputFile)
+	print(g_read)
 
 
 

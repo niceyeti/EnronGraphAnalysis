@@ -2,6 +2,8 @@
 
 !.gitignore
 !README.md
+!build.sh
 !BuildGraph.py
 !AnalyzeGraph.py
 !enronGraph.lgl
+!enronGraph.gml

@@ -296,8 +296,7 @@ def plotPathDistribution(g,outputFolder):
 	#get the raw histogram, then normalize the data to be a probability distribution
 	#hist = g.path_length_hist()
 	#print(hist)
-	xs, ys = zip(*[(left, count) for left, _, count in 
-	g.path_length_hist().bins()])
+	xs, ys = zip(*[(left, count) for left, _, count in g.path_length_hist().bins()])
 
 	#normalize the y values to make a probability distribution
 	total = 0
@@ -338,8 +337,8 @@ else:
 	outputFolder = sys.argv[2]
 	g = igraph.Graph.Read(inputFile)
 
-	stats = getStats(g)
-	row = getRowEntry(g)
+	#stats = getStats(g)
+	#row = getRowEntry(g)
 	plotDegreeDist(g,outputFolder)
 	plotEigenvalues(g,outputFolder)
 
