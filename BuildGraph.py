@@ -52,7 +52,7 @@ class ModelParams(object):
 		else:
 			output += "  allowReflexive=False"
 
-		output += ("  filterFrequency="+str(self.FrequencyFilter))
+		output += ("  frequencyFilter="+str(self.FrequencyFilter))
 
 		return output
 
@@ -245,10 +245,10 @@ def BuildEnronGraph(mailDir,params):
 
 	g = convertEmailDictToIGraph(emailDict,params)
 
-	print("graph construction completed")
-	print("g.isDirected="+str(g.is_directed()))
-	print(str([v for v in g.vs]))
-	print(str(g))
+	print("graph construction complete")
+	#print("g.isDirected="+str(g.is_directed()))
+	#print(str([v for v in g.vs]))
+	#print(str(g))
 
 	return g
 
@@ -314,8 +314,8 @@ def convertEmailDictToIGraph(emailDict,params):
 	#post: edgeDict contains keys (senderAddr,destAddr) mapping to email frequencies
 	#The construction above unions symmetric key frequencies for undirected graphs, so no further isDirected checks are needed
 	#print("edgeDict:"+str(edgeDict))
-	
-	#get the edges (the keys) from edgeDict, after filtering low frequency edges
+
+	#get the edges (the keys) from edgeDict, after filtering low frequency edges, if needed
 	if params.FrequencyFilter > 1:
 		edges = [(key[0],key[1],edgeDict[key]) for key in edgeDict.keys() if edgeDict[key] >= params.FrequencyFilter]
 	else:
@@ -323,6 +323,17 @@ def convertEmailDictToIGraph(emailDict,params):
 	#post: edges is a list of tuples in the form (sourceAddr,destAddr,frequency)
 	#print("edges: "+str(edges))
 
+	#the union of all senders and targets forms the complete graph node set; note this is done after any edge filtering, so isolated nodes aren't included
+	allAddrs = []
+	for key in edgeDict.keys():
+		allAddrs.append(key[0])
+		allAddrs.append(key[1])
+	#print("all addrs: "+str(allAddrs))
+	nodes = list(set(allAddrs)) #uniquify the set of addresses/node-ids
+	#print("all nodes: "+str(nodes))
+	#print("adding vertices...")
+	g.add_vertices(nodes)
+	
 	#add edges to igraph.Graph (not the frequencies, yet)
 	edgeList = [(edge[0],edge[1]) for edge in edges]
 	#print("edge list: "+str(edgeList))
@@ -338,7 +349,7 @@ def convertEmailDictToIGraph(emailDict,params):
 	return g
 
 def usage():
-	print("Usage: 'python BuildGraph [path to enron dataset /maildir directory] [options listed below]")
+	print("Usage: 'python BuildGraph [path to enron dataset /maildir directory] [file location for output graph] [options listed below]")
 	print("The unzipped Enron email dataset contains a 'maildir' directory; provide its path, including 'maildir' in the path.")
 	print("Options:\n\t--directed/--undirected: build a directed or undirected version of the enron emails")
 	print("\t--weighted/--unweighted: whether or not to include edge weights (email counts between peers; asymmetric for directed graph)")
@@ -346,10 +357,10 @@ def usage():
 	print("\t--disallowReflexive/--allowReflexive: Whether or not to allow reflexive loops (nodes emailing themselves). An edge case, but some algorithms may need this.")
 	print("\t--frequencyFilter=[some int k]: A de-noising parameter. Node pairs sharing fewer than k emails will not have an edge.")
 	print("Comments: Don't use --filterExternal; while seemingly a good idea, many important users had external email addresses like '@aol'. The other params are self-explanatory.")
-	print("Example:  python ./BuildGraph ./maildir --filterExternal --filterFrequency=9 --weighted --undirected")
+	print("Example:  python ./BuildGraph ./maildir enronGraph.gml --filterExternal --filterFrequency=9 --weighted --undirected")
 
 
-
+	
 if "help" in sys.argv:
 	usage()
 elif len(sys.argv) < 3:
@@ -358,13 +369,13 @@ elif len(sys.argv) < 3:
 else:
 	#get graph params
 	isWeighted = "--weighted" in sys.argv
-	isDirected = "--isDirected" in sys.argv and "--undirected" not in sys.argv
+	isDirected = "--directed" in sys.argv and "--undirected" not in sys.argv
 	filterExternal = "--filterExternal" in sys.argv
 	allowReflexive = "--allowReflexive" in sys.argv and "--disallowReflexive" not in sys.argv
 	filterFrequency = 1
 	if len([arg for arg in sys.argv if "--filterFrequency=" in arg]) > 0:
 		filterFrequency = [arg for arg in sys.argv if "--filterFrequency=" in arg][0]
-		filterFrequency = int(freq.split("=")[1])
+		filterFrequency = int(filterFrequency.split("=")[1])
 
 	pathToMailDir = sys.argv[1]
 	if not os.path.isdir(pathToMailDir):
@@ -375,8 +386,8 @@ else:
 	outputFile = sys.argv[2]
 	params = ModelParams(filterExternal, filterFrequency, isDirected, isWeighted, allowReflexive)
 	g = BuildEnronGraph(pathToMailDir,params)
-	print("writing graph to "+outputFile)
-	g.write_gml(outputFile)
+	print("writing graphml-format of graph to "+outputFile)
+	g.write_graphml(outputFile)
 	#print("vertices: "+str([v for v in g.vs]))
 	#print("edges: "+str([e for e in g.es]))
 	#g.write_gml("enronGraph.gml")

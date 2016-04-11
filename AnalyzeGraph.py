@@ -1,6 +1,6 @@
 from __future__ import print_function
 import igraph
-import matplotlib
+import matplotlib.pyplot as plt
 import sys
 import os
 import pylab
@@ -15,126 +15,81 @@ the view work.
 Usage: python AnalyzeGraph.py enronGraph.lgl
 """
 
+def compDegree(u):
+	return u.degree()
 
-#Returns node with highest degree in an undirected graph
-def getMaxDegreeNodes_Undirected(g):
-	maxDeg = -1
-	maxVertices = []
-	#first, find the maximum degree in the graph
-	for v in g.vs:
-		if v.degree() > maxDeg:
-			maxDeg = v.degree()
+#Returns k top nodes with highest degree in an undirected graph
+def getMaxDegreeNodes_Undirected(g,k):
+	if g.is_directed():
+		return []
 
-	for v in g.vs:
-		if v.degree() == maxDeg:
-			maxVertices.append(v)
-			
-	print("Max degree nodes: ",maxVertices)
-	for v in maxVertices:
-		print("deg=",v.degree())
-	return maxVertices
+	#deep copy the vertices and sort them by degree
+	#TODO: the deep copy is super inefficient; if we need speed, could instead pass around a temp list of vertices to functions like this
+	degList = copy.deepcopy(g.vs)
+	degList.sort(key= lambda u : u.degree())
+	
+	#chop the list after k+1
+	degList = degList[0:min(len(degList),k)]
+	
+	return degList
 
-def getMaxPagerankNodes(g):
+def getMaxPagerankNodes(g,k):
 	ranks = g.pagerank()
-	maxRank = max(ranks)
-	v = []
-	i = 0
-	for rank in ranks:
-		if rank == maxRank:
-			v.append(g.vs[i])
-			v[-1]["pagerank"] = rank
-		i += 1
+	
+	rankList = list(zip(g.vs,ranks))
+	#sort list by pagerank
+	rankList.sort(key = lambda tup : tup[1])
+	
+	#chop all items after key
+	rankList = rankList[0:min(len(rankList),k)]
 
-	return (v,maxRank)
-
-def getMaxAuthorityScoreNodes(g):
-	cents = g.authority_score(scale=False)
-	maxAuth = max(cents)
-	v = []
-	i = 0
-	for cent in cents:
-		if cent == maxAuth:
-			v.append(g.vs[i])
-			v[-1]["authority"] = cent
-		i += 1
-
-	return (v,maxAuth)
+	return rankList
+	
+def getMaxAuthorityScoreNodes(g,k):
+	centralities = g.authority_score(scale=False)
+	authorityList = list(zip(g.vs,centralities))
+	authoriyList.sort(key = lambda tup : tup[1])
+	authorityList = authorityList[0:min(len(authorityList),k)]
+	
+	return authorityList
 
 def getMaxEigenvectorCentralityNodes(g):
-	i = 0
-	v = []
 	evals = g.eigenvector_centrality(scale=False)
-	maxEvcent = max(evals)
-	#NOTE this assumes a correspondence between evals in the list and vertex id's, which isn't documented in the py api
-	for val in evals:
-		if val == maxEvcent:
-			maxEvcent = val
-			v.append(g.vs[i])
-			v[-1]["evcent"] = maxEvcent
-		i += 1
+	evalList = list(zip(g.vs,evals))
+	evalList.sort(key = lambda tup : tup[1])
+	
+	return evalList
 
-	return (v,maxEvcent)
-
-def getMaxBetweennessNodes(g):
-	i = 0
-	v = []
+def getMaxBetweennessNodes(g,k):
 	scores = g.betweenness(directed=g.is_directed())
-	maxScore = max(scores)
-	#NOTE this assumes a correspondence between vals in the list and vertex id's, which isn't documented in the py api
-	for score in scores:
-		if score == maxScore:
-			maxScore = score
-			v.append(g.vs[i])
-			v[-1]["betweenness"] = score
-		i += 1
+	
+	betweenList = list(zip(g.vs,scores))
+	betweenList.sort(key = lambda tup : tup[1])
+	betweenList = betweenList[0:min(len(betweenList,k))]
+	
+	return betweenList
 
-	return (v,maxScore)
-
-def getMaxHubScoreNodes(g):
-	i = 0
-	v = []
+def getMaxHubScoreNodes(g,k):
 	hubs = g.hub_score(scale=False)
-	maxScore = max(hubs)
-	#NOTE this assumes a correspondence between vals in the list and vertex id's, which isn't documented in the py api
-	for hub in hubs:
-		if hub == maxScore:
-			maxScore = hub
-			v.append(g.vs[i])
-			v[-1]["hubscore"] = hub
-		i += 1
+	
+	hubList = list(zip(g.vs,hubs))
+	hubList.sort(key = lambda tup : tup[1])
+	hubList = hubList[0:min(len(hubList,k))]
+	
+	return hubList
 
-	return (v,maxScore)
+#Returns tuple of two lists: list of nodes sorted by indegree, and list sorted by outdegree
+def getMaxDegreeNodes_Directed(g,k):
+	if not g.is_directed():
+		return []
 
-#Returns max in/out degree nodes as a tuple of two lists ([max in], [max out]).
-#Multiple nodes may have the same max in/out degree, so the two lists are needed.
-def getMaxDegreeNodes_Directed(g):
-	maxOutDeg = -1
-	maxInDeg = -1
-	maxOutVertices = []
-	maxInVertices = []
-
-	#first, find the maximum degree in the graph
-	for v in g.vs:
-		if v.outdegree() > maxOutDeg:
-			maxOutDeg = v.outdegree()
-		if v.indegree() > maxInDeg:
-			maxInDeg = v.indegree()
-
-	for v in g.vs:
-		if v.outdegree() == maxOutDeg:
-			maxOutVertices.append(v)
-		if v.indegree() == maxInDeg:
-			maxInVertices.append(v)
-			
-	print("Max indegree nodes: ",maxInVertices)
-	for v in maxInVertices:
-		print("deg=",v.indegree())
-
-	print("Max outdegree nodes: ",maxOutVertices)
-	for v in maxOutVertices:
-		print("deg=",v.outdegree())
-
-	return (maxInVertices,maxOutVertices)
+	outList = copy.deepcopy(g.vs).sort(key = lambda v : v.outdegree())
+	outList = outList[0:min(len(outList),k)]
+	
+	inList = copy.deepcopy(g.vs).sort(key = lambda v : v.indegree())
+	inList = inList[0:min(len(inList),k)]
+	
+	return (inList,outList)
 
 #Returns a formatted string of centrality measures.
 def getCentralities(g):
@@ -196,11 +151,39 @@ def getRowEntry(g):
 
 #Plots the eigenvector's of the largest and second smallest eigenvalues against node id's, in two plots.
 def plotEigenvalues(g,outputFolder):
-	#I'm assuming a correspondence between node id, evals, and evecs from laplacian() and also numpy's eig() functions
+	#I'm assuming an index-correspondence between node id, evals, and evecs from laplacian() and also numpy's eig() functions
 	evals, evecs = numpy.linalg.eig( g.laplacian() )
-	print("evals: ",str(evals))
-	print("evecs: ",str(evecs))
+	#print("evals: ",str(evals))
+	#print("evecs: ",str(evecs))
 	ids = [v.index for v in g.vs]
+	#print("ids: "+str(ids))
+	#zip the values into a list of 3-tuples as (nodeId, eigenValue, eigenVector)
+	eigList = list(zip(ids,evals,evecs))
+	#sort the list by eigenvalue in increasing order
+	eigList.sort(key = lambda tup : tup[1])
+	#print("eiglist: "+str(eigList))
+	
+	#plot the eigenvector corresponding with the second-smallest eigenvalue
+	pylab.bar(ids, eigList[1][2])
+	#pylab.axis(ids[0],ids[-1],)
+	pylab.title(" eigenvector/vertex values of second-smallest eigenvalue")
+	pylab.xlabel("vertex ids")
+	pylab.ylabel("eigenvector values")
+	if outputFolder[-1] != "/":
+		outputFolder += "/"
+	pylab.savefig(outputFolder+"SecondSmallestEig.png")
+	pylab.show()
+	
+	#plot the eigenvector corresponding with the largest eigenvalue
+	pylab.bar(ids, eigList[-1][2])
+	#pylab.xlim(ids[0],ids[-1])
+	pylab.title("eigenvector/vertex values of largest eigenvalue")
+	pylab.xlabel("vertex ids")
+	pylab.ylabel("eigenvector values")
+	pylab.savefig(outputFolder+"LargestEig.png")
+	pylab.show()
+	
+	"""
 	#print("ids: "+str(ids))
 	eigs = []
 	i = 0
@@ -210,28 +193,30 @@ def plotEigenvalues(g,outputFolder):
 		i += 1
 	#sort the eigenvectors by eigenvalue
 	eigs = sorted(eigs, key=lambda tup : tup[0])
-	print("eigs: ",eigs)
+	#print("eigs: ",eigs)
 	#get the eigenvectors, ordered by increasing eigenvalue
 	evecs = [eig[1] for eig in eigs]
-	print("evecs: ",evecs)
+	#print("evecs: ",evecs)
 
 	#plot the eigenvector corresponding with the second-smallest eigenvalue
 	pylab.bar(ids, evecs[1])
-	pylab.title(str(g["name"])+" eigenvector/vertex values of second-smallest eigenvalue")
+	pylab.title(" eigenvector/vertex values of second-smallest eigenvalue")
 	pylab.xlabel("vertex ids")
 	pylab.ylabel("eigenvector values")
-	pylab.savefig(outputFolder+str(g["name"])+"SecondSmallestEig.png")
+	if outputFolder[-1] != "/":
+		outputFolder += "/"
+	pylab.savefig(outputFolder+"SecondSmallestEig.png")
 	pylab.show()
 	
-	#plot th eigenvector corresponding with the largest eigenvalue
+	#plot the eigenvector corresponding with the largest eigenvalue
 	pylab.bar(ids, evecs[-1])
-	pylab.title(str(g["name"])+" eigenvector/vertex values of largest eigenvalue")
+	pylab.title("eigenvector/vertex values of largest eigenvalue")
 	pylab.xlabel("vertex ids")
 	pylab.ylabel("eigenvector values")
-	pylab.savefig("./"+str(g["name"])+"LargestEig.png")
+	pylab.savefig(outputFolder+"LargestEig.png")
 	pylab.show()
-
-
+	"""
+	
 #prints graph stats by column: name,directedness(d/u),numlinks,nvertices,maxdegree, etc
 def getStats(g):
 	output = "unknown"
@@ -270,10 +255,9 @@ def getStats(g):
 	return output
 
 #plots degree distribution of a graph
-def plotDegreeDist(g,outputFolder):
+def plotDegreeDistribution(g,outputFolder):
 	#get the raw histogram, then normalize the data to be a probability distribution
-	xs, ys = zip(*[(left, count) for left, _, count in 
-	g.degree_distribution().bins()])
+	xs, ys = zip(*[(left, count) for left, _, count in g.degree_distribution().bins()])
 
 	#normalize the y values to make a probability distribution
 	total = 0
@@ -283,20 +267,33 @@ def plotDegreeDist(g,outputFolder):
 	ys = tuple(normalized)
 	#print("normalized ys: ",ys)
 
-	pylab.bar(xs, ys)
-	pylab.title(g["name"]+"vertex degree probability distribution")
+	print("max degree is: "+str(max(xs)))
+	
+	pylab.axis([0,xs[-1]+1,0.0,max(ys)+0.05])
+	pylab.bar(xs, ys,width=1.0)
+	pylab.title("vertex degree probability distribution")
 	pylab.xlabel("degree")
 	pylab.ylabel("Px")
 	if outputFolder[-1] != "/":
-		oututFolder += "?"
-	pylab.savefig(outputFolder+g["name"]+"DegreeDistribution.png")
+		outputFolder += "/"
+	pylab.savefig(outputFolder+"DegreeDistribution.png")
 	pylab.show()
+
+def plotPathDistribution2(g,outputFolder):
+	xs, ys = zip(*[(left, count) for left, _, count in g.path_length_hist(directed=g.is_directed()).bins()])
+	print("xs: "+str(xs))
+	print("ys: "+str(ys))
+	
+	
+	
+	#pylab.plot(xs,y)
+	#plt.show()
 
 def plotPathDistribution(g,outputFolder):
 	#get the raw histogram, then normalize the data to be a probability distribution
 	#hist = g.path_length_hist()
 	#print(hist)
-	xs, ys = zip(*[(left, count) for left, _, count in g.path_length_hist().bins()])
+	xs, ys = zip(*[(int(left), count) for left, _, count in g.path_length_hist(directed=g.is_directed()).bins()])
 
 	#normalize the y values to make a probability distribution
 	total = 0
@@ -306,16 +303,19 @@ def plotPathDistribution(g,outputFolder):
 	ys = tuple(normalized)
 	#print("normalized ys: ",ys)
 
-	pylab.bar(xs, ys)
-	pylab.title(g["name"]+"path-length probability distribution")
+	pylab.text(0,0,"BLAH")
+	pylab.axis([0,xs[-1]+1,0.0,max(ys)+0.05])
+	pylab.bar(xs, ys,width=1.0)
+	#pylab.axis([0,xs[-1],0.0,ys[-1]])
+	#pylab.xlim(0,max(max(xs),1))
+	pylab.title("path-length probability distribution")
 	pylab.xlabel("path length")
 	pylab.ylabel("Px")
 	if outputFolder[-1] != "/":
-		oututFolder += "?"
-	pylab.savefig(outputFolder+g["name"]+"PathLengthDistribution.png")
+		outputFolder += "/"
+	pylab.savefig(outputFolder+"PathLengthDistribution.png")
 	pylab.show()
-
-
+	
 def usage():
 	print("AnalyzeGraph performs basic analytics on a graph given by the passed file.\n")
 	print("Usage: python AnalyzeGraph.py [path to local .gml, .lgl or other graph file] [path to output dir for reports, graphics]\n")
@@ -337,9 +337,15 @@ else:
 	outputFolder = sys.argv[2]
 	g = igraph.Graph.Read(inputFile)
 
+	#changes some pylab settings for larger plots
+	plt.rcParams["figure.figsize"][0] = 12
+	plt.rcParams["figure.figsize"][1] = 9
+	
+	
 	#stats = getStats(g)
 	#row = getRowEntry(g)
-	plotDegreeDist(g,outputFolder)
+	plotPathDistribution(g,outputFolder)
+	plotDegreeDistribution(g,outputFolder)
 	plotEigenvalues(g,outputFolder)
 
 
