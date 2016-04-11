@@ -2,7 +2,6 @@
 
 !.gitignore
 !README.md
-!enron.py
 !BuildGraph.py
 !AnalyzeGraph.py
 !enronGraph.lgl

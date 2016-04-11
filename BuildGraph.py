@@ -2,8 +2,6 @@ from __future__ import print_function
 from igraph import *
 import sys
 import os
-import matplotlib
-import pylab
 
 
 """
