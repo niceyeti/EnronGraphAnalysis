@@ -152,6 +152,7 @@ def getRowEntry(g):
 #Plots the eigenvector's of the largest and second smallest eigenvalues against node id's, in two plots.
 def plotEigenvalues(g,outputFolder):
 	#I'm assuming an index-correspondence between node id, evals, and evecs from laplacian() and also numpy's eig() functions
+	print("computing eigenvalues/vectors...")
 	evals, evecs = numpy.linalg.eig( g.laplacian() )
 	#print("evals: ",str(evals))
 	#print("evecs: ",str(evecs))
@@ -163,6 +164,7 @@ def plotEigenvalues(g,outputFolder):
 	eigList.sort(key = lambda tup : tup[1])
 	#print("eiglist: "+str(eigList))
 	
+	print("plotting...")
 	#plot the eigenvector corresponding with the second-smallest eigenvalue
 	pylab.bar(ids, eigList[1][2])
 	#pylab.axis(ids[0],ids[-1],)
@@ -184,7 +186,10 @@ def plotEigenvalues(g,outputFolder):
 	pylab.show()
 	
 	"""
-	#print("ids: "+str(ids))
+	print("getting eigenvalues/vectors...")
+	evals, evecs = numpy.linalg.eig( g.laplacian() )
+	ids = [v.index for v in g.vs]
+	
 	eigs = []
 	i = 0
 	#pair evals and evecs as tuples; this is bad pyon skill.. should use pack
@@ -344,8 +349,8 @@ else:
 	
 	#stats = getStats(g)
 	#row = getRowEntry(g)
-	plotPathDistribution(g,outputFolder)
-	plotDegreeDistribution(g,outputFolder)
+	#plotPathDistribution(g,outputFolder)
+	#plotDegreeDistribution(g,outputFolder)
 	plotEigenvalues(g,outputFolder)
 
 
