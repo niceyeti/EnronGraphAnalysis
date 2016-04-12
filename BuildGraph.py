@@ -393,7 +393,8 @@ else:
 	#g.write_gml("enronGraph.gml")
 	print("Verifying written graph can be read...")
 	g_read = Graph.Read(outputFile)
-	print(g_read)
+	print("DONE")
+	#print(g_read)
 
 
 
