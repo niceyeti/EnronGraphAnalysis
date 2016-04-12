@@ -13,7 +13,7 @@ print("Computing eigenvalues...")
 #e,v = la.eig(l.A) #explodes
 w,v = sp.linalg.eigs(l)
 print("done")
-
+#blah
 
 """
 
