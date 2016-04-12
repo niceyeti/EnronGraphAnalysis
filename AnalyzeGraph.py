@@ -151,6 +151,10 @@ def getRowEntry(g):
 
 #Plots the eigenvector's of the largest and second smallest eigenvalues against node id's, in two plots.
 def plotEigenvalues(g,outputFolder):
+	if g.is_directed():
+		print("ERROR directed graph passed to plotEigenvalues; laplacian requires undirected graph")
+		return
+
 	#I'm assuming an index-correspondence between node id, evals, and evecs from laplacian() and also numpy's eig() functions
 	print("getting laplacian...")
 	laplacian = g.laplacian()
