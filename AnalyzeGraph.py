@@ -152,8 +152,10 @@ def getRowEntry(g):
 #Plots the eigenvector's of the largest and second smallest eigenvalues against node id's, in two plots.
 def plotEigenvalues(g,outputFolder):
 	#I'm assuming an index-correspondence between node id, evals, and evecs from laplacian() and also numpy's eig() functions
+	print("getting laplacian...")
+	laplacian = g.laplacian()
 	print("computing eigenvalues/vectors...")
-	evals, evecs = numpy.linalg.eig( g.laplacian() )
+	evals, evecs = numpy.linalg.eig( laplacian )
 	#print("evals: ",str(evals))
 	#print("evecs: ",str(evecs))
 	ids = [v.index for v in g.vs]
