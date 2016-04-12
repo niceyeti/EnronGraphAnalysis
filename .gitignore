@@ -2,8 +2,11 @@
 
 !.gitignore
 !README.md
-!build.sh
+!buildUndirected.sh
+!buildDirected.sh
 !BuildGraph.py
 !AnalyzeGraph.py
-!enronGraph.lgl
-!enronGraph.gml
+!Spectrum.py
+!enronDirected.graphml
+!enronUndirected.graphml
+
