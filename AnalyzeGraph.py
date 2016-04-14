@@ -15,8 +15,27 @@ the view work.
 Usage: python AnalyzeGraph.py enronGraph.lgl
 """
 
-def compDegree(u):
-	return u.degree()
+def _outputNodes():
+	return
+
+"""
+Given a threshold, generates complete, sorted node lists for every common centrality measure.
+
+This outputs the entire list to files, for each measure. Additionally, a global report is compiled, containing
+an abbreviated list of the top n nodes, per centrality measure.
+"""
+def reportCentralityStats(g,reportFolder):
+	globalStats = open(reportFolder+"/centralityStats.txt","w+")
+
+	statsFile = open(reportFolder+"/rawPageRanks.txt","w+")
+	pageList = getMaxPagerankNodes(g,len(g.vs))
+	
+	for tup in pageList:
+		statsFile.write(tup[0]["name"]+" ("+str(tup[0].index)+"): "+str(tup[1])+"\n")
+	
+	
+
+
 
 #Returns k top nodes with highest degree in an undirected graph
 def getMaxDegreeNodes_Undirected(g,k):
@@ -29,7 +48,8 @@ def getMaxDegreeNodes_Undirected(g,k):
 	degList.sort(key= lambda u : u.degree())
 	
 	#chop the list after k+1
-	degList = degList[0:min(len(degList),k)]
+	if k < len(degList):
+		degList = degList[0:min(len(degList),k)]
 	
 	return degList
 
@@ -38,7 +58,7 @@ def getMaxPagerankNodes(g,k):
 	
 	rankList = list(zip(g.vs,ranks))
 	#sort list by pagerank
-	rankList.sort(key = lambda tup : tup[1])
+	rankList.sort(key = lambda tup : tup[1], reverse = True)
 	
 	#chop all items after key
 	rankList = rankList[0:min(len(rankList),k)]
@@ -229,39 +249,45 @@ def plotEigenvalues(g,outputFolder):
 	"""
 	
 #prints graph stats by column: name,directedness(d/u),numlinks,nvertices,maxdegree, etc
-def getStats(g):
-	output = "unknown"
-	if "name" in g.attributes():
-		output = g["name"]
+def getGlobalStats(g):
+	output = "Global graph stats\n"
+	
+	for attribute in g.attributes():
+		output += (attribute+": "+g[attribute]+"\n")
 
 	isDirected = g.is_directed()
 	if isDirected:
-		output += ",d"
+		output += "Directed: true\n"
 	else:
-		output += ",u"
-
-	output += (","+str(len(g.vs)))
-	output += (","+str(len(g.es)))
+		output += "Directed: false\n"
+		
+	output += ("Num vertices: "+str(len(g.vs))+"\n")
+	output += ("Num edges: "+str(len(g.es))+"\n")
 	if isDirected:
-		output += (",comps="+str(len(g.components(mode=igraph.STRONG)))+"(strong)")
-		output += ("/"+str(len(g.components(mode=igraph.WEAK)))+"(weak)")
+		output += ("Num components: "+str(len(g.components(mode=igraph.STRONG)))+"(strong)\n")
+		output += ("Num components: "+str(len(g.components(mode=igraph.WEAK)))+"(weak)\n")
 	else:
-		output += (",comps="+str(len(g.components())))
+		output += ("Num components: "+str(len(g.components()))+"\n")
 	print("calculating maxdegree...")
-	output += (","+str(g.maxdegree()))
+	
+	#get the max degree node
+	maxDeg = 0
+	for v in g.vs:
+		if v.degree() > maxDeg:
+			maxV = v
+			maxDeg = v.degree()
+	
+	output += ("Max degree: "+str(maxV.degree())+" ("+v["name"]+")\n")
 	#avg path length
 	print("calculating avg path len...")
-	output += (","+str(g.average_path_length()))
+	output += ("Average path length: "+str(g.average_path_length())+"\n")
 	#diameter (longest shortest path)
 	print("calculating diameter...")
-	output += (","+str(g.diameter()))
+	output += ("Diameter: "+str(g.diameter())+"\n")
 	print("calculating components...")
 
-	output += (",g_clstr="+str(g.transitivity_undirected())+"(global)")
-	output += (",avg_clsr="+str(g.transitivity_avglocal_undirected())+"(avg local)")
-
-	#shoved this in for latex table formatting
-	output = output.replace(","," & ")
+	output += ("Global cluster coefficient: "+str(g.transitivity_undirected())+"\n")
+	output += ("Average local cluster coefficient: "+str(g.transitivity_avglocal_undirected()))
 
 	return output
 
@@ -353,11 +379,21 @@ else:
 	plt.rcParams["figure.figsize"][1] = 9
 	
 	
+	print(getGlobalStats(g))
 	#stats = getStats(g)
 	#row = getRowEntry(g)
 	#plotPathDistribution(g,outputFolder)
 	#plotDegreeDistribution(g,outputFolder)
-	plotEigenvalues(g,outputFolder)
+	reportCentralityStats(g,outputFolder)
+	
+	
+	
+	
+	
+	
+	
+	#TODO: all the spectral stuff. The igraph api is pretty broken in this area for large graphs
+	#plotEigenvalues(g,outputFolder)
 
 
 

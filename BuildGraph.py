@@ -13,7 +13,7 @@ The class doesn't encapsulate any behavior, just data.
 @FilterExternal: Toggles whether or not to filter external emails. This seems logical, however
 many within the Enron network used external addresses like @aol during the early net years, so it
 is best to set this to false and then filter emails by low frequency.
-@FrequencyFilter: The number of emails which must be exchanged (symmetrically/undirected, for simplicity)
+@EdgeFrequencyFilter: The number of emails which must be exchanged (symmetrically/undirected, for simplicity)
 in order for (u,v) to have an edge. This is a good de-noise parameter to eliminate all but somewhat-regular
 email traffic.
 @IsDirected: Whether or not to build a directed or undirected graph
@@ -23,9 +23,10 @@ in the relational, inter-node characteristics of the network, and certain algori
 relations, so is best that this is false.
 """
 class ModelParams(object):
-	def __init__(self,filterExternal=False,frequencyFilter=1,isDirected=False,isWeighted=False,allowReflexive=False):
+	def __init__(self,filterExternal=False,edgeFrequencyFilter=1,nodeFrequencyFilter=1,isDirected=False,isWeighted=False,allowReflexive=False):
 		self.FilterExternal = filterExternal
-		self.FrequencyFilter = frequencyFilter
+		self.EdgeFrequencyFilter = edgeFrequencyFilter
+		self.NodeFrequencyFilter = nodeFrequencyFilter
 		self.IsDirected = isDirected
 		self.IsWeighted = isWeighted
 		self.AllowReflexive = allowReflexive
@@ -52,8 +53,9 @@ class ModelParams(object):
 		else:
 			output += "  allowReflexive=False"
 
-		output += ("  frequencyFilter="+str(self.FrequencyFilter))
-
+		output += ("  EdgeFrequencyFilter="+str(self.EdgeFrequencyFilter))
+		output += ("  NodeFrequencyFilter="+str(self.NodeFrequencyFilter))
+		
 		return output
 
 """
@@ -166,6 +168,38 @@ def listTargetAddresses(emailFile,sourceAddr,params):
 def filterReflexiveAddrs(targets,sourceAddr):
 	return [addr for addr in targets if addr != sourceAddr]
 
+def unKaminski(addr,kaminskyAliasSet):
+	"""
+	This is a single-purpose function. "Vince Kaminsky" in the enron data used many email addresses.
+	This function just makes sure that given one of his aliases, we return only one address, so he doesn't end
+	up with multiple nodes on the graph.
+	
+	TODO: This problem probably exists for other nodes/users.
+	"""
+	if addr in kaminskyAliasSet:
+		addr = "vince.kaminski@enron.com"
+	return addr
+	
+def filterKaminskiAliases(addrList,kaminskiAliasSet):
+	"""
+	Much like the previous function, but for lists: given a list of addresses, get rid of duplicate kaminski aliases, replacing
+	them all with only one occurrence of his fixed address. This function is just a fix for the problem of kaminski using multiple addresses.
+	"""
+	addrs = []
+	hasKaminski = False
+	for addr in addrList:
+		if addr in kaminskiAliasSet:
+			hasKaminski = True
+		else:
+			addrs.append(addr)
+
+	#loop removed all kaminski aliases, if there were any; now put his fixed address back in
+	if hasKaminski:
+		addrs.append("vince.kaminski@enron.com")
+	
+	return addrs
+	
+	
 """
 Takes in location of EnronData and returns a whom-talks-to-whom frequency graph.
 input: enron email dataset location (its assumed folder is structured as: /maildir/[person]/sent)
@@ -187,27 +221,31 @@ def BuildEnronGraph(mailDir,params):
 	g = Graph()
 	g["MyName"] = "Enron email network"
 	emailDict = {}  #a nested dictionary of senders (key1) -> target (key2) -> email count
+	kaminskiAliases = set(["vkamins@aol.com","vkaminskli@aol.com","vkaminski@aol.com","vkaminskji@aol.com","vkamins@enron.com","kaminski@aol.com","vkaminski@ol.com"])
 	missingEmployees = []
 	employeeFolders = [os.path.abspath(os.path.join(mailDir,emp)) for emp in os.listdir(mailDir)]
 	#print(employeeFolders)
 	numEmployees = float(len(employeeFolders))
 	i = 0.0
-
 	print("Building graph using parameters: "+params.ToString())
 
 	#foreach employee, parse all of their sent emails
 	for emp in employeeFolders:
-		i+=1.0
+		i += 1.0
 		print("\rprocessing "+emp+"    progress: "+str(int((i/numEmployees) * 100))+"%        ")
 		emails = listEmailFiles(emp)
 		if len(emails) > 0:
 			#probe a few sent emails for the unique sender address
 			senderAddr = getSenderEmailId(emails)
+			#resolves vkaminsky's multiple addresses
+			senderAddr = unKaminski(senderAddr,kaminskiAliases)
 			if len(senderAddr) > 0:
 				#set up the links from this sender to others they've sent to
 				for email in emails:
 					#list the target addresses of this email (there may be more than one)
 					targets = listTargetAddresses(email,senderAddr,params)
+					#Vkaminski used many addresses; this consolidates his addresses into one
+					targets = filterKaminskiAliases(targets,kaminskiAliases)
 					targets = set(targets) #uniquifies the targets
 					#add these email peers to this sender's outlinks and track their email counts
 					if senderAddr not in emailDict.keys():
@@ -233,7 +271,7 @@ def BuildEnronGraph(mailDir,params):
 		#print(k+": "+str(emailDict[k]))
 		#raw_input("dbg")
 
-	print(str(emailDict))
+	#print(str(emailDict))
 
 	#finally, build the igraph object from the emailDict
 	"""
@@ -290,7 +328,7 @@ def convertEmailDictToIGraph(emailDict,params):
 			for target in emailDict[sender].keys():
 				#since undirected, check for either key: (sender, target) or (target,sender), symmetrically
 				key = (sender,target)
-				revKey = (key[1],key[0])
+				revKey = (target,sender)
 				emailCount = emailDict[sender][target]
 				if key in edgeDict.keys():
 					edgeDict[key] += emailCount
@@ -316,30 +354,46 @@ def convertEmailDictToIGraph(emailDict,params):
 	#print("edgeDict:"+str(edgeDict))
 
 	#get the edges (the keys) from edgeDict, after filtering low frequency edges, if needed
-	if params.FrequencyFilter > 1:
-		edges = [(key[0],key[1],edgeDict[key]) for key in edgeDict.keys() if edgeDict[key] >= params.FrequencyFilter]
-	else:
-		edges = [(key[0],key[1],edgeDict[key]) for key in edgeDict.keys()]
+	edges = [(key[0],key[1],edgeDict[key]) for key in edgeDict.keys() if edgeDict[key] >= params.EdgeFrequencyFilter]
 	#post: edges is a list of tuples in the form (sourceAddr,destAddr,frequency)
 	#print("edges: "+str(edges))
 
+	#filter low-frequency nodes (nodes to which very few emails have been sent/received)
+	nodeDict = {}
+	for edge in edges:
+		#update sender count
+		if edge[0] in nodeDict.keys():
+			nodeDict[edge[0]] += edge[2]
+		else:
+			nodeDict[edge[0]] = edge[2]
+		#update receiver count as well (yes, this is correct even for directed graphs)
+		if edge[1] in nodeDict.keys():
+			nodeDict[edge[1]] += edge[2]
+		else:
+			nodeDict[edge[1]] = edge[2]
+	
+	print("adding vertices...")
 	#the union of all senders and targets forms the complete graph node set; note this is done after any edge filtering, so isolated nodes aren't included
 	allAddrs = []
-	for key in edgeDict.keys():
-		allAddrs.append(key[0])
-		allAddrs.append(key[1])
-	#print("all addrs: "+str(allAddrs))
-	nodes = list(set(allAddrs)) #uniquify the set of addresses/node-ids
+	for addr in nodeDict.keys():
+		if nodeDict[node] >= params.NodeFrequencyFilter:
+				allAddrs.append(addr)
 	#print("all nodes: "+str(nodes))
 	#print("adding vertices...")
-	g.add_vertices(nodes)
+	g.add_vertices(allAddrs)
 	
+	print("adding edges...")
+	#now we need to filter edges, since we may have dropped nodes which remain in edges[]
+	allAddrs = set(allAddrs) #(set will be faster than list for the following lookups)
+	#drops edges whose nodes were dropped in the previous step
+	edges =  [edge for edge in edges if (edge[0] in allAddrs and edge[1] in allAddrs)]
 	#add edges to igraph.Graph (not the frequencies, yet)
 	edgeList = [(edge[0],edge[1]) for edge in edges]
 	#print("edge list: "+str(edgeList))
 	g.add_edges(edgeList)
 
 	#update the edge weights; unfortunately the python-igraph api doesn't allow doing this in edge construction, it has to be done iteratively
+	print("adding edge weights...")
 	if params.IsWeighted:
 		for edge in edges:
 			edgeId = g.get_eid(edge[0], edge[1], g.is_directed())
@@ -355,10 +409,10 @@ def usage():
 	print("\t--weighted/--unweighted: whether or not to include edge weights (email counts between peers; asymmetric for directed graph)")
 	print("\t--filterExternal: pass this to omit external emails, from outside the @enron email network.")
 	print("\t--disallowReflexive/--allowReflexive: Whether or not to allow reflexive loops (nodes emailing themselves). An edge case, but some algorithms may need this.")
-	print("\t--frequencyFilter=[some int k]: A de-noising parameter. Node pairs sharing fewer than k emails will not have an edge.")
+	print("\t--edgeFilter=[some int k]: A de-noising parameter. Node pairs sharing fewer than k emails will not have an edge.")
+	print("\t--nodeFilter=[some int k]: A de-noising param for nodes instead of edges. Nodes with fewer than k edges will not be included in network. This will be applied after the edge filter.")
 	print("Comments: Don't use --filterExternal; while seemingly a good idea, many important users had external email addresses like '@aol'. The other params are self-explanatory.")
-	print("Example:  python ./BuildGraph ./maildir enronGraph.gml --filterExternal --filterFrequency=9 --weighted --undirected")
-
+	print("Example:  python ./BuildGraph ./maildir enronGraph.gml --filterExternal --edgeFilter=9 --weighted --undirected")
 
 	
 if "help" in sys.argv:
@@ -372,10 +426,18 @@ else:
 	isDirected = "--directed" in sys.argv and "--undirected" not in sys.argv
 	filterExternal = "--filterExternal" in sys.argv
 	allowReflexive = "--allowReflexive" in sys.argv and "--disallowReflexive" not in sys.argv
-	filterFrequency = 1
-	if len([arg for arg in sys.argv if "--filterFrequency=" in arg]) > 0:
-		filterFrequency = [arg for arg in sys.argv if "--filterFrequency=" in arg][0]
-		filterFrequency = int(filterFrequency.split("=")[1])
+
+	#set edgeFilter to 1 as default (no filtering)
+	edgeFilter= 1
+	if len([arg for arg in sys.argv if "--edgeFilter=" in arg]) > 0:
+		edgeFilterParam = [arg for arg in sys.argv if "--edgeFilter=" in arg][0]
+		edgeFilter = int(edgeFilterParam.split("=")[1])
+		
+	#set nodeFilter to 1 as default (no filtering)
+	nodeFilter = 1
+	if len([arg for arg in sys.argv if "--nodeFilter=" in arg]) > 0:
+		nodeFilterParam = [arg for arg in sys.argv if "--nodeFilter=" in arg][0]
+		nodeFilter = int(nodeFilterParam.split("=")[1])
 
 	pathToMailDir = sys.argv[1]
 	if not os.path.isdir(pathToMailDir):
@@ -384,7 +446,7 @@ else:
 		exit()
 
 	outputFile = sys.argv[2]
-	params = ModelParams(filterExternal, filterFrequency, isDirected, isWeighted, allowReflexive)
+	params = ModelParams(filterExternal, edgeFilter, nodeFilter, isDirected, isWeighted, allowReflexive)
 	g = BuildEnronGraph(pathToMailDir,params)
 	print("writing graphml-format of graph to "+outputFile)
 	g.write_graphml(outputFile)
