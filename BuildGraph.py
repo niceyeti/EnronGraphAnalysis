@@ -218,8 +218,6 @@ Algorithm:
 
 """
 def BuildEnronGraph(mailDir,params):
-	g = Graph()
-	g["MyName"] = "Enron email network"
 	emailDict = {}  #a nested dictionary of senders (key1) -> target (key2) -> email count
 	kaminskiAliases = set(["vkamins@aol.com","vkaminskli@aol.com","vkaminski@aol.com","vkaminskji@aol.com","vkamins@enron.com","kaminski@aol.com","vkaminski@ol.com"])
 	missingEmployees = []
@@ -308,16 +306,6 @@ higher than simply making all edges/nodes at once. So always use add_edges() and
 items one at a time.
 """
 def convertEmailDictToIGraph(emailDict,params):
-	g = Graph(directed=params.IsDirected)
-
-	#the union of all senders and targets forms the complete graph node set
-	allAddrs = [sender for sender in emailDict.keys()] + [target for key in emailDict.keys() for target in emailDict[key]]
-	#print("all addrs: "+str(allAddrs))
-	nodes = list(set(allAddrs)) #uniquify the set of addresses/node-ids
-	#print("all nodes: "+str(nodes))
-	#print("adding vertices...")
-	g.add_vertices(nodes)
-	
 	#holds tuples of (sender,target), each with an associated frequency.
 	edgeDict = {}
 	#now construct the edges, based on logic of params (directed/undirected, weighted/unweighted, filter freq, etc)
@@ -358,6 +346,7 @@ def convertEmailDictToIGraph(emailDict,params):
 	#post: edges is a list of tuples in the form (sourceAddr,destAddr,frequency)
 	#print("edges: "+str(edges))
 
+	#Next construct a frequency table for each node, where emailAddr -> #emails
 	#filter low-frequency nodes (nodes to which very few emails have been sent/received)
 	nodeDict = {}
 	for edge in edges:
@@ -371,12 +360,15 @@ def convertEmailDictToIGraph(emailDict,params):
 			nodeDict[edge[1]] += edge[2]
 		else:
 			nodeDict[edge[1]] = edge[2]
-	
+
+	#intermediate data structures built; now build igraph.Graph itself
+	g = Graph(directed=params.IsDirected)			
+	g["name"] = "Enron email network"
 	print("adding vertices...")
 	#the union of all senders and targets forms the complete graph node set; note this is done after any edge filtering, so isolated nodes aren't included
 	allAddrs = []
 	for addr in nodeDict.keys():
-		if nodeDict[node] >= params.NodeFrequencyFilter:
+		if nodeDict[addr] >= params.NodeFrequencyFilter:
 				allAddrs.append(addr)
 	#print("all nodes: "+str(nodes))
 	#print("adding vertices...")
@@ -384,8 +376,8 @@ def convertEmailDictToIGraph(emailDict,params):
 	
 	print("adding edges...")
 	#now we need to filter edges, since we may have dropped nodes which remain in edges[]
-	allAddrs = set(allAddrs) #(set will be faster than list for the following lookups)
-	#drops edges whose nodes were dropped in the previous step
+	allAddrs = set(allAddrs) #makes a set from the addrList; this will be faster than list for the following lookups)
+	#drops edges whose associated nodes were dropped in the previous step
 	edges =  [edge for edge in edges if (edge[0] in allAddrs and edge[1] in allAddrs)]
 	#add edges to igraph.Graph (not the frequencies, yet)
 	edgeList = [(edge[0],edge[1]) for edge in edges]
@@ -403,17 +395,17 @@ def convertEmailDictToIGraph(emailDict,params):
 	return g
 
 def usage():
-	print("Usage: 'python BuildGraph [path to enron dataset /maildir directory] [file location for output graph] [options listed below]")
-	print("The unzipped Enron email dataset contains a 'maildir' directory; provide its path, including 'maildir' in the path.")
-	print("Options:\n\t--directed/--undirected: build a directed or undirected version of the enron emails")
-	print("\t--weighted/--unweighted: whether or not to include edge weights (email counts between peers; asymmetric for directed graph)")
+	print("Usage: 'python BuildGraph [path to enron dataset /maildir directory] [file location for output graph] [options, listed below]")
+	print("The unzipped Enron email dataset contains a 'maildir' directory; provide its path (include '/maildir' in path).")
+	print("Options:")
+	print("\t--directed: build a directed or undirected version of the enron emails. Undirected graph is default.")
+	print("\t--weighted: whether or not to include edge weights (email counts between peers; asymmetric for directed graph). Unweighted graph is default.")
 	print("\t--filterExternal: pass this to omit external emails, from outside the @enron email network.")
-	print("\t--disallowReflexive/--allowReflexive: Whether or not to allow reflexive loops (nodes emailing themselves). An edge case, but some algorithms may need this.")
-	print("\t--edgeFilter=[some int k]: A de-noising parameter. Node pairs sharing fewer than k emails will not have an edge.")
-	print("\t--nodeFilter=[some int k]: A de-noising param for nodes instead of edges. Nodes with fewer than k edges will not be included in network. This will be applied after the edge filter.")
-	print("Comments: Don't use --filterExternal; while seemingly a good idea, many important users had external email addresses like '@aol'. The other params are self-explanatory.")
-	print("Example:  python ./BuildGraph ./maildir enronGraph.gml --filterExternal --edgeFilter=9 --weighted --undirected")
-
+	print("\t--disallowReflexive: Whether or not to allow reflexive loops (nodes emailing themselves). An edge case, but some algorithms may need this. Such loops are allowed by default.")
+	print("\t--edgeFilter=[some int k]: De-noising for edges. Node pairs sharing fewer than k emails will not have an edge. Default is 1 (all edges included).")
+	print("\t--nodeFilter=[some int k]: De-noising for nodes. Nodes with fewer than k edges will not be included. This is applied *after* the edge filter. Default is 1 (all nodes included).")
+	print("\n\tExample:  python ./BuildGraph ./enron/maildir enronGraph.gml --filterExternal --edgeFilter=9 --nodeFilter=3 --weighted --directed")
+	print("\nComments: Don't use --filterExternal; while seemingly a good idea, many users use/abused external email addresses like '@aol'.")
 	
 if "help" in sys.argv:
 	usage()
@@ -421,23 +413,23 @@ elif len(sys.argv) < 3:
 	print("ERROR: insufficient parameters: "+str(sys.argv))
 	usage()
 else:
-	#get graph params
+	#get graph cnstruction params from command line
 	isWeighted = "--weighted" in sys.argv
-	isDirected = "--directed" in sys.argv and "--undirected" not in sys.argv
+	isDirected = "--directed" in sys.argv
 	filterExternal = "--filterExternal" in sys.argv
-	allowReflexive = "--allowReflexive" in sys.argv and "--disallowReflexive" not in sys.argv
+	allowReflexive = "--disallowReflexive" not in sys.argv
 
 	#set edgeFilter to 1 as default (no filtering)
 	edgeFilter= 1
 	if len([arg for arg in sys.argv if "--edgeFilter=" in arg]) > 0:
 		edgeFilterParam = [arg for arg in sys.argv if "--edgeFilter=" in arg][0]
-		edgeFilter = int(edgeFilterParam.split("=")[1])
+		edgeFilter = max(1,int(edgeFilterParam.split("=")[1]))
 		
 	#set nodeFilter to 1 as default (no filtering)
 	nodeFilter = 1
 	if len([arg for arg in sys.argv if "--nodeFilter=" in arg]) > 0:
 		nodeFilterParam = [arg for arg in sys.argv if "--nodeFilter=" in arg][0]
-		nodeFilter = int(nodeFilterParam.split("=")[1])
+		nodeFilter = max(1,int(nodeFilterParam.split("=")[1]))
 
 	pathToMailDir = sys.argv[1]
 	if not os.path.isdir(pathToMailDir):
@@ -450,23 +442,17 @@ else:
 	g = BuildEnronGraph(pathToMailDir,params)
 	print("writing graphml-format of graph to "+outputFile)
 	g.write_graphml(outputFile)
-	#print("vertices: "+str([v for v in g.vs]))
-	#print("edges: "+str([e for e in g.es]))
-	#g.write_gml("enronGraph.gml")
+
+	#smoke test the generated graph: if it can at least be read back in, I can assume caller can at least read it
 	print("Verifying written graph can be read...")
-	g_read = Graph.Read(outputFile)
-	print("DONE")
-	#print(g_read)
-
-
-
-
-
-
-
-
-
-
+	try:
+		g_read = Graph.Read(outputFile)
+		if len(g_read.vs) > 0 and len(g_read.es) > 0:
+			print("Graph.Read() of output graph succeeded")
+		else:
+			print("WARN generated graph had no edges or no nodes upon reading back in. Graph build likely unsuccessful.")
+	except:
+		print("ERROR exception caught reading in graph that was written to "+outputFile+". Graph construction failed.")
 
 
 """

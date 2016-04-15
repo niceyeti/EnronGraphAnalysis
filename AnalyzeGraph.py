@@ -24,18 +24,27 @@ Given a threshold, generates complete, sorted node lists for every common centra
 This outputs the entire list to files, for each measure. Additionally, a global report is compiled, containing
 an abbreviated list of the top n nodes, per centrality measure.
 """
-def reportCentralityStats(g,reportFolder):
-	globalStats = open(reportFolder+"/centralityStats.txt","w+")
+def reportGraphStats(g,reportFolder):
+	globalStatsFile = open(reportFolder+"/graphStats.txt","w+")
+	
+	globalStatsFile.write(getGlobalStats(g))
 
-	statsFile = open(reportFolder+"/rawPageRanks.txt","w+")
+	#report top page rank nodes
+	print("calculating pagerank...")
+	pageStatsFile = open(reportFolder+"/rawPageRanks.txt","w+")
 	pageList = getMaxPagerankNodes(g,len(g.vs))
+	#write complete pagerank centrality list to file
+	pageStatsFile.writelines([(tup[0]["name"]+", "+str(tup[1])) for tup in pageList])
+	pageStatsFile.close()
+	#write top fifteen to global stats file
+	i = 0
+	while i < 15 and i < len(pageList):
+		tup = pageList[i]
+		globalStatsFile.write(tup[0]["name"]+", "+str(tup[1])+"\n")
+		i += 1
+		
 	
-	for tup in pageList:
-		statsFile.write(tup[0]["name"]+" ("+str(tup[0].index)+"): "+str(tup[1])+"\n")
-	
-	
-
-
+		
 
 #Returns k top nodes with highest degree in an undirected graph
 def getMaxDegreeNodes_Undirected(g,k):
@@ -53,6 +62,7 @@ def getMaxDegreeNodes_Undirected(g,k):
 	
 	return degList
 
+#Returns tuple list (node,pagerank) sorted by max pagerank
 def getMaxPagerankNodes(g,k):
 	ranks = g.pagerank()
 	
@@ -111,6 +121,7 @@ def getMaxDegreeNodes_Directed(g,k):
 	
 	return (inList,outList)
 
+"""
 #Returns a formatted string of centrality measures.
 def getCentralities(g):
 	s = ""
@@ -146,8 +157,9 @@ def getCentralities(g):
 
 	return s
 
-#Creates in the table row entry for graph in problem 2: num edges, nodes, evals, etc as ampersand-delimited values
-def getRowEntry(g):
+
+#Returns simple english string reporting global stats like cluster coefficient, num nodes, etc.
+def getGlobalStats(g):
 	n = len(g.vs)
 	m = len(g.es)
 	maxDegree = max(g.degree())
@@ -168,7 +180,8 @@ def getRowEntry(g):
 	s = str(n) + "  &  " + str(m) + "  &  " + str(minDegree) + "  &  " + str(maxDegree) + "  &  " + str(avgPathLen) + "  &  " + str(diameter) + "  &  " + str(g_clusterCoef) + "  &  " + str(lambda_2) + "  &  " + str(lambda_n)
 
 	return s
-
+"""
+	
 #Plots the eigenvector's of the largest and second smallest eigenvalues against node id's, in two plots.
 def plotEigenvalues(g,outputFolder):
 	if g.is_directed():
@@ -250,7 +263,10 @@ def plotEigenvalues(g,outputFolder):
 	
 #prints graph stats by column: name,directedness(d/u),numlinks,nvertices,maxdegree, etc
 def getGlobalStats(g):
+
 	output = "Global graph stats\n"
+	
+	output += g.summary()
 	
 	for attribute in g.attributes():
 		output += (attribute+": "+g[attribute]+"\n")
@@ -261,15 +277,34 @@ def getGlobalStats(g):
 	else:
 		output += "Directed: false\n"
 		
+	if g.is_weighted():
+		output += "Weighted: true\n"
+	else:
+		output = "Weighted: false\n"
+		
 	output += ("Num vertices: "+str(len(g.vs))+"\n")
 	output += ("Num edges: "+str(len(g.es))+"\n")
 	if isDirected:
-		output += ("Num components: "+str(len(g.components(mode=igraph.STRONG)))+"(strong)\n")
-		output += ("Num components: "+str(len(g.components(mode=igraph.WEAK)))+"(weak)\n")
+		output += ("Num strong components: "+str(len(g.components(mode=igraph.STRONG)))+"\n")
+		output += ("Num weak components: "+str(len(g.components(mode=igraph.WEAK)))+"\n")
 	else:
 		output += ("Num components: "+str(len(g.components()))+"\n")
-	print("calculating maxdegree...")
 	
+	"""
+	TODO
+	print("calculating modularity...")
+	output += ("Modularity (unweighted): "+str(g.modularity())+"\n")
+	if g.is_weighted():
+		output += ("Modularity (weighted): "+str(g.modularity([v["weight"] for v in g.vs]))+"\n")
+	"""
+
+	"""
+	TODO
+	top eigenvector centralities: scond-smalest egienvalue, and largest eigenvalue
+	**dont call laplacian() on igraph graph; it will blow up
+	"""
+	
+	print("calculating maxdegree...")
 	#get the max degree node
 	maxDeg = 0
 	for v in g.vs:
@@ -379,12 +414,12 @@ else:
 	plt.rcParams["figure.figsize"][1] = 9
 	
 	
-	print(getGlobalStats(g))
+	#print(getGlobalStats(g))
 	#stats = getStats(g)
 	#row = getRowEntry(g)
 	#plotPathDistribution(g,outputFolder)
 	#plotDegreeDistribution(g,outputFolder)
-	reportCentralityStats(g,outputFolder)
+	reportGraphStats(g,outputFolder)
 	
 	
 	

@@ -1,12 +1,15 @@
 *
-
+!testdir/
+!testdir/dean-c/sent/
+!testdir/may-l/sent/
 !.gitignore
 !README.md
+!buildTestGraphs.sh
 !buildUndirected.sh
 !buildDirected.sh
+!buildTestGraphs.sh
 !BuildGraph.py
 !AnalyzeGraph.py
 !Spectrum.py
 !enronDirected.graphml
 !enronUndirected.graphml
-
