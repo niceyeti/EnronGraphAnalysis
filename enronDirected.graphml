@@ -4,9 +4,11 @@
          xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
          http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
 <!-- Created by igraph -->
+  <key id="g_name" for="graph" attr.name="name" attr.type="string"/>
   <key id="v_name" for="node" attr.name="name" attr.type="string"/>
   <key id="e_weight" for="edge" attr.name="weight" attr.type="double"/>
   <graph id="G" edgedefault="directed">
+    <data key="g_name">Enron email network</data>
     <node id="n0">
       <data key="v_name">ken.rice@enron.com</data>
     </node>
