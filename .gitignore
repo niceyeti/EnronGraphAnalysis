@@ -13,29 +13,7 @@
 !enronUndirected.graphml
 
 !report_undirected/
-!report_undirected/clusters.png
-!report_undirected/degreeDistribution.png
-!report_undirected/graphStats.txt
-!report_undirected/largestEig.png
-!report_undirected/pathLengthDistribution.png
-!report_undirected/rawAuthorityScores.txt
-!report_undirected/rawBetweennessScores.txt
-!report_undirected/rawDegrees_Undirected.txt
-!report_undirected/rawEigenvectorScores.txt
-!report_undirected/rawHubScores.txt
-!report_undirected/rawPageRanks.txt
-!report_undirected/secondSmallestEig.png
+!report_undirected/*
 
 !report_directed/
-!report_directed/clusters.png
-!report_directed/degreeDistribution.png
-!report_directed/graphStats.txt
-!report_directed/largestEig.png
-!report_directed/pathLengthDistribution.png
-!report_directed/rawAuthorityScores.txt
-!report_directed/rawBetweennessScores.txt
-!report_directed/rawDegrees_Undirected.txt
-!report_directed/rawEigenvectorScores.txt
-!report_directed/rawHubScores.txt
-!report_directed/rawPageRanks.txt
-!report_directed/secondSmallestEig.png
+!report_directed/*

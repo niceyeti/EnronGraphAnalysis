@@ -18,18 +18,18 @@ Usage: python AnalyzeGraph.py enronGraph.lgl
 
 def _outputNodes():
 	return
-
+	
 """
 Given a threshold, generates complete, sorted node lists for every common centrality measure.
 
 This outputs the entire list to files, for each measure. Additionally, a global report is compiled, containing
 an abbreviated list of the top n nodes, per centrality measure.
 """
-def reportGraphStats(g,reportFolder):
+def reportGraphStats(g,reportFolder,shown=False):
 	gsf = open(reportFolder+"/graphStats.txt","w+")
 	rawStats = getGlobalStats(g)
 	gsf.write(rawStats)
-
+	
 	#run community_fastgreedy clustering and write it out
 	if not g.is_directed():
 		print("Computing community_fastgreedy community clusters...")
@@ -37,8 +37,61 @@ def reportGraphStats(g,reportFolder):
 		#write the clusters to file, and save diagrams
 		gsf.write("\n\nClustering info from community_fastgreedy:\n")
 		gsf.write(str(cs))
-		igraph.plot(cs,reportFolder+'directedCommunityFastGreedyClustering.png')
+		if shown:
+			igraph.plot(cs,reportFolder+'/fastGreedyClustering.png')
 	
+	#run all the rest of the clustering algorithms
+	print("Computing communities using infomap method...")
+	cs = g.community_infomap()
+	gsf.write(str(cs))
+	if shown:
+		igraph.plot(cs,reportFolder+"/infomapClustering.png")
+
+	if not g.is_directed():
+		print("Computing communities using eigenvector method...")
+		cs = g.community_leading_eigenvector()
+		gsf.write(str(cs))
+		if shown:
+			igraph.plot(cs,reportFolder+"/eigenvectorClustering.png")
+
+	print("Computing communities using label propagation method...")
+	cs = g.community_label_propagation()
+	gsf.write(str(cs))
+	if shown:
+		igraph.plot(cs,reportFolder+"/infomapClustering.png")
+
+	if not g.is_directed():
+		print("Computing communities using multilevel method...")
+		cs = g.community_multilevel()
+		gsf.write(str(cs))
+		if shown:
+			igraph.plot(cs,reportFolder+"/multilevelClustering.png")
+	#TODO: I can't get this one to work on my system. It must be a huge matrix blowup; calling this makes the proc memory blow up.
+	#print("Computing communities using optimal modularity...")
+	#cs = g.community_optimal_modularity()
+	#gsf.write(str(cs))
+	#if shown:
+	#	igraph.plot(cs,reportFolder+"/optimalModularityClustering.png")
+
+	print("Computing communities using edge betweenness...")
+	cs = g.community_edge_betweenness().as_clustering()
+	gsf.write(str(cs))
+	if shown:
+		igraph.plot(cs,reportFolder+"/edgeBetweennessClustering.png")
+
+	if g.is_directed():
+		print("Computing communities using walktrap method...")
+		cs = g.community_walktrap().as_clustering()
+		gsf.write(str(cs))
+		if shown:
+			igraph.plot(cs,reportFolder+"/walktrapClustering.png")
+
+	if g.is_connected(): #spinglass method requires a connected graph
+		print("Computing communities using spinglass method...")
+		cs = g.community_spinglass()
+		if shown:
+			igraph.plot(cs,reportFolder+"/spinglassClustering.png")
+
 	#report top page rank nodes
 	print("Computing pageranks...")
 	pageList = getMaxPagerankNodes(g,len(g.vs))
@@ -478,18 +531,12 @@ else:
 	plt.rcParams["figure.figsize"][0] = 12
 	plt.rcParams["figure.figsize"][1] = 9
 	
-	#generates and writes out most stats to the provided output folder
-	reportGraphStats(g,outputFolder)
-	#plot path dist
-	plotPathDistribution(g,outputFolder,True)
-	#plot deg dist
-	plotDegreeDistribution(g,outputFolder,True)
-	
-	
-	
-	
-	
-	
+	##generates and writes out most stats to the provided output folder
+	reportGraphStats(g,outputFolder,True)
+	##plot path dist
+	#plotPathDistribution(g,outputFolder,True)
+	##plot deg dist
+	#plotDegreeDistribution(g,outputFolder,True)
 	#TODO: all the spectral stuff. The igraph api is pretty broken in this area for large graphs
 	#plotEigenvalues(g,outputFolder)
 
