@@ -309,10 +309,10 @@ william.bradford@enron.com, 0.0801121647728
 edward.sacks@enron.com, 0.0801121647728
 sara.shackleton@enron.com, 0.0791481087551
 susan.scott@enron.com, 0.0704603580752
+linda.robertson@enron.com, 0.0679015049636
+karen.denne@enron.com, 0.0679015049636
 james.steffes@enron.com, 0.0679015049636
 joe.hartsoe@enron.com, 0.0679015049636
-karen.denne@enron.com, 0.0679015049636
-linda.robertson@enron.com, 0.0679015049636
 richard.shapiro@enron.com, 0.0679015049636
 robert.williams@enron.com, 0.0668851146083
 gfergus@brobeck.com, 0.0668851146083

@@ -438,7 +438,7 @@ def plotPathDistribution(g,outputFolder,shown=False):
 	ys = tuple(normalized)
 	#print("normalized ys: ",ys)
 
-	pylab.text(0,0,"BLAH")
+	pylab.text(0,0,"SOME TEXT")
 	pylab.axis([0,xs[-1]+1,0.0,max(ys)+0.05])
 	pylab.bar(xs, ys,width=1.0)
 	#pylab.axis([0,xs[-1],0.0,ys[-1]])
@@ -454,19 +454,19 @@ def plotPathDistribution(g,outputFolder,shown=False):
 		pylab.show()
 	
 def usage():
-	print("AnalyzeGraph performs basic analytics on a graph given by the passed file.\n")
-	print("Usage: python AnalyzeGraph.py [path to local .graphml or other graph file] [path to output folder for stats reports and graphics]\n")
+	print("AnalyzeGraph performs basic analytics on a graph given by the passed file.")
+	print("Usage: python AnalyzeGraph.py [path to local .graphml or other graph file] [path to output folder for stats reports and graphics]")
 
 if len(sys.argv) < 3:
 	print("ERROR insufficient parameters: "+str(len(sys.argv))+str(sys.argv))
 	usage()
 	exit()
 elif not os.path.isfile(sys.argv[1]):
-	print("ERROR graph file not found: "+sys.argv[1])
+	print("ERROR graph file not found: >"+sys.argv[1]+">")
 	usage()
 	exit()
 elif not os.path.isdir(sys.argv[2]):
-	print("ERROR output folder not found: "+sys.argv[2])
+	print("ERROR output folder not found: >"+sys.argv[2]+"<")
 	usage()
 	exit()
 else:
