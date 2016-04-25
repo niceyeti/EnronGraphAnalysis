@@ -11,7 +11,7 @@
 !enronDirected.graphml
 !enronUndirected.graphml
 
-
+!report_undirected/
 !report_undirected/clusters.png
 !report_undirected/degreeDistribution.png
 !report_undirected/graphStats.txt
@@ -24,6 +24,7 @@
 !report_undirected/rawHubScores.txt
 !report_undirected/rawPageRanks.txt
 !report_undirected/secondSmallestEig.png
+
 !report_directed/
 !report_directed/clusters.png
 !report_directed/degreeDistribution.png
