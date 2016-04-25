@@ -167,35 +167,38 @@ def listTargetAddresses(emailFile,sourceAddr,params):
 #IOW, this removes oneself from one's own target address (when someone sent an email to themselves).
 def filterReflexiveAddrs(targets,sourceAddr):
 	return [addr for addr in targets if addr != sourceAddr]
-
-def unKaminski(addr,kaminskyAliasSet):
+	
+def resolveAliases(addr,aliasSet,uniqueAddr):
 	"""
 	This is a single-purpose function. "Vince Kaminsky" in the enron data used many email addresses.
-	This function just makes sure that given one of his aliases, we return only one address, so he doesn't end
+	This function just makes sure that given one of such a person's alias email addresses, we return only one address, so they don't end
 	up with multiple nodes on the graph.
+	TODO: need to analyze the depth of this problem for other users
 	
-	TODO: This problem probably exists for other nodes/users.
+	"vince.kaminski@enron.com"
 	"""
-	if addr in kaminskyAliasSet:
-		addr = "vince.kaminski@enron.com"
+	if addr in aliasSet:
+		addr = uniqueAddr
 	return addr
 	
-def filterKaminskiAliases(addrList,kaminskiAliasSet):
+def filterAliases(addrList,aliasSet,uniqueAddr):
 	"""
 	Much like the previous function, but for lists: given a list of addresses, get rid of duplicate kaminski aliases, replacing
 	them all with only one occurrence of his fixed address. This function is just a fix for the problem of kaminski using multiple addresses.
+	
+	"vince.kaminski@enron.com"
 	"""
 	addrs = []
-	hasKaminski = False
+	hasAlias = False
 	for addr in addrList:
-		if addr in kaminskiAliasSet:
-			hasKaminski = True
+		if addr in aliasSet:
+			hasAlias = True
 		else:
 			addrs.append(addr)
 
 	#loop removed all kaminski aliases, if there were any; now put his fixed address back in
-	if hasKaminski:
-		addrs.append("vince.kaminski@enron.com")
+	if hasAlias:
+		addrs.append(uniqueAddr)
 	
 	return addrs
 	
@@ -220,6 +223,7 @@ Algorithm:
 def BuildEnronGraph(mailDir,params):
 	emailDict = {}  #a nested dictionary of senders (key1) -> target (key2) -> email count
 	kaminskiAliases = set(["vkamins@aol.com","vkaminskli@aol.com","vkaminski@aol.com","vkaminskji@aol.com","vkamins@enron.com","kaminski@aol.com","vkaminski@ol.com"])
+	layAliases = set(["klay@enron.com","kenneth_lay@enron.com","kenneth.lay@enron.com"])
 	missingEmployees = []
 	employeeFolders = [os.path.abspath(os.path.join(mailDir,emp)) for emp in os.listdir(mailDir)]
 	#print(employeeFolders)
@@ -236,14 +240,19 @@ def BuildEnronGraph(mailDir,params):
 			#probe a few sent emails for the unique sender address
 			senderAddr = getSenderEmailId(emails)
 			#resolves vkaminsky's multiple addresses
-			senderAddr = unKaminski(senderAddr,kaminskiAliases)
+			senderAddr = resolveAliases(senderAddr,kaminskiAliases,"vince.kaminski@enron.com")
+			#resolve kenneth lay's multiple addresses
+			senderAddr = resolveAliases(senderAddr,layAliases,"kenneth.lay@enron.com")
+			#others with aliases/multiple email addrs???
+			
 			if len(senderAddr) > 0:
 				#set up the links from this sender to others they've sent to
 				for email in emails:
 					#list the target addresses of this email (there may be more than one)
 					targets = listTargetAddresses(email,senderAddr,params)
 					#Vkaminski used many addresses; this consolidates his addresses into one
-					targets = filterKaminskiAliases(targets,kaminskiAliases)
+					targets = filterAliases(targets,kaminskiAliases,"vince.kaminski@enron.com")
+					target = filterAliases(targets, layAliases,"kenneth.lay@enron.com")
 					targets = set(targets) #uniquifies the targets
 					#add these email peers to this sender's outlinks and track their email counts
 					if senderAddr not in emailDict.keys():
@@ -362,7 +371,7 @@ def convertEmailDictToIGraph(emailDict,params):
 			nodeDict[edge[1]] = edge[2]
 
 	#intermediate data structures built; now build igraph.Graph itself
-	g = Graph(directed=params.IsDirected)			
+	g = Graph(directed=params.IsDirected)
 	g["name"] = "Enron email network"
 	print("adding vertices...")
 	#the union of all senders and targets forms the complete graph node set; note this is done after any edge filtering, so isolated nodes aren't included
@@ -404,7 +413,7 @@ def usage():
 	print("\t--disallowReflexive: Whether or not to allow reflexive loops (nodes emailing themselves). An edge case, but some algorithms may need this. Such loops are allowed by default.")
 	print("\t--edgeFilter=[some int k]: De-noising for edges. Node pairs sharing fewer than k emails will not have an edge. Default is 1 (all edges included).")
 	print("\t--nodeFilter=[some int k]: De-noising for nodes. Nodes with fewer than k edges will not be included. This is applied *after* the edge filter. Default is 1 (all nodes included).")
-	print("\n\tExample:  python ./BuildGraph ./enron/maildir enronGraph.gml --filterExternal --edgeFilter=9 --nodeFilter=3 --weighted --directed")
+	print("\n\tExample:  python ./BuildGraph ./enron/maildir enronGraph.graphml --filterExternal --edgeFilter=9 --nodeFilter=3 --weighted --directed")
 	print("\nComments: Don't use --filterExternal; while seemingly a good idea, many users use/abused external email addresses like '@aol'.")
 	
 if "help" in sys.argv:

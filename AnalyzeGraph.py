@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import sys
 import os
 import pylab
+import copy
 import numpy
 
 """
@@ -25,26 +26,73 @@ This outputs the entire list to files, for each measure. Additionally, a global 
 an abbreviated list of the top n nodes, per centrality measure.
 """
 def reportGraphStats(g,reportFolder):
-	globalStatsFile = open(reportFolder+"/graphStats.txt","w+")
-	
-	globalStatsFile.write(getGlobalStats(g))
+	gsf = open(reportFolder+"/graphStats.txt","w+")
+	rawStats = getGlobalStats(g)
+	gsf.write(rawStats)
 
-	#report top page rank nodes
-	print("calculating pagerank...")
-	pageStatsFile = open(reportFolder+"/rawPageRanks.txt","w+")
-	pageList = getMaxPagerankNodes(g,len(g.vs))
-	#write complete pagerank centrality list to file
-	pageStatsFile.writelines([(tup[0]["name"]+", "+str(tup[1])) for tup in pageList])
-	pageStatsFile.close()
-	#write top fifteen to global stats file
-	i = 0
-	while i < 15 and i < len(pageList):
-		tup = pageList[i]
-		globalStatsFile.write(tup[0]["name"]+", "+str(tup[1])+"\n")
-		i += 1
-		
+	#run community_fastgreedy clustering and write it out
+	if not g.is_directed():
+		print("Computing community_fastgreedy community clusters...")
+		cs = g.community_fastgreedy().as_clustering()
+		#write the clusters to file, and save diagrams
+		gsf.write("\n\nClustering info from community_fastgreedy:\n")
+		gsf.write(str(cs))
+		igraph.plot(cs,reportFolder+'directedCommunityFastGreedyClustering.png')
 	
-		
+	#report top page rank nodes
+	print("Computing pageranks...")
+	pageList = getMaxPagerankNodes(g,len(g.vs))
+	writeCentralities(pageList,reportFolder+"/rawPageRanks.txt",gsf)
+	
+	#report top degree nodes
+	print("Computing degree centralities...")
+	if g.is_directed():
+		degreeLists = getMaxDegreeNodes_Directed(g,len(g.vs))
+		#write the indegree list
+		writeCentralities(degreeLists[0],reportFolder+"/rawDegrees_Indegree.txt",gsf)
+		#write the outdegree list
+		writeCentralities(degreeLists[1],reportFolder+"/rawDegrees_Outdegree.txt",gsf)		
+	else:
+		degreeList = getMaxDegreeNodes_Undirected(g,len(g.vs))
+		writeCentralities(degreeList,reportFolder+"/rawDegrees_Undirected.txt",gsf)		
+	
+	#report max hub-score nodes
+	print("Computing hub scores...")
+	hubList = getMaxHubScoreNodes(g,len(g.vs))
+	writeCentralities(hubList,reportFolder+'/rawHubScores.txt',gsf)
+	
+	#report max authority score nodes
+	print("Computing max authority scores...")
+	authList = getMaxAuthorityScoreNodes(g,len(g.vs))
+	writeCentralities(authList,reportFolder+'/rawAuthorityScores.txt',gsf)
+	
+	#report max eigen centrality nodes
+	print("Computing eigenvector centrality scores...")
+	eigList = getMaxEigenvectorCentralityNodes(g,len(g.vs))
+	writeCentralities(eigList, reportFolder+'./rawEigenvectorScores.txt',gsf)
+	
+	#report the betweenness scores
+	print("Computing betweenness scores...")
+	btwList = getMaxBetweennessNodes(g,len(g.vs))
+	writeCentralities(btwList, reportFolder+'./rawBetweennessScores.txt',gsf)
+	
+	print("Analysis complete")
+	
+	
+#This is just a single-purpose output function for a recurring  code pattern in reportGraphStats: given a centrality list of
+#tuples (nodeId, centrality value), write them to the outputPath file. Also, writes top 20 results to global stats file.
+def writeCentralities(centralityList, outputPath, gsf):
+	#write complete pagerank centrality list to th centrality file
+	cf = open(outputPath,"w+")
+	cf.writelines([(tup[0]["name"]+", "+str(tup[1])+"\n") for tup in centralityList])
+	cf.close()
+	
+	#also write top fifteen centralities to global stats file
+	i = 0
+	while i < 15 and i < len(centralityList):
+		tup = centralityList[i]
+		gsf.write(tup[0]["name"]+", "+str(tup[1])+"\n")
+		i += 1
 
 #Returns k top nodes with highest degree in an undirected graph
 def getMaxDegreeNodes_Undirected(g,k):
@@ -53,12 +101,13 @@ def getMaxDegreeNodes_Undirected(g,k):
 
 	#deep copy the vertices and sort them by degree
 	#TODO: the deep copy is super inefficient; if we need speed, could instead pass around a temp list of vertices to functions like this
-	degList = copy.deepcopy(g.vs)
-	degList.sort(key= lambda u : u.degree())
+	#degList = list(g.vs)
+	#degList.sort(key= lambda u : u.degree())
+	degList = [(u, u.degree()) for u in g.vs]
+	degList.sort(key = lambda tup : tup[1], reverse = True)
 	
 	#chop the list after k+1
-	if k < len(degList):
-		degList = degList[0:min(len(degList),k)]
+	degList = degList[0:min(len(degList),k)]
 	
 	return degList
 
@@ -78,15 +127,16 @@ def getMaxPagerankNodes(g,k):
 def getMaxAuthorityScoreNodes(g,k):
 	centralities = g.authority_score(scale=False)
 	authorityList = list(zip(g.vs,centralities))
-	authoriyList.sort(key = lambda tup : tup[1])
+	authorityList.sort(key = lambda tup : tup[1], reverse = True)
 	authorityList = authorityList[0:min(len(authorityList),k)]
 	
 	return authorityList
 
-def getMaxEigenvectorCentralityNodes(g):
+def getMaxEigenvectorCentralityNodes(g,k):
 	evals = g.eigenvector_centrality(scale=False)
 	evalList = list(zip(g.vs,evals))
-	evalList.sort(key = lambda tup : tup[1])
+	evalList.sort(key = lambda tup : tup[1], reverse = True)
+	evalList = evalList[0:min(len(evalList),k)]
 	
 	return evalList
 
@@ -94,8 +144,8 @@ def getMaxBetweennessNodes(g,k):
 	scores = g.betweenness(directed=g.is_directed())
 	
 	betweenList = list(zip(g.vs,scores))
-	betweenList.sort(key = lambda tup : tup[1])
-	betweenList = betweenList[0:min(len(betweenList,k))]
+	betweenList.sort(key = lambda tup : tup[1], reverse = True)
+	betweenList = betweenList[0:min(len(betweenList),k)]
 	
 	return betweenList
 
@@ -103,8 +153,8 @@ def getMaxHubScoreNodes(g,k):
 	hubs = g.hub_score(scale=False)
 	
 	hubList = list(zip(g.vs,hubs))
-	hubList.sort(key = lambda tup : tup[1])
-	hubList = hubList[0:min(len(hubList,k))]
+	hubList.sort(key = lambda tup : tup[1], reverse = True)
+	hubList = hubList[0:min(len(hubList),k)]
 	
 	return hubList
 
@@ -113,13 +163,20 @@ def getMaxDegreeNodes_Directed(g,k):
 	if not g.is_directed():
 		return []
 
-	outList = copy.deepcopy(g.vs).sort(key = lambda v : v.outdegree())
-	outList = outList[0:min(len(outList),k)]
+	#outList = copy.deepcopy(g.vs).sort(key = lambda v : v.outdegree())
+	#outList = outList[0:min(len(outList),k)]
+	#inList = copy.deepcopy(g.vs).sort(key = lambda v : v.indegree())
+	#inList = inList[0:min(len(inList),k)]
 	
-	inList = copy.deepcopy(g.vs).sort(key = lambda v : v.indegree())
-	inList = inList[0:min(len(inList),k)]
+	indegList = [(u, u.indegree()) for u in g.vs]
+	indegList.sort(key = lambda tup : tup[1], reverse = True)
+	indegList = indegList[0:min(len(indegList),k)]
 	
-	return (inList,outList)
+	outdegList = [(u, u.outdegree()) for u in g.vs]
+	outdegList.sort(key = lambda tup : tup[1], reverse = True)
+	outdegList = outdegList[0:min(len(outdegList),k)]
+	
+	return (indegList,outdegList)
 
 """
 #Returns a formatted string of centrality measures.
@@ -327,9 +384,10 @@ def getGlobalStats(g):
 	return output
 
 #plots degree distribution of a graph
-def plotDegreeDistribution(g,outputFolder):
+def plotDegreeDistribution(g,outputFolder,shown=False):
 	#get the raw histogram, then normalize the data to be a probability distribution
-	xs, ys = zip(*[(left, count) for left, _, count in g.degree_distribution().bins()])
+	dist = g.degree_distribution()
+	xs, ys = zip(*[(left, count) for left, _, count in dist.bins()])
 
 	#normalize the y values to make a probability distribution
 	total = 0
@@ -339,6 +397,10 @@ def plotDegreeDistribution(g,outputFolder):
 	ys = tuple(normalized)
 	#print("normalized ys: ",ys)
 
+	df = open(outputFolder+"/DegreeDistributionHist.txt","w+")
+	df.write(str(dist))
+	df.close()
+	
 	print("max degree is: "+str(max(xs)))
 	
 	pylab.axis([0,xs[-1]+1,0.0,max(ys)+0.05])
@@ -349,7 +411,8 @@ def plotDegreeDistribution(g,outputFolder):
 	if outputFolder[-1] != "/":
 		outputFolder += "/"
 	pylab.savefig(outputFolder+"DegreeDistribution.png")
-	pylab.show()
+	if shown:
+		pylab.show()
 
 def plotPathDistribution2(g,outputFolder):
 	xs, ys = zip(*[(left, count) for left, _, count in g.path_length_hist(directed=g.is_directed()).bins()])
@@ -361,7 +424,7 @@ def plotPathDistribution2(g,outputFolder):
 	#pylab.plot(xs,y)
 	#plt.show()
 
-def plotPathDistribution(g,outputFolder):
+def plotPathDistribution(g,outputFolder,shown=False):
 	#get the raw histogram, then normalize the data to be a probability distribution
 	#hist = g.path_length_hist()
 	#print(hist)
@@ -386,11 +449,13 @@ def plotPathDistribution(g,outputFolder):
 	if outputFolder[-1] != "/":
 		outputFolder += "/"
 	pylab.savefig(outputFolder+"PathLengthDistribution.png")
-	pylab.show()
+
+	if shown:
+		pylab.show()
 	
 def usage():
 	print("AnalyzeGraph performs basic analytics on a graph given by the passed file.\n")
-	print("Usage: python AnalyzeGraph.py [path to local .gml, .lgl or other graph file] [path to output dir for reports, graphics]\n")
+	print("Usage: python AnalyzeGraph.py [path to local .graphml or other graph file] [path to output folder for stats reports and graphics]\n")
 
 if len(sys.argv) < 3:
 	print("ERROR insufficient parameters: "+str(len(sys.argv))+str(sys.argv))
@@ -413,14 +478,12 @@ else:
 	plt.rcParams["figure.figsize"][0] = 12
 	plt.rcParams["figure.figsize"][1] = 9
 	
-	
-	#print(getGlobalStats(g))
-	#stats = getStats(g)
-	#row = getRowEntry(g)
-	#plotPathDistribution(g,outputFolder)
-	#plotDegreeDistribution(g,outputFolder)
+	#generates and writes out most stats to the provided output folder
 	reportGraphStats(g,outputFolder)
-	
+	#plot path dist
+	plotPathDistribution(g,outputFolder,True)
+	#plot deg dist
+	plotDegreeDistribution(g,outputFolder,True)
 	
 	
 	
