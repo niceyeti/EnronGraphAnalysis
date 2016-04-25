@@ -1,4 +1,16 @@
 *
+!.gitignore
+!README.md
+!runAll.sh
+!buildTestGraphs.sh
+!buildUndirected.sh
+!buildDirected.sh
+!BuildGraph.py
+!AnalyzeGraph.py
+!Spectrum.py
+!enronDirected.graphml
+!enronUndirected.graphml
+
 
 !report_undirected/clusters.png
 !report_undirected/degreeDistribution.png
@@ -12,7 +24,6 @@
 !report_undirected/rawHubScores.txt
 !report_undirected/rawPageRanks.txt
 !report_undirected/secondSmallestEig.png
-
 !report_directed/
 !report_directed/clusters.png
 !report_directed/degreeDistribution.png
@@ -26,15 +37,3 @@
 !report_directed/rawHubScores.txt
 !report_directed/rawPageRanks.txt
 !report_directed/secondSmallestEig.png
-
-!.gitignore
-!README.md
-!runAll.sh
-!buildTestGraphs.sh
-!buildUndirected.sh
-!buildDirected.sh
-!BuildGraph.py
-!AnalyzeGraph.py
-!Spectrum.py
-!enronDirected.graphml
-!enronUndirected.graphml
