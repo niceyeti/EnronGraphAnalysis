@@ -28,44 +28,57 @@ an abbreviated list of the top n nodes, per centrality measure.
 def reportGraphStats(g,reportFolder,shown=False):
 	gsf = open(reportFolder+"/graphStats.txt","w+")
 	rawStats = getGlobalStats(g)
-	gsf.write(rawStats)
+	gsf.write(rawStats+"\r\n")
+
+	#write a diagram of the graph itself (no clustering)
+	layout = g.layout_fruchterman_reingold()
+	igraph.plot(g,reportFolder+"/"+g["name"].replace(" ","_")+"Graph.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 	
 	#run community_fastgreedy clustering and write it out
 	if not g.is_directed():
 		print("Computing community_fastgreedy community clusters...")
+		of = open(reportFolder+"/fastGreedy.clustering","w+")
 		cs = g.community_fastgreedy().as_clustering()
 		#write the clusters to file, and save diagrams
-		gsf.write("\n\nClustering info from community_fastgreedy:\n")
-		gsf.write(str(cs))
+		of.write(str(cs))
+		of.close()
 		if shown:
-			igraph.plot(cs,reportFolder+'/fastGreedyClustering.png')
+			igraph.plot(cs,reportFolder+'/fastGreedyClustering.png', layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 	
 	#run all the rest of the clustering algorithms
 	print("Computing communities using infomap method...")
+	of = open(reportFolder+"/infoMap.clustering","w+")
 	cs = g.community_infomap()
-	gsf.write(str(cs))
+	of.write(str(cs))
+	of.close()
 	if shown:
-		igraph.plot(cs,reportFolder+"/infomapClustering.png")
+		igraph.plot(cs,reportFolder+"/infomapClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
 	if not g.is_directed():
 		print("Computing communities using eigenvector method...")
+		of = open(reportFolder+"/leadingEigenVector.clustering","w+")
 		cs = g.community_leading_eigenvector()
-		gsf.write(str(cs))
+		of.write(str(cs))
+		of.close()
 		if shown:
-			igraph.plot(cs,reportFolder+"/eigenvectorClustering.png")
+			igraph.plot(cs,reportFolder+"/eigenvectorClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
 	print("Computing communities using label propagation method...")
+	of = open(reportFolder+"/labelPropagation.clustering","w+")
 	cs = g.community_label_propagation()
-	gsf.write(str(cs))
+	of.write(str(cs))
+	of.close()
 	if shown:
-		igraph.plot(cs,reportFolder+"/infomapClustering.png")
+		igraph.plot(cs,reportFolder+"/labelPropagationClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
 	if not g.is_directed():
 		print("Computing communities using multilevel method...")
+		of = open(reportFolder+"/multilevel.clustering","w+")
 		cs = g.community_multilevel()
-		gsf.write(str(cs))
+		of.write(str(cs))
+		of.close()
 		if shown:
-			igraph.plot(cs,reportFolder+"/multilevelClustering.png")
+			igraph.plot(cs,reportFolder+"/multilevelClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 	#TODO: I can't get this one to work on my system. It must be a huge matrix blowup; calling this makes the proc memory blow up.
 	#print("Computing communities using optimal modularity...")
 	#cs = g.community_optimal_modularity()
@@ -74,77 +87,85 @@ def reportGraphStats(g,reportFolder,shown=False):
 	#	igraph.plot(cs,reportFolder+"/optimalModularityClustering.png")
 
 	print("Computing communities using edge betweenness...")
+	of = open(reportFolder+"/edgeBetweenness.clustering","w+")
 	cs = g.community_edge_betweenness().as_clustering()
-	gsf.write(str(cs))
+	of.write(str(cs))
+	of.close()
 	if shown:
-		igraph.plot(cs,reportFolder+"/edgeBetweennessClustering.png")
+		igraph.plot(cs,reportFolder+"/edgeBetweennessClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
 	if g.is_directed():
 		print("Computing communities using walktrap method...")
+		of = open(reportFolder+"/walktrap.clustering","w+")
 		cs = g.community_walktrap().as_clustering()
-		gsf.write(str(cs))
+		of.write(str(cs))
+		of.close()
 		if shown:
-			igraph.plot(cs,reportFolder+"/walktrapClustering.png")
+			igraph.plot(cs,reportFolder+"/walktrapClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
 	if g.is_connected(): #spinglass method requires a connected graph
 		print("Computing communities using spinglass method...")
+		of = open(reportFolder+"/spinglass.clustering","w+")
 		cs = g.community_spinglass()
+		of.write(str(cs))
+		of.close()
 		if shown:
-			igraph.plot(cs,reportFolder+"/spinglassClustering.png")
+			igraph.plot(cs,reportFolder+"/spinglassClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
 	#report top page rank nodes
 	print("Computing pageranks...")
 	pageList = getMaxPagerankNodes(g,len(g.vs))
-	writeCentralities(pageList,reportFolder+"/rawPageRanks.txt",gsf)
+	writeCentralities(pageList,reportFolder+"/rawPageRanks.txt",gsf,"PageRank centralities")
 	
 	#report top degree nodes
 	print("Computing degree centralities...")
 	if g.is_directed():
 		degreeLists = getMaxDegreeNodes_Directed(g,len(g.vs))
 		#write the indegree list
-		writeCentralities(degreeLists[0],reportFolder+"/rawDegrees_Indegree.txt",gsf)
+		writeCentralities(degreeLists[0],reportFolder+"/rawDegrees_Indegree.txt",gsf,"Indegree centralities")
 		#write the outdegree list
-		writeCentralities(degreeLists[1],reportFolder+"/rawDegrees_Outdegree.txt",gsf)		
+		writeCentralities(degreeLists[1],reportFolder+"/rawDegrees_Outdegree.txt",gsf, "Outdegree centralities")
 	else:
 		degreeList = getMaxDegreeNodes_Undirected(g,len(g.vs))
-		writeCentralities(degreeList,reportFolder+"/rawDegrees_Undirected.txt",gsf)		
+		writeCentralities(degreeList,reportFolder+"/rawDegrees_Undirected.txt",gsf,"Raw degrees (undirected)")
 	
 	#report max hub-score nodes
 	print("Computing hub scores...")
 	hubList = getMaxHubScoreNodes(g,len(g.vs))
-	writeCentralities(hubList,reportFolder+'/rawHubScores.txt',gsf)
+	writeCentralities(hubList,reportFolder+'/rawHubScores.txt',gsf,"Hub scores")
 	
 	#report max authority score nodes
 	print("Computing max authority scores...")
 	authList = getMaxAuthorityScoreNodes(g,len(g.vs))
-	writeCentralities(authList,reportFolder+'/rawAuthorityScores.txt',gsf)
+	writeCentralities(authList,reportFolder+'/rawAuthorityScores.txt',gsf,"Authority centralities")
 	
 	#report max eigen centrality nodes
 	print("Computing eigenvector centrality scores...")
 	eigList = getMaxEigenvectorCentralityNodes(g,len(g.vs))
-	writeCentralities(eigList, reportFolder+'./rawEigenvectorScores.txt',gsf)
+	writeCentralities(eigList, reportFolder+'./rawEigenvectorScores.txt',gsf,"Eigen vector centralities")
 	
 	#report the betweenness scores
 	print("Computing betweenness scores...")
 	btwList = getMaxBetweennessNodes(g,len(g.vs))
-	writeCentralities(btwList, reportFolder+'./rawBetweennessScores.txt',gsf)
+	writeCentralities(btwList, reportFolder+'./rawBetweennessScores.txt',gsf,"Betweenness centralities")
 	
 	print("Analysis complete")
 	
 	
 #This is just a single-purpose output function for a recurring  code pattern in reportGraphStats: given a centrality list of
 #tuples (nodeId, centrality value), write them to the outputPath file. Also, writes top 20 results to global stats file.
-def writeCentralities(centralityList, outputPath, gsf):
+def writeCentralities(centralityList, outputPath, gsf, centralityMethod="method unknown"):
 	#write complete pagerank centrality list to th centrality file
 	cf = open(outputPath,"w+")
-	cf.writelines([(tup[0]["name"]+", "+str(tup[1])+"\n") for tup in centralityList])
+	cf.writelines([(tup[0]["name"]+", "+str(tup[1])+"\r\n") for tup in centralityList])
 	cf.close()
 	
 	#also write top fifteen centralities to global stats file
+	gsf.write("\r\n"+centralityMethod+"\r\n")
 	i = 0
 	while i < 15 and i < len(centralityList):
 		tup = centralityList[i]
-		gsf.write(tup[0]["name"]+", "+str(tup[1])+"\n")
+		gsf.write(tup[0]["name"]+", "+str(tup[1])+"\r\n")
 		i += 1
 
 #Returns k top nodes with highest degree in an undirected graph
@@ -374,31 +395,31 @@ def plotEigenvalues(g,outputFolder):
 #prints graph stats by column: name,directedness(d/u),numlinks,nvertices,maxdegree, etc
 def getGlobalStats(g):
 
-	output = "Global graph stats\n"
+	output = "Global graph stats\r\n"
 	
 	output += g.summary()
 	
 	for attribute in g.attributes():
-		output += (attribute+": "+g[attribute]+"\n")
+		output += (attribute+": "+g[attribute]+"\r\n")
 
 	isDirected = g.is_directed()
 	if isDirected:
-		output += "Directed: true\n"
+		output += "Directed: true\r\n"
 	else:
-		output += "Directed: false\n"
+		output += "Directed: false\r\n"
 		
 	if g.is_weighted():
-		output += "Weighted: true\n"
+		output += "Weighted: true\r\n"
 	else:
-		output = "Weighted: false\n"
+		output = "Weighted: false\r\n"
 		
-	output += ("Num vertices: "+str(len(g.vs))+"\n")
-	output += ("Num edges: "+str(len(g.es))+"\n")
+	output += ("Num vertices: "+str(len(g.vs))+"\r\n")
+	output += ("Num edges: "+str(len(g.es))+"\r\n")
 	if isDirected:
-		output += ("Num strong components: "+str(len(g.components(mode=igraph.STRONG)))+"\n")
-		output += ("Num weak components: "+str(len(g.components(mode=igraph.WEAK)))+"\n")
+		output += ("Num strong components: "+str(len(g.components(mode=igraph.STRONG)))+"\r\n")
+		output += ("Num weak components: "+str(len(g.components(mode=igraph.WEAK)))+"\r\n")
 	else:
-		output += ("Num components: "+str(len(g.components()))+"\n")
+		output += ("Num components: "+str(len(g.components()))+"\r\n")
 	
 	"""
 	TODO
@@ -422,17 +443,18 @@ def getGlobalStats(g):
 			maxV = v
 			maxDeg = v.degree()
 	
-	output += ("Max degree: "+str(maxV.degree())+" ("+v["name"]+")\n")
+	output += ("Max degree: "+str(maxV.degree())+" ("+v["name"]+")\r\n")
 	#avg path length
 	print("calculating avg path len...")
-	output += ("Average path length: "+str(g.average_path_length())+"\n")
+	output += ("Average path length: "+str(g.average_path_length())+"\r\n")
 	#diameter (longest shortest path)
 	print("calculating diameter...")
-	output += ("Diameter: "+str(g.diameter())+"\n")
+	output += ("Diameter: "+str(g.diameter())+"\r\n")
 	print("calculating components...")
 
-	output += ("Global cluster coefficient: "+str(g.transitivity_undirected())+"\n")
-	output += ("Average local cluster coefficient: "+str(g.transitivity_avglocal_undirected()))
+	if not g.is_directed():
+		output += ("Global cluster coefficient: "+str(g.transitivity_undirected())+"\r\n")
+		output += ("Average local cluster coefficient: "+str(g.transitivity_avglocal_undirected())+"\r\n")
 
 	return output
 
@@ -528,8 +550,13 @@ else:
 	g = igraph.Graph.Read(inputFile)
 
 	#changes some pylab settings for larger plots
-	plt.rcParams["figure.figsize"][0] = 12
-	plt.rcParams["figure.figsize"][1] = 9
+	plt.rcParams["figure.figsize"][0] = 20
+	plt.rcParams["figure.figsize"][1] = 15
+	
+	#prepare the graph by copying the vertex name attributes to a "label" attribute, so names show in plot()
+	#print("duplicating names to labels, for plotting...")
+	#for v in g.vs:
+	#	v["label"] = v["name"]
 	
 	##generates and writes out most stats to the provided output folder
 	reportGraphStats(g,outputFolder,True)
@@ -537,7 +564,7 @@ else:
 	#plotPathDistribution(g,outputFolder,True)
 	##plot deg dist
 	#plotDegreeDistribution(g,outputFolder,True)
-	#TODO: all the spectral stuff. The igraph api is pretty broken in this area for large graphs
+	#TODO: all the spectral stuff. The igraph api is ot workable in this area for large graphs
 	#plotEigenvalues(g,outputFolder)
 
 
