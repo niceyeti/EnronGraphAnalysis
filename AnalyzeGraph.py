@@ -94,16 +94,16 @@ def reportGraphStats(g,reportFolder,shown=False):
 	if shown:
 		igraph.plot(cs,reportFolder+"/edgeBetweennessClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
-	if g.is_directed():
-		print("Computing communities using walktrap method...")
-		of = open(reportFolder+"/walktrap.clustering","w+")
-		cs = g.community_walktrap().as_clustering()
-		of.write(str(cs))
-		of.close()
-		if shown:
-			igraph.plot(cs,reportFolder+"/walktrapClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
+	#if g.is_directed():
+	print("Computing communities using walktrap method...")
+	of = open(reportFolder+"/walktrap.clustering","w+")
+	cs = g.community_walktrap().as_clustering()
+	of.write(str(cs))
+	of.close()
+	if shown:
+		igraph.plot(cs,reportFolder+"/walktrapClustering.png", layout=layout, bbox = (2048,2048),vertex_label=g.vs["name"],vertex_label_size=9)
 
-	if g.is_connected(): #spinglass method requires a connected graph
+	if g.is_connected(): #spinglass implementation requires a connected graph, else it errors out
 		print("Computing communities using spinglass method...")
 		of = open(reportFolder+"/spinglass.clustering","w+")
 		cs = g.community_spinglass()

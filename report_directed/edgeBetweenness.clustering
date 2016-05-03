@@ -1,772 +1,1335 @@
-Clustering with 980 elements and 644 clusters
-[  0] mmolloy@oebi.com
-[  1] susan.mara@enron.com
-[  2] cbciiivent@aol.com, don.miller@enron.com, jinsung.myung@enron.com,
-      benjamin.rogers@enron.com
-[  3] tlenhart@corealty.com
-[  4] patricia.cini@enron.com, genia.fitzgerald@enron.com,
-      drusso@reliantenergy.com, labdsc@womans.com, tracy.ngo@enron.com,
-      celeste.cisneros@enron.com, james.derrick@enron.com,
-      paul.simons@enron.com, eldon@interx.net, derek.bailey@enron.com,
-      louise.kitchen@enron.com, tom.moran@enron.com, sheri.thomas@enron.com,
-      teresa.smith@enron.com, stacy.dickson@enron.com, jess.hewitt@enron.com,
-      kay.young@enron.com, laurel.adams@enron.com, mzeleanor@juno.com,
-      dan.hyvl@enron.com, sheila.glover@enron.com, darron.giron@enron.com,
-      donna.lowry@enron.com, carol.moffett@enron.com, susan.bailey@enron.com,
-      willie.harrell@enron.com, skean@enron.com, danielles@jonesgranger.com,
-      bruce.lundstrom@enron.com, rhonda.denton@enron.com,
-      bwallace@zahrsecurities.com, lwbthemarine@bigplanet.com,
-      rita.hennessy@enron.com, carla.hoffman@enron.com, ted.bockius@ivita.com,
-      peter.keohane@enron.com, eric.melvin@enron.com, robert.frank@enron.com,
-      steve.venturatos@enron.com, meredith.eggleston@enron.com, akatz@eei.org,
-      kathryn.corbally@enron.com, jeff.dasovich@enron.com,
-      mary.cook@enron.com, kate.symes@enron.com, harry.bucalo@enron.com,
-      edward.sacks@enron.com, ginger.dernehl@enron.com,
-      matthew.dawson@enron.com, adnan.patel@enron.com,
-      william.bradford@enron.com, leslie.hansen@enron.com,
-      jarrod.cyprow@enron.com, smmayers@earthlink.net,
-      dwindham@uclink4.berkeley.edu, tim.belden@enron.com,
-      mark.confer@enron.com, jeff.blumenthal@enron.com, david.portz@enron.com,
-      jeff.skilling@enron.com, stephanie.sever@enron.com,
-      bryan.seyfried@enron.com, vicki.sharp@enron.com, jkelly@fairisaac.com,
-      hgovenar@govadv.com, mark.fischer@enron.com, elizabeth.sager@enron.com,
-      andy.zipper@enron.com, awais.omar@enron.com, larry.hunter@enron.com,
-      tiffany.williams@enron.com, janet.moore@enron.com,
-      michael.danielson@enron.com, chris.holmes@enron.com,
-      jeff.richter@enron.com, lara.leibman@enron.com, raislerk@sullcrom.com,
-      rod.nelson@enron.com, nick.hiemstra@enron.com, robert.superty@enron.com,
-      andrea.bertone@enron.com, nidia.mendoza@enron.com, jklauber@llgm.com,
-      patrick.ryder@enron.com, debora.whitehead@enron.com,
-      monica.lande@enron.com, mday@gmssr.com, mark.taylor@enron.com,
-      psellers@haas.berkeley.edu, deirdre.mccaffrey@enron.com,
-      angela.schwarz@enron.com, hector.campos@enron.com,
-      paul.kaufman@enron.com, richard.causey@enron.com, britt.davis@enron.com,
-      christi.nicolay@enron.com, cynthia.sandherr@enron.com,
-      showard@milbank.com, jennifer.thome@enron.com, denver.plachy@enron.com,
-      sherry.dawson@enron.com, kathy.dodgen@enron.com,
-      lisa.gillette@enron.com, david.forster@enron.com,
-      greg.whiting@enron.com, eric.bass@enron.com, majed.nachawati@enron.com,
-      neil.bresnan@enron.com, ami.chokshi@enron.com, scott.tackett@enron.com,
-      francisco.leite@enron.com, lester.rawson@enron.com,
-      walter.guidroz@enron.com, bill.hare@enron.com, ted.murphy@enron.com,
-      sarah.wesner@enron.com, michael.mann@enron.com,
-      melissa.murphy@enron.com, linda.robertson@enron.com,
-      jake.staffel@enron.com, sandra.mccubbin@enron.com,
-      dorothy.youngblood@enron.com, amir.ahanchian@enron.com,
-      tom.alonso@enron.com, anthony.campos@enron.com, david.leboe@enron.com,
-      jcjcal02@aol.com, edmund.cooper@enron.com, judy.dyer@enron.com,
-      karen.lambert@enron.com, kevin.meredith@enron.com, bob.shults@enron.com,
-      pat.radford@enron.com, wgang@enron.com, kaye.ellis@enron.com,
-      nancy.sellers@robertmondavi.com, stephanie.panus@enron.com,
-      scott.mills@enron.com, gilbergd@sullcrom.com, molly.harris@enron.com,
-      sara.shackleton@enron.com, nicole.hunter@enron.com,
-      scott.earnest@enron.com, david.parquet@enron.com, dawn.kenne@enron.com,
-      mark.elliott@enron.com, sally.beck@enron.com, tana.jones@enron.com,
-      bob.bowen@enron.com, russell.diamond@enron.com, phil.demoes@enron.com,
-      alicia.goodrow@enron.com, dan.lyons@enron.com,
-      errol.mclaughlin@enron.com, pamela.sonnier@enron.com,
-      jason.wolfe@enron.com, jennifer.blay@enron.com, kevin.presto@enron.com,
-      michael.moscoso@enron.com, jeffrey.gossett@enron.com,
-      joe.hartsoe@enron.com, shari.stack@enron.com, bonnie.white@enron.com,
-      richard.shapiro@enron.com, scott.stoness@enron.com,
-      richard.sanders@enron.com, debra.perlingiere@enron.com,
-      julie.ferrara@enron.com, mark.haedicke@enron.com, showard@agsk.com,
-      rob.walls@enron.com, mballases@hotmail.com, david.minns@enron.com,
-      brent.hendry@enron.com, paul.radous@enron.com, steven.kean@enron.com,
-      stacey.richardson@enron.com, nicholas.o'day@enron.com,
-      lucy.ortiz@enron.com, kelly.kimberly@enron.com, mark.frevert@enron.com,
-      cwhite@texas.usta.com, karen.denne@enron.com, sgovenar@govadv.com,
-      jeffrey.hodge@enron.com, bswanstrom@lockeliddell.com,
-      dale.neuner@enron.com, rick.hopkinson@enron.com,
-      daniel.diamond@enron.com, leticia.botello@enron.com,
-      becky.spencer@enron.com, hector.mcloughlin@enron.com,
-      samantha.boyd@enron.com, michael.neves@enron.com,
-      john.lavorato@enron.com, kdirks@utilicorp.com,
-      marilyn.colbert@enron.com, james.wright@enron.com,
-      gayle.muench@enron.com
-[  5] hermannpk@aol.com
-[  6] christa.winfrey@enron.com
-[  7] mark.koenig@enron.com
-[  8] lexi.elliott@enron.com
-[  9] gabriel.monroy@enron.com, kathy.reeves@enron.com, kori.loibl@enron.com,
-      robin.rodrigue@enron.com
-[ 10] gerald.nemec@enron.com, stephanie.miller@enron.com,
-      paul.pfeffer@bakerbotts.com, katie99@tamu.edu, lisa.nemec@enron.com,
-      janel.guerrero@enron.com
-[ 11] chris.germany@enron.com, cindy.vachuska@enron.com,
-      clayton.vernon@enron.com, molly.magee@enron.com, mgermany@ch2m.com,
-      grant.masson@enron.com, kenneth.parkhill@enron.com,
-      brenda.fletcher@enron.com, wade.price@enron.com, eronn@mail.utexas.edu,
-      bperron@columbiaenergy.com, judy.townsend@enron.com,
-      jeff.westover@enron.com, george.smith@enron.com,
-      beverly.beaty@enron.com, briant.baker@enron.com,
-      vince.kaminski@enron.com, vasant.shanbhogue@enron.com,
-      michael.garred@enron.com, 8777208398.4891940@pagenetmessage.net,
-      mike.roberts@enron.com, alicia.perkins@enron.com,
-      jporte1@columbiaenergygroup.com, alvin.thompson@enron.com,
-      mark.breese@enron.com, vincek@leland.stanford.edu
-[ 12] jons@amerexenergy.com, sandra.brawner@enron.com,
-      s.schnitzer@worldnet.att.net
-[ 13] bill.iii@enron.com
-[ 14] leslie.smith@enron.com
-[ 15] scott.hendrickson@enron.com
-[ 16] cathy.corbin@enron.com
-[ 17] jeffrey.shankman@enron.com, john.arnold@enron.com,
-      jennifer.burns@enron.com, epao@mba2002.hbs.edu,
-      jennifer.fraser@enron.com, brian.hoskins@enron.com,
-      john.nowlan@enron.com
-[ 18] emily.sellers@enron.com
-[ 19] maria.pavlou@enron.com
-[ 20] rusty.stevens@enron.com
-[ 21] jeffrey.porter@enron.com
-[ 22] joan.veselack@enron.com
-[ 23] david.delainey@enron.com, laura.luce@enron.com, kay.chapman@enron.com,
-      rob.milnthorp@enron.com, c.thompson@enron.com, raymond.bowen@enron.com,
-      wes.colwell@enron.com, w.duran@enron.com, mike.jakubik@enron.com,
-      gary.hickerson@enron.com, hunter.shively@enron.com
-[ 24] tony.pryor@enron.com
-[ 25] steve.hotte@enron.com
-[ 26] julie.meyers@enron.com
-[ 27] martin.wenzel@enron.com
-[ 28] wax@ghg.net
-[ 29] mark.mccoy@enron.com, pat.clynes@enron.com, stacey.neuweiler@enron.com,
-      jackie.young@enron.com, tom.acton@enron.com, daren.farmer@enron.com,
-      robert.cotten@enron.com
-[ 30] caroline.abramo@enron.com
-[ 31] sylvia.pollan@enron.com
-[ 32] rogers.herndon@enron.com
-[ 33] victoria.versen@enron.com
-[ 34] stuart.zisman@enron.com
-[ 35] monique.sanchez@enron.com
-[ 36] terri.greenlee@enron.com
-[ 37] pama9@flash.net
-[ 38] bryan.hull@enron.com
-[ 39] diane.salcido@enron.com
-[ 40] rebecca.walker@enron.com
-[ 41] janet.wallis@enron.com
-[ 42] matt.smith@enron.com, ksiles@hotmail.com
-[ 43] tom.swank@enron.com
-[ 44] keith.holst@enron.com
-[ 45] dave.samuels@enron.com
-[ 46] daniel.reck@enron.com
-[ 47] william.smith@enron.com
-[ 48] 9069876@skytel.com
-[ 49] sherri.sera@enron.com
-[ 50] diana.scholtes@enron.com
-[ 51] triley@enron.com
-[ 52] jennifer.bagwell@enron.com
-[ 53] jean.mrha@enron.com
-[ 54] maryrichards7@hotmail.com
-[ 55] andrea.guillen@enron.com
-[ 56] ben.jacoby@enron.com, michael.barnas@ps.ge.com,
-      reagan.rorschach@enron.com, catherine.clark@enron.com, ed.iii@enron.com,
-      lee.johnson@ss.ps.ge.com, fred.mitro@enron.com, scott.healy@enron.com,
-      john.moore@enron.com, kathleen.clark@enron.com, gloria.cruz@enron.com,
-      kay.mann@enron.com, legal.4@enron.com, jkeffer@kslaw.com,
-      lisa.bills@enron.com, carlos.sole@enron.com
-[ 57] jason.moore@enron.com
-[ 58] victor.guggenheim@enron.com, cathy.sprowls@enron.com, bwax@ghg.net,
-      james.love@msl.redstone.army.mil, jad.doan@enron.com,
-      jmjaked@mindspring.com, david.baumbach@enron.com,
-      scott.crowell@us.cgeyc.com, mjillard@beaconelectric.com,
-      alove770@cs.com, phillip.love@enron.com
-[ 59] mark.ebert@broadwing.com
-[ 60] fernley.dyson@enron.com
-[ 61] kathy.ringblom@enron.com
-[ 62] christopher.calger@enron.com
-[ 63] david.oliver@enron.com
-[ 64] clement.abrams@enron.com
-[ 65] rebecca.quenet@eds.com
-[ 66] christine.stokes@enron.com
-[ 67] frank.sayre@enron.com
-[ 68] jubran.whalan@enron.com
-[ 69] isenberg@hmot.com
-[ 70] brenda.herod@enron.com
-[ 71] matt.motley@enron.com
-[ 72] nmann@erac.com
-[ 73] jay.fitzgerald@enron.com
-[ 74] kwpope@pdq.net
-[ 75] ingrid.immer@williams.com
-[ 76] john.rigby@enron.com
-[ 77] erichardson@sarofim.com
-[ 78] mike.grigsby@enron.com, melba.lozano@enron.com, cbpres@austin.rr.com,
-      frank.ermis@enron.com, jane.tholt@enron.com, phillip.allen@enron.com,
-      jsmith@austintx.com
-[ 79] rachel.m.bonilla@ac.com
-[ 80] trogg522@aol.com
-[ 81] greg.johnston@enron.com
-[ 82] zimin.lu@enron.com
-[ 83] judy.hernandez@enron.com, angela.barnett@enron.com,
-      maria.sandoval@enron.com, melissa.rodriguez@enron.com,
-      sandra.mcnichols@enron.com, suhernan@llgm.com, jh306@netzero.net,
-      yvonne.acosta@enron.com, eve.puckett@enron.com, cbburrell@juno.com
-[ 84] ludkam@aol.com
-[ 85] wmontjoy@brunini.com
-[ 86] barbara.gray@enron.com
-[ 87] maureen.mcvicker@enron.com
-[ 88] stephanie.piwetz@enron.com
-[ 89] jkbowles@hotmail.com, susan.scott@enron.com, camp2scott@aol.com,
-      steven.harris@enron.com, wilson.kriegel@enron.com, glen.hass@enron.com,
-      ehillegeist@hotmail.com, julieg@qualcomm.com, lindy.donoho@enron.com,
-      mary.miller@enron.com, shelley.corman@enron.com, mary.darveaux@enron.com
-[ 90] brant.reves@enron.com, jason.peters@enron.com, carol.clair@enron.com,
-      savitabi@llgm.com
-[ 91] stagecoachmama@hotmail.com
-[ 92] gordon.savage@enron.com
-[ 93] stacey.white@enron.com
-[ 94] kckrisa@apex2000.net
-[ 95] nmanne@susmangodfrey.com
-[ 96] carrie.southard@enron.com
-[ 97] amber.ebow@enron.com
-[ 98] justin.boyd@enron.com
-[ 99] larry.lawyer@enron.com
-[100] mcunningham@isda.org
-[101] val.generes@ac.com
-[102] richard.lammers@enron.com, john.novak@enron.com, laine.powell@enron.com,
-      rob.gay@enron.com
-[103] bernadette.hawkins@enron.com
-[104] ryan.o'rourke@enron.com
-[105] joe.quenet@enron.com
-[106] cora.pendergrass@enron.com
-[107] kmccrea@sablaw.com
-[108] erika.dupre@enron.com
-[109] becky.pitre@enron.com
-[110] jake.thomas@enron.com
-[111] tanya.leslie@enron.com
-[112] shona.wilson@enron.com
-[113] kristin.walsh@enron.com
-[114] kevin.hyatt@enron.com
-[115] matt.dawson@enron.com
-[116] kimat.singla@enron.com
-[117] dale.rasmussen@enron.com
-[118] colleen.sullivan@enron.com
-[119] clarissa.garcia@enron.com
-[120] molly.johnson@enron.com
-[121] rich.jolly@enron.com
-[122] tammi.depaolis@enron.com, scott.neal@enron.com
-[123] kimberly.hundl@enron.com
-[124] airam.arteaga@enron.com
-[125] mark.muller@enron.com
-[126] bgabrielson@cdnam.com
-[127] ddorland@smednet.com
-[128] richard.leibert@enron.com
-[129] mmmarcantel@equiva.com
-[130] david.oxley@enron.com
-[131] d.hall@enron.com
-[132] chris.booth@enron.com
-[133] jesse.villarreal@enron.com
-[134] anita.patton@enron.com
-[135] jilallen@dttus.com
-[136] sneal12@mindspring.com
-[137] dirk.vanulden@enron.com
-[138] shanna.husser@enron.com
-[139] mark.palmer@enron.com
-[140] aimee.lannou@enron.com
-[141] richard.zdunkewicz@enron.com
-[142] tyrell.harrison@enron.com
-[143] shane.dobbs@fctg.com
-[144] mary.hain@enron.com
-[145] nony.flores@enron.com
-[146] peterthompson@akllp.com
-[147] tasha.lair@enron.com
-[148] mark.courtney@enron.com
-[149] george.mcclellan@enron.com, cathy.phillips@enron.com,
-      mike.mcconnell@enron.com, rick.bergsieker@enron.com
-[150] jeff.nogid@enron.com
-[151] dtucker@bracepatt.com
-[152] lia.halstead@enron.com
-[153] mark.whitt@enron.com
-[154] jeremy.morris@enron.com
-[155] michael.etringer@enron.com
-[156] christian.yoder@enron.com
-[157] nsds@dynegy.com, patrice.mims@enron.com
-[158] michelle.neville@enron.com
-[159] ken.gustafson@enron.com
-[160] mary.franklin@enron.com
-[161] chris.dorland@enron.com
-[162] mike.smith@enron.com
-[163] robbi.rossi@enron.com
-[164] james.hughes@enron.com
-[165] sabra.dinari@enron.com
-[166] gary.lamphier@enron.com
-[167] kerri.thompson@enron.com
-[168] lenine.jeganathan@enron.com
-[169] kevin.radous@enron.com
-[170] rachel.bonilla-kragel@accenture.com
-[171] kate.fraser@enron.com
-[172] asorelle@h-s.com, kenneth.shulklapper@enron.com, paul.lucci@enron.com,
-      stadogb@email.msn.com, ralee@rmi.net, matthew.lenhart@enron.com,
-      jay.reitmeyer@enron.com
-[173] cheryl.johnson@enron.com
-[174] lynn.shivers@enron.com
-[175] dan.junek@enron.com
-[176] barry.tycholiz@enron.com
-[177] eric.letke@enron.com
-[178] harold.buchanan@enron.com
-[179] samuel.schott@enron.com
-[180] steve.walker@enron.com
-[181] jere.overdyke@enron.com
-[182] maria.salvatore@pseg.com
-[183] kevin.moore@enron.com
-[184] michael.walters@enron.com
-[185] leasa.lopez@enron.com
-[186] katherine.kelly@enron.com
-[187] kean@rice.edu
-[188] edward.terry@enron.com
-[189] brenda.barreda@enron.com
-[190] marcus.nettelton@enron.com
-[191] leo.nichols@enron.com, scott.jones@enron.com, mike.riedel@enron.com,
-      larry.campbell@enron.com
-[192] suzanne.christiansen@enron.com
-[193] matthew.arnold@enron.com
-[194] janette.elbertson@enron.com
-[195] james.heckler@csfb.com
-[196] joni.veselack@neg.pge.com
-[197] kimberly.hillis@enron.com
-[198] val.generes@accenture.com
-[199] tricia.bowen@enron.com
-[200] chad.landry@enron.com
-[201] souad.mahmassani@enron.com
-[202] hbrown@bracepatt.com
-[203] veronica.espinoza@enron.com
-[204] sshackl@msn.com
-[205] sylvia.campos@enron.com
-[206] joseph.hirl@enron.com
-[207] annas@cobs.edu
-[208] bob.carter@enron.com
-[209] shutteej@epenergy.com
-[210] jim.homco@enron.com
-[211] linda.guinn@enron.com
-[212] mark.schlueter@enron.com
-[213] lisa.lees@enron.com
-[214] asalazar@pirnie.com
-[215] jon.chapman@enron.com
-[216] tony.spruiell@enron.com
-[217] stanley.horton@enron.com, rod.hayslett@enron.com,
-      caron.horton@trinity.edu
-[218] liz.taylor@enron.com
-[219] harry.collins@enron.com
-[220] aduncan@kilstock.com
-[221] sbishop@gibbs-bruns.com
-[222] bill.williams@enron.com
-[223] jeffrey.keenan@enron.com
-[224] fmackin@aol.com, fran.mayes@enron.com, michelle.cash@enron.com
-[225] denise.lagesse@enron.com
-[226] bjackson@sswpc.com
-[227] marty.sunde@enron.com
-[228] sunil.dalal@enron.com
-[229] kenneth.lay@enron.com
-[230] scott.morrill@grubb-ellis.com
-[231] john.singer@enron.com
-[232] chris.hilgert@enron.com
-[233] pederleifkjeseth@hotmail.com
-[234] paula.warren@enron.com
-[235] don.black@enron.com
-[236] kent.shoemaker@ae.ge.com
-[237] vjw@cleanpower.org
-[238] tricia.spence@enron.com
-[239] lisa@casa-de-clarke.com
-[240] bobby.eberle@gopusa.com
-[241] scott.dieball@enron.com
-[242] andrea.calo@enron.com
-[243] lisa.mellencamp@enron.com
-[244] lance.schuler-legal@enron.com
-[245] peggy.banczak@enron.com
-[246] lesli.campbell@enron.com
-[247] ted.noble@enron.com
-[248] scott.goodell@enron.com
-[249] patti.thompson@enron.com
-[250] greg.piper@enron.com
-[251] michael.moran@enron.com
-[252] michael.terraso@enron.com
-[253] fieldejr@sce.com
-[254] robert.allwein@enron.com
-[255] kam.keiser@enron.com
-[256] drothrock@cmta.net
-[257] pla@marval.com.ar
-[258] bob.hall@enron.com
-[259] scott.gahn@enron.com
-[260] steven.leppard@enron.com
-[261] gloria.barkowsky@enron.com
-[262] mollie.gustafson@enron.com
-[263] mitch.robinson@enron.com
-[264] joseph.hrgovcic@enron.com
-[265] jason.williams@enron.com
-[266] v.weldon@enron.com
-[267] bill.votaw@enron.com
-[268] mary.solmonson@enron.com
-[269] max.yzaguirre@enron.com
-[270] mark.evans@enron.com
-[271] lynn.aven@enron.com
-[272] allison.mchenry@enron.com
-[273] jimmy.simien@enron.com
-[274] philippe.bibi@enron.com
-[275] steven.kessler@db.com
-[276] sarah.mulholland@enron.com
-[277] germanj@basf-corp.com
-[278] hgovenar@mail.acom2.com
-[279] kevin.hughes@enron.com
-[280] kristi.giron@cfisd.net
-[281] barton.clark@enron.com
-[282] darren.maloney@enron.com
-[283] jorge.garcia@enron.com
-[284] jay_liberman@ml.com
-[285] brad.mckay@enron.com
-[286] edward.ondarza@enron.com
-[287] kimberly.brown@enron.com
-[288] jbennett@gmssr.com
-[289] evan.hughes@enron.com
-[290] debbie.brackett@enron.com
-[291] dominic.dimare@calchamber.com
-[292] kkupiecki@arpartners.com
-[293] diane.anderson@enron.com
-[294] dan.bump@enron.com
-[295] joseph.alamo@enron.com
-[296] jennifer.rudolph@enron.com
-[297] chris.foster@enron.com
-[298] anne.bike@enron.com
-[299] fran.deltoro@enron.com
-[300] christina.liscano@enron.com
-[301] jpeters@andrews-kurth.com
-[302] joann.collins@enron.com
-[303] marlene.hilliard@enron.com
-[304] molly.lafuze@enron.com
-[305] robert.williams@enron.com
-[306] roseann.engeldorf@enron.com
-[307] carlos.rodriguez@enron.com
-[308] angela.gill@enron.com
-[309] pinnamaneni.krishnarao@enron.com
-[310] elizabeth.linnell@enron.com
-[311] carole.frank@enron.com
-[312] jeremy.blachman@enron.com
-[313] susan.flynn@enron.com
-[314] eke@aelaw.com
-[315] robert.cass@enron.com
-[316] susan.pereira@enron.com, stevens_hollister@eott.com
-[317] gary.stadler@enron.com
-[318] sharen.cason@enron.com
-[319] robert.bruce@enron.com
-[320] michael.tribolet@enron.com
-[321] roger.yang@enron.com
-[322] cheryl.nelson@enron.com
-[323] william.kendrick@enron.com
-[324] rick.loveless@enron.com
-[325] ctetrault@velaw.com
-[326] ellen.wallumrod@enron.com
-[327] delma.salazar@enron.com
-[328] cbrashear@velaw.com
-[329] susan.trevino@enron.com
-[330] alan.aronowitz@enron.com
-[331] mpalmer@enron.com
-[332] tom.briggs@enron.com
-[333] matthew.berry@enron.com
-[334] dana.davis@enron.com, kdavis2075@aol.com
-[335] cgiron@mindspring.com
-[336] eric.gonzales@enron.com
-[337] brian.barto@enron.com
-[338] cyndie.balfour-flanagan@enron.com
-[339] andrea.ring@enron.com
-[340] janine.juggins@enron.com
-[341] lorraine.lindberg@enron.com
-[342] kim.theriot@enron.com
-[343] jlpnymex@aol.com
-[344] crystal.hyde@enron.com
-[345] donald.black@enron.com
-[346] megan.parker@enron.com
-[347] anita.dupont@enron.com
-[348] mike.maggi@enron.com
-[349] tanya.tamarchenko@enron.com
-[350] michelle.cisneros@enron.com
-[351] kathy.scully@milliman.com
-[352] rebecca.mcdonald@enron.com
-[353] michelle.lokay@enron.com
-[354] nicholas.stephan@enron.com
-[355] alison.keogh@enron.com
-[356] regina.blackshear@enron.com
-[357] alexandra.saler@enron.com
-[358] pulhamus@aol.com
-[359] harry.kingerski@enron.com
-[360] jenny.helton@enron.com
-[361] rick.buy@enron.com
-[362] dmitchel@cwt.com
-[363] beverly.aden@enron.com
-[364] janie.aguayo@enron.com
-[365] neil.hong@enron.com
-[366] peggy.hedstrom@enron.com
-[367] nwodka@bracepatt.com
-[368] clint.freeland@enron.com
-[369] victor.lamadrid@enron.com
-[370] margaret.allen@enron.com
-[371] peggy.mahoney@enron.com
-[372] carson@us.ibm.com
-[373] joseph.deffner@enron.com
-[374] martin.lin@enron.com
-[375] wanda.curry@enron.com
-[376] per.sekse@enron.com
-[377] cdalpho@columbiaenergygroup.com
-[378] mike.carson@enron.com
-[379] leslie.reeves@enron.com
-[380] mary.gosnell@enron.com
-[381] denis.o'connell@enron.com
-[382] douglas.huth@enron.com
-[383] daphneco64@bigplanet.com
-[384] jdasovic@enron.com
-[385] mike.miller@enron.com
-[386] peter.weidler@enron.com
-[387] yao.apasu@enron.com
-[388] james.scribner@enron.com
-[389] lisa.shoemake@enron.com
-[390] jeffery.fawcett@enron.com
-[391] luis.mena@enron.com
-[392] 7409949@skytel.com
-[393] mark_guinney@watsonwyatt.com
-[394] ozzie.pagan@enron.com
-[395] sladana-anna.kulic@enron.com
-[396] sshackl@swbell.net
-[397] herman.manis@enron.com
-[398] pallen70@hotmail.com
-[399] mark.schroeder@enron.com
-[400] karen.jones@enron.com
-[401] gtownsend@manorisd.net
-[402] robin.barbe@enron.com
-[403] kristin.albrecht@enron.com
-[404] dari.dornan@enron.com
-[405] chris.walker@enron.com
-[406] douglas.condon@enron.com
-[407] peter.feltman@enron.com
-[408] matt.maxwell@enron.com
-[409] mike.jordan@enron.com
-[410] 9069761@skytel.com
-[411] wendi.lebrocq@enron.com
-[412] donald.lassere@enron.com
-[413] bhansen@lhom.com
-[414] bstclair@dellnet.com
-[415] dutch.quigley@enron.com
-[416] matthew.gockerman@enron.com
-[417] diane.ellstrom@enron.com
-[418] david.fairley@enron.com
-[419] chris.gaskill@enron.com
-[420] beth.apollo@enron.com
-[421] tori.kuykendall@enron.com
-[422] elizabeth.hernandez@enron.com
-[423] jeffery.ader@enron.com
-[424] cynthia.franklin@enron.com
-[425] dkinney@columbiaenergygroup.com
-[426] robert.badeer@enron.com
-[427] rodney.malcolm@enron.com
-[428] tpape@satake-usa.com
-[429] kevin.ruscitti@enron.com
-[430] marc.r.cutler@bankamerica.com
-[431] chris.mallory@enron.com
-[432] dora_thurmond@uniteddc.com
-[433] jilallen@deloitte.com
-[434] sean.crandall@enron.com
-[435] lysa.akin@enron.com
-[436] mreuter@kslaw.com
-[437] ccampbell@kslaw.com
-[438] marsha.suggs@enron.com
-[439] tobin.carlson@enron.com
-[440] frank.davis@enron.com
-[441] john.suttle@enron.com
-[442] sheetal.patel@enron.com
-[443] susan.landwehr@enron.com
-[444] dgiron1@pdq.net
-[445] louis.soldano@enron.com
-[446] norma.villarreal@enron.com
-[447] dave.scott@enron.com
-[448] vladimir.gorny@enron.com
-[449] brbarkovich@earthlink.net
-[450] valarie.sabo@enron.com
-[451] pyoung@cliverunnells.com
-[452] bruce.mills@enron.com
-[453] jenwhite7@zdnetonebox.com
-[454] pthompson@akllp.com
-[455] david.dupre@enron.com
-[456] tarm27@texas.net
-[457] jcutaia@tupac.com
-[458] tanya.rohauer@enron.com
-[459] christie.patrick@enron.com
-[460] stephen.plauche@enron.com
-[461] elizabeth.serralheiro@enron.com
-[462] stinson.gibner@enron.com
-[463] twanda.sweet@enron.com
-[464] brian.redmond@enron.com
-[465] dick.jenkins@enron.com
-[466] heather.kroll@enron.com
-[467] angela.davis@enron.com
-[468] debbielatham@realtor.com
-[469] dla6138201@aol.com
-[470] margaret.carson@enron.com
-[471] peggy.fowler@enron.com
-[472] merlinm@uswest.net
-[473] jane.mcbride@enron.com
-[474] greg_carrow@valic.com
-[475] shelliott@dttus.com
-[476] cooper.richey@enron.com
-[477] isabel.parker@freshfields.com
-[478] o'neal.winfree@enron.com
-[479] pwright@llgm.com
-[480] julia.murray@enron.com
-[481] gacox@mail.gsi-net.com
-[482] jeff.donahue@enron.com
-[483] ann.cohn@sce.com
-[484] brian.kristjansen@enron.com
-[485] craig.sutter@enron.com
-[486] kristin.gandy@enron.com
-[487] brenda.whitehead@enron.com
-[488] travis.mccullough@enron.com
-[489] darren.vanek@enron.com
-[490] karen.way@piperrudnick.com
-[491] sharon.dick@enron.com
-[492] dianne.seib@enron.com
-[493] michele.winckowski@enron.com
-[494] steve.hooser@enron.com
-[495] shirley.crenshaw@enron.com
-[496] janice.moore@enron.com
-[497] jason.bass2@compaq.com
-[498] scottwl@hotmail.com
-[499] kathleen.carnahan@enron.com
-[500] radack@dca.co.harris.tx.us
-[501] bernice.rodriguez@enron.com
-[502] edward.baughman@enron.com
-[503] iris.waser@enron.com
-[504] cntrybr279@cs.com
-[505] dhunter@s-k-w.com
-[506] jackson.logan@enron.com
-[507] joe.casas@enron.com
-[508] james.ajello@enron.com
-[509] conway77@vision1mm.com
-[510] eric.gillaspie@enron.com
-[511] brandon.neff@enron.com
-[512] lisa.yoho@enron.com
-[513] jeff.messina@enron.com
-[514] sue.nord@enron.com
-[515] janet.dietrich@enron.com
-[516] jim.armogida@enron.com
-[517] wdgermanyjr@dow.com
-[518] ina.rangel@enron.com
-[519] camille.gerard@enron.com
-[520] suzanne.adams@enron.com
-[521] stephen.thome@enron.com
-[522] alma.martinez@enron.com
-[523] michael.olsen@enron.com
-[524] rosalee.fleming@enron.com
-[525] darla.saucier@enron.com
-[526] jrogers@cinergy.com
-[527] slafontaine@globalp.com
-[528] michael.driscoll@enron.com
-[529] dan.dorland@enron.com
-[530] suzanneadams@att.net
-[531] lhayman@skadden.com
-[532] laurie.ellis@enron.com
-[533] kimberly.allen@enron.com
-[534] david.roensch@enron.com
-[535] jefferson.sorenson@enron.com
-[536] ryan.f.ruppert@exxon.sprint.com
-[537] martha.benner@enron.com
-[538] pyoung@pdq.net
-[539] ken@kdscommunications.com
-[540] frank.vickers@enron.com
-[541] marde.driscoll@enron.com
-[542] shanna.funkhouser@enron.com
-[543] kim.ward@enron.com
-[544] kal.shah@enron.com
-[545] jeffrey.mcmahon@enron.com
-[546] barry.pearce@enron.com
-[547] cara.semperger@enron.com
-[548] jworman@academyofhealth.com
-[549] cameron@perfect.com
-[550] evelyn.metoyer@enron.com
-[551] beth.perlman@enron.com
-[552] john.neslage@enron.com
-[553] ross.newlin@enron.com
-[554] sarah.novosel@enron.com
-[555] richard.ring@enron.com
-[556] john.viverito@enron.com
-[557] ryan.siurek@enron.com
-[558] nytasha.sims@dynegy.com
-[559] cindy.olson@enron.com
-[560] rosalinda.tijerina@enron.com
-[561] cvavrek@deloitte.com
-[562] gfergus@brobeck.com
-[563] roger.ondreko@enron.com
-[564] rahil.jafry@enron.com
-[565] connie.sutton@enron.com
-[566] meredith.mitchell@enron.com
-[567] fran.chang@enron.com
-[568] susan.musch@enron.com
-[569] chuck.ames@enron.com
-[570] john.sherriff@enron.com
-[571] andres.balmaceda@enron.com
-[572] bswaldrop@aol.com
-[573] jennifer.cutaia@enron.com
-[574] robert.neustaedter@enron.com
-[575] marie.heard@enron.com
-[576] shirlet.williams@enron.com
-[577] dennis.benevides@enron.com
-[578] timothy.blanchard@enron.com
-[579] andrew.edison@enron.com
-[580] b.palmer@enron.com
-[581] amber.limas@enron.com
-[582] daniel.kang@enron.com
-[583] dlove8847@aol.com
-[584] joan.quick@enron.com
-[585] scott.josey@enron.com
-[586] james.steffes@enron.com
-[587] john.shafer@enron.com
-[588] sstojic@gbmdc.com
-[589] brent.price@enron.com
-[590] yolanda.cordova-gilbert@enron.com
-[591] leslie.lawner@enron.com
-[592] yvette.connevey@enron.com
-[593] jeldredge@velaw.com
-[594] john.schwartzenburg@enron.com
-[595] j_martin@baylor.edu
-[596] lqcolombo@aol.com
-[597] kevin.bosse@enron.com
-[598] benjamin.freeman@enron.com
-[599] james.lewis@enron.com
-[600] lee.huber@enron.com
-[601] mark.greenberg@enron.com
-[602] jessie.patterson@enron.com
-[603] roths@orbitworld.net
-[604] steve.gillespie@enron.com
-[605] kdorland@titanelectric.com
-[606] sheila.tweed@enron.com
-[607] dan.leff@enron.com
-[608] greg.krause@enron.com
-[609] william.stuart@enron.com
-[610] rob.bradley@enron.com
-[611] rose.botello@enron.com
-[612] afac@tfts.tozzini.com.br
-[613] mark.knippa@enron.com
-[614] chris.abel@enron.com
-[615] phillip.platter@enron.com
-[616] alan.larsen@enron.com
-[617] sherry.anastas@enron.com
-[618] nicole.laporte@enron.com
-[619] taffy.milligan@enron.com
-[620] brettlawler@hotmail.com
-[621] drew.fossum@enron.com
-[622] ccobb@akllp.com
-[623] lofeco@ev1.net
-[624] mary.poorman@enron.com
-[625] bridgette.anderson@enron.com
-[626] shirley.s.elliott@citicorp.com
-[627] cscott_korea@yahoo.com
-[628] gacox@gsi-net.com
-[629] hfl@fp.edu
-[630] gail.brownfeld@enron.com
-[631] hollyw@email.msn.com
-[632] greg.wolfe@enron.com
-[633] alan.comnes@enron.com
-[634] bradley.diebner@enron.com
-[635] carlew@flash.net
-[636] gregg.penman@enron.com
-[637] gordon.heaney@enron.com
-[638] angie.zeman@enron.com
-[639] cwhite@viviance.com
-[640] kathy.bass@enron.com
-[641] greg.whalley@enron.com
-[642] mona.petrochko@enron.com
-[643] bmccall@wcnet.net
+Clustering with 1625 elements and 1142 clusters
+[   0] ken.rice@enron.com, tom.chapman@enron.com, tracy.ngo@enron.com,
+       paul.simons@enron.com, nancy.sellers@robertmondavi.com,
+       kathy.reeves@enron.com, john.arnold@enron.com, jess.hewitt@enron.com,
+       laurel.adams@enron.com, donna.lowry@enron.com, skean@enron.com,
+       drothrock@camfg.com, jennifer.burns@enron.com, david.parquet@enron.com,
+       eric.melvin@enron.com, brian.hoskins@enron.com, mary.cook@enron.com,
+       ginger.dernehl@enron.com, rita.hennessy@enron.com,
+       mary.heinitz@enron.com, jeff.skilling@enron.com, scott.healy@enron.com,
+       bwax@ghg.net, jason.peters@enron.com, dan.lyons@enron.com,
+       adicapri@utilicorp.com, sandra.haskins@pgnmail.com,
+       binh.pham@enron.com, tana.jones@enron.com, jeffrey.keenan@enron.com,
+       gabriel.monroy@enron.com, tammy.shepperd@enron.com,
+       michael.simmons@enron.com, eronn@mail.utexas.edu,
+       wes.colwell@enron.com, hector.mcloughlin@enron.com,
+       andrea.bertone@enron.com, mdjoseph@adamsbroadwell.com,
+       jklauber@llgm.com, w.duran@enron.com, georgi.landau@enron.com,
+       tj@haas.berkeley.edu, jkelly@fairisaac.com, ppipitone@andrews-
+       kurth.com, showard@agsk.com, robert.frank@enron.com,
+       david.forster@enron.com, greg.whiting@enron.com,
+       kathleen.clark@enron.com, dtang@cinergy.com, majed.nachawati@enron.com,
+       joe.kishkill@enron.com, neil.bresnan@enron.com, paul.kaufman@enron.com,
+       geshay@pplweb.com, pierre.aury@enron.com, david.port@enron.com,
+       travis.mccullough@enron.com, gary.hickerson@enron.com,
+       karen.lambert@enron.com, harry.bucalo@enron.com,
+       kathryn.corbally@enron.com, mark.tawney@enron.com,
+       raymond.bowen@enron.com, nicole.hunter@enron.com,
+       james.simpson@enron.com, jennifer.blay@enron.com,
+       deb.korkmas@enron.com, jennifer.fraser@enron.com,
+       scott.stoness@enron.com, gramlr@pjm.com, robtaylor@akllp.com,
+       michael.brown@enron.com, susan.landwehr@enron.com,
+       scott.crowell@us.cgeyc.com, jkeffer@kslaw.com, jackson.logan@enron.com,
+       mark.haedicke@enron.com, mrmslane@aol.com, anjam.ahmad@enron.com,
+       david.minns@enron.com, brent.hendry@enron.com, steven.kean@enron.com,
+       eddy.daniels@enron.com, nicholas.o'day@enron.com,
+       denver.plachy@enron.com, chris.holmes@enron.com,
+       kelly.kimberly@enron.com, john.nowlan@enron.com,
+       brian.stanley@enron.com, dwm@blakes.com, savitabi@llgm.com,
+       badranguet@velaw.com, mrichter@us.ibm.com, ricardo.charvel@enron.com,
+       osman.sezgen@enron.com, richard.lydecker@enron.com,
+       benjamin.rogers@enron.com, ppipitone@akllp.com,
+       genia.fitzgerald@enron.com, morris.clark@enron.com,
+       jeffrey.shankman@enron.com, scott.sefton@enron.com,
+       james.derrick@enron.com, schub@socrates.berkeley.edu, eldon@interx.net,
+       molly.magee@enron.com, kathy.dodgen@enron.com, alove770@cs.com,
+       jeff.dasovich@enron.com, william.kelly@enron.com,
+       bill.windle@enron.com, reagan.rorschach@enron.com, eric.boyt@enron.com,
+       ted.bockius@ivita.com, david.portz@enron.com,
+       michael.etringer@enron.com, vasant.shanbhogue@enron.com,
+       mike.smith@enron.com, smmayers@earthlink.net,
+       dwindham@uclink4.berkeley.edu, tim.belden@enron.com,
+       jeff.blumenthal@enron.com, fred.mitro@enron.com,
+       stewart.rosman@enron.com, james.love@msl.redstone.army.mil,
+       robin.rodrigue@enron.com, don.miller@enron.com, tom.doukas@enron.com,
+       yvan.chaxel@enron.com, tiffany.williams@enron.com,
+       scott.tackett@enron.com, kimberlee.bennick@enron.com,
+       phillip.allen@enron.com, teresa.bushman@enron.com,
+       cynthia.sandherr@enron.com, scrowell@us.oracle.com,
+       burton.mcintyre@enron.com, nick.hiemstra@enron.com,
+       jsmith@austintx.com, michael.mann@enron.com, melissa.murphy@enron.com,
+       mike.miller@enron.com, jake.staffel@enron.com,
+       anthony.campos@enron.com, sevil.yaman@enron.com,
+       kevin.meredith@enron.com, pmeringolo@brobeck.com,
+       mike.roberts@enron.com, celeste.cisneros@enron.com,
+       molly.harris@enron.com, mballases@hotmail.com, kyle.lilly@enron.com,
+       stephen.douglas@enron.com, john.moore@enron.com,
+       kevin.presto@enron.com, jeffrey.gossett@enron.com,
+       gilbergd@sullcrom.com, rek@blakes.com, richard.sanders@enron.com,
+       gloria.cruz@enron.com, carolyn.george@enron.com,
+       rmartins@utilicorp.com, michael.danielson@enron.com,
+       epao@mba2002.hbs.edu, mary.ogden@enron.com,
+       bswanstrom@lockeliddell.com, jody.crook@enron.com,
+       shelleyzee@mail.utexas.edu, cra@calretailers.com,
+       samantha.boyd@enron.com, michael.moscoso@enron.com,
+       stacey.richardson@enron.com, marilyn.colbert@enron.com,
+       james.wright@enron.com, karen.denne@enron.com, bhutt@ankarcapital.com,
+       kevin.mcgowan@enron.com, janet.wallis@enron.com,
+       louise.kitchen@enron.com, teresa.smith@enron.com,
+       stacy.dickson@enron.com, frank.ermis@enron.com,
+       sara.shackleton@enron.com, frank.sayre@enron.com,
+       susan.bailey@enron.com, clint.walden@enron.com,
+       bruce.lundstrom@enron.com, mike.grigsby@enron.com,
+       greg.johnston@enron.com, celeste.roberts@enron.com,
+       kathleen.magruder@enron.com, steve.venturatos@enron.com,
+       kenneth.parkhill@enron.com, catherine.clark@enron.com,
+       william.bradford@enron.com, ed.iii@enron.com, barton.clark@enron.com,
+       kay.chapman@enron.com, richard.causey@enron.com,
+       esmith@kanekatexas.com, francisco.leite@enron.com,
+       kori.loibl@enron.com, cathy.sprowls@enron.com, james.bartlett@csfb.com,
+       jkmurphy@jonesday.com, julie.gomez@enron.com, rob.milnthorp@enron.com,
+       wbooth@booth-law.com, carol.clair@enron.com, andy.zipper@enron.com,
+       larry.hunter@enron.com, jason.wiesepape@enron.com,
+       irena.hogan@enron.com, rod.nelson@enron.com,
+       charlene.jackson@enron.com, kari.dohn@gov.ca.gov,
+       mark.taylor@enron.com, christi.nicolay@enron.com,
+       maureen.raymond@enron.com, showard@milbank.com, jad.doan@enron.com,
+       dwatkiss@bracepatt.com, lisa.gillette@enron.com,
+       janet.dobernecker@enron.com, chris.calger@enron.com,
+       eric.bass@enron.com, becky.tlucek@enron.com, amir.ahanchian@enron.com,
+       steve.pruett@enron.com, mgarrison@cinergy.com, jbass@stdauto.com,
+       patti.sullivan@enron.com, sandra.mccubbin@enron.com,
+       beth.miertschin@enron.com, david.leboe@enron.com,
+       edmund.cooper@enron.com, gil.muhl@enron.com, wgang@enron.com,
+       michael.o.sandridge@us.abb.com, carol.moffett@enron.com,
+       sgovenar@govadv.com, mark.elliott@enron.com, awm@blakes.com,
+       bob.bowen@enron.com, russell.diamond@enron.com,
+       david.baumbach@enron.com, jason.wolfe@enron.com, klarnold@flash.net,
+       mmo@blakes.com, becky.stephens@enron.com, mike.fultz@halliburton.com,
+       shari.stack@enron.com, bruce.golden@enron.com,
+       drusso@reliantenergy.com, suzanne.adams@enron.com, castro@rice.edu,
+       mcgovernw@sec.gov, paul.radous@enron.com, vincek@leland.stanford.edu,
+       john.viverito@enron.com, annmarie.tiller@enron.com,
+       nbutler@susmangodfrey.com, rmasciangelo@duke-energy.com,
+       janet.moore@enron.com, sharon.crawford@enron.com,
+       jeffrey.hodge@enron.com, tbockius@aol.com, dale.neuner@enron.com,
+       leticia.botello@enron.com, stephanie.panus@enron.com,
+       meredith.eggleston@enron.com, robert.george@enron.com,
+       ashley.baxter@enron.com, sharron.westbrook@enron.com,
+       bill.hare@enron.com, cbciiivent@aol.com, patricia.cini@enron.com,
+       mark.bernstein@enron.com, david.delainey@enron.com,
+       leslie.hansen@enron.com, bryan.seyfried@enron.com,
+       clayton.vernon@enron.com, derek.bailey@enron.com, tom.moran@enron.com,
+       sheri.thomas@enron.com, dan.hyvl@enron.com, ben.jacoby@enron.com,
+       victor.guggenheim@enron.com, darron.giron@enron.com,
+       brant.reves@enron.com, melba.lozano@enron.com, justin.boyd@enron.com,
+       peter.keohane@enron.com, martin.penkwitz@enron.com,
+       beth.perlman@enron.com, akatz@eei.org, rebecca.cantrell@enron.com,
+       oscar.dalton@enron.com, mary.hain@enron.com, melissa.graves@enron.com,
+       dick.westfahl@enron.com, stephanie.sever@enron.com,
+       michael.walters@enron.com, vicki.sharp@enron.com,
+       scott.mills@enron.com, elizabeth.sager@enron.com,
+       danielles@jonesgranger.com, clara.carrington@enron.com,
+       nidia.mendoza@enron.com, jinsung.myung@enron.com, steve.hall@enron.com,
+       britt.davis@enron.com, jennifer.thome@enron.com,
+       vince.kaminski@enron.com, nancy.hernandez@enron.com, tom.may@enron.com,
+       c.thompson@enron.com, anne.koehler@enron.com, lara.leibman@enron.com,
+       ted.murphy@enron.com, jmjaked@mindspring.com, bob.shults@enron.com,
+       rapsak@computron.net, sally.beck@enron.com, phil.demoes@enron.com,
+       alicia.goodrow@enron.com, frank.hayden@enron.com,
+       richard.shapiro@enron.com, kay.mann@enron.com, bonnie.white@enron.com,
+       mjillard@beaconelectric.com, debra.perlingiere@enron.com,
+       wendy.conwell@enron.com, laurie.mayer@enron.com,
+       gregory.mausser@enron.com, brent.price@enron.com,
+       sgussett@bracepatt.com, lemelpe@nu.com, jeremy.wong@enron.com,
+       mark.frevert@enron.com, b.palmer@enron.com, christian.lebroc@enron.com,
+       daniel.diamond@enron.com, steve.bigalow@enron.com,
+       phillip.love@enron.com, john.lavorato@enron.com, greg.whalley@enron.com
+[   1] buylow@houston.rr.com
+[   2] christa.winfrey@enron.com
+[   3] jons@amerexenergy.com, sandra.brawner@enron.com
+[   4] scott.hendrickson@enron.com
+[   5] dave.fuller@enron.com
+[   6] russ.porter@enron.com
+[   7] richard.leibert@enron.com
+[   8] glove@nicor.com
+[   9] tony.pryor@enron.com
+[  10] steve.hotte@enron.com
+[  11] cheryl.johnson@enron.com
+[  12] wax@ghg.net
+[  13] mark.mccoy@enron.com, shari.mao@enron.com, stacey.neuweiler@enron.com,
+       robert.lloyd@enron.com, clem.cernosek@enron.com,
+       jackie.young@enron.com, daren.farmer@enron.com,
+       robert.cotten@enron.com, yvette.connevey@enron.com, tom.acton@enron.com
+[  14] john.garrison@enron.com
+[  15] psellers@pacbell.net
+[  16] daniel.reck@enron.com
+[  17] kevin.hannon@enron.com
+[  18] diana.scholtes@enron.com
+[  19] maryrichards7@hotmail.com
+[  20] kay.young@enron.com
+[  21] katherine.herrera@enron.com
+[  22] jason.moore@enron.com
+[  23] sheila.glover@enron.com
+[  24] david.oliver@enron.com
+[  25] rebecca.quenet@eds.com
+[  26] jstewart@cmta.net
+[  27] 7409949@skytel.com
+[  28] brenda.herod@enron.com
+[  29] matt.motley@enron.com
+[  30] john.rigby@enron.com
+[  31] erichardson@sarofim.com
+[  32] terri.greenlee@enron.com
+[  33] ldavis@stewart.com, caron.horton@trinity.edu, phil.lowry@enron.com,
+       gary.smith@enron.com, stanley.horton@enron.com,
+       danny.mccarty@enron.com, tgboldig@aol.com
+[  34] rhonda.denton@enron.com
+[  35] maria.garza@enron.com
+[  36] jkbowles@hotmail.com, ehillegeist@hotmail.com,
+       michelle.lokay@enron.com, steven.harris@enron.com,
+       gsullivan@sempra.com, shelley.corman@enron.com, tk.lohman@enron.com,
+       mbaldwin@igservice.com, lindy.donoho@enron.com, mary.miller@enron.com,
+       camp2scott@aol.com, maria.pavlou@enron.com, susan.scott@enron.com,
+       celeahy@hotmail.com
+[  37] gordon.savage@enron.com
+[  38] lwbthemarine@bigplanet.com
+[  39] kckrisa@apex2000.net
+[  40] merritt.thomas@enron.com
+[  41] carrie.southard@enron.com
+[  42] jmcgreev@llgm.com
+[  43] john.greene@enron.com
+[  44] blanca.bollom@enron.com, denise.squirrel@enron.com,
+       john.novak@enron.com, toni.graham@enron.com, richard.lammers@enron.com,
+       pooky@pipeline.com, rob.gay@enron.com
+[  45] jean.mcfarland@enron.com
+[  46] tom.halliburton@enron.com
+[  47] cora.pendergrass@enron.com
+[  48] kmccrea@sablaw.com
+[  49] shona.wilson@enron.com
+[  50] colleen.sullivan@enron.com
+[  51] rich.jolly@enron.com
+[  52] keith.dodson@enron.com
+[  53] tammi.depaolis@enron.com, scott.neal@enron.com, john.taylor@enron.com,
+       rodolfo.freyre@enron.com, thomas.martin@enron.com
+[  54] andrea.yowman@enron.com
+[  55] torrey.moorer@enron.com
+[  56] grant.masson@enron.com
+[  57] ednemec@earthlink.net
+[  58] dirk.vanulden@enron.com
+[  59] mark.palmer@enron.com
+[  60] shane.dobbs@fctg.com
+[  61] nony.flores@enron.com
+[  62] keithcorbo@aol.com
+[  63] edward.sacks@enron.com
+[  64] hgovenar@govadv.com
+[  65] jeremy.morris@enron.com
+[  66] susan.hopkinson@lovells.com
+[  67] christian.yoder@enron.com
+[  68] nsds@dynegy.com, hope-frelix@reliantenergy.com, patrice.mims@enron.com
+[  69] jarrod.cyprow@enron.com
+[  70] sabra.dinari@enron.com
+[  71] gretel.smith@enron.com
+[  72] kate.fraser@enron.com
+[  73] lynn.shivers@enron.com
+[  74] dan.junek@enron.com
+[  75] dave.neubauer@enron.com
+[  76] marnie.lamb@enron.com
+[  77] jere.overdyke@enron.com
+[  78] kevin.moore@enron.com
+[  79] elena.chilkina@enron.com
+[  80] jeff.harbert@enron.com
+[  81] anita.fam@enron.com
+[  82] mmccontex@aol.com
+[  83] erin.norris@enron.com
+[  84] ccampbell@kslaw.com
+[  85] suzanne.christiansen@enron.com
+[  86] tamara.black@enron.com
+[  87] matthew.arnold@enron.com
+[  88] james.heckler@csfb.com
+[  89] gaurav.babbar@enron.com
+[  90] hbrown@bracepatt.com
+[  91] maziarz@bellsouth.net
+[  92] gloria.barkowsky@enron.com
+[  93] bob.carter@enron.com
+[  94] jon.chapman@enron.com
+[  95] harry.collins@enron.com
+[  96] brad.schneider@enron.com
+[  97] scott.jones@enron.com, earl.chanley@enron.com,
+       matthew.fleming@enron.com, larry.campbell@enron.com,
+       robertmun1@aol.com, michel.nelson@enron.com, leo.nichols@enron.com,
+       spendegr@enron.com
+[  98] thresa.allen@enron.com
+[  99] mike.swerzbin@enron.com
+[ 100] sunil.dalal@enron.com
+[ 101] john.singer@enron.com
+[ 102] chris.hilgert@enron.com
+[ 103] don.black@enron.com
+[ 104] tricia.spence@enron.com
+[ 105] thu.nguyen@enron.com
+[ 106] awais.omar@enron.com
+[ 107] lisa@casa-de-clarke.com
+[ 108] bogden@ogwb.com
+[ 109] bobby.eberle@gopusa.com
+[ 110] robert.jones@enron.com
+[ 111] lisa.mellencamp@enron.com
+[ 112] lesli.campbell@enron.com
+[ 113] ted.noble@enron.com
+[ 114] scott.goodell@enron.com
+[ 115] robert.johnston@enron.com
+[ 116] wilson.kriegel@enron.com
+[ 117] fieldejr@sce.com
+[ 118] brenda.fletcher@enron.com, bryce.baxter@enron.com,
+       esimien@columbiaenergygroup.com, briant.baker@enron.com,
+       michael.garred@enron.com, 8777208398.4891940@pagenetmessage.net,
+       alvin.thompson@enron.com, cindy.vachuska@enron.com,
+       jeff.westover@enron.com, mark.breese@enron.com, john.hodge@enron.com,
+       lamoss@duke-energy.com, judy.townsend@enron.com,
+       george.smith@enron.com, jporte1@columbiaenergygroup.com,
+       chris.germany@enron.com, sean.boyle@enron.com
+[ 119] matthew.dawson@enron.com
+[ 120] bob.hall@enron.com
+[ 121] susan@metronet.com
+[ 122] mollie.gustafson@enron.com
+[ 123] joseph.hrgovcic@enron.com
+[ 124] ann.white@enron.com
+[ 125] max.yzaguirre@enron.com
+[ 126] eileen.kisluk@enron.com
+[ 127] brent.vasconcellos@enron.com
+[ 128] jimmy.simien@enron.com
+[ 129] paul.finken@enron.com
+[ 130] geoff.storey@enron.com
+[ 131] cmontgomery@kmg.com
+[ 132] alexandra.saler@enron.com
+[ 133] paul.lucci@enron.com
+[ 134] frank.davis@enron.com
+[ 135] mike.haney@enron.com
+[ 136] joseph.alamo@enron.com
+[ 137] m_besch@yahoo.com
+[ 138] ed.quinn@enron.com
+[ 139] stephen.wolfe@enron.com
+[ 140] mflorio@turn.org
+[ 141] mark.guzman@enron.com
+[ 142] robert.williams@enron.com
+[ 143] carlos.rodriguez@enron.com
+[ 144] angela.gill@enron.com
+[ 145] john.dushinske@enron.com
+[ 146] carole.frank@enron.com
+[ 147] jeremy.blachman@enron.com
+[ 148] eke@aelaw.com
+[ 149] jeffrey.keeler@enron.com
+[ 150] gary.stadler@enron.com
+[ 151] cvavrek@deloitte.com
+[ 152] margaret.daffin@enron.com
+[ 153] megan.la@aspentech.com
+[ 154] lisa.nemec@enron.com, chris.meyer@enron.com, michael.legler@enron.com,
+       jamie.ginsberg@enron.com, gerald.nemec@enron.com,
+       greg.brazaitis@enron.com, stephanie.miller@enron.com,
+       anncrawford@aec.ca, shonnie.daniel@enron.com,
+       carlos.alatorre@enron.com, paul.pfeffer@bakerbotts.com,
+       gnemec@houston.rr.com, brian.hendon@enron.com,
+       steve.schneider@enron.com
+[ 155] ellen.wallumrod@enron.com
+[ 156] susan.trevino@enron.com
+[ 157] orsi@tconl.com
+[ 158] mark.dobler@enron.com
+[ 159] tom.briggs@enron.com
+[ 160] ctetrault@velaw.com
+[ 161] todd.perry@enron.com, lester.rawson@enron.com,
+       caroline.emmert@enron.com, mark.fischer@enron.com,
+       willie.harrell@enron.com, monica.lande@enron.com, judy.dyer@enron.com,
+       tom.alonso@enron.com, jeff.richter@enron.com, kate.symes@enron.com,
+       mark.confer@enron.com, marys@tvapdx.com, winston.goodbody@enron.com
+[ 162] pmelcher@aol.com
+[ 163] mark.ebert@broadwing.com
+[ 164] kim.theriot@enron.com
+[ 165] sherry.dawson@enron.com, gregory.carraway@enron.com,
+       errol.mclaughlin@enron.com
+[ 166] jlpnymex@aol.com
+[ 167] megan.parker@enron.com
+[ 168] jmjong@hotmail.com
+[ 169] kdecell@gassupplyconsulting.com
+[ 170] kimberly.hundl@enron.com
+[ 171] michelle.cisneros@enron.com
+[ 172] rebecca.mcdonald@enron.com
+[ 173] stephen.schwarz@enron.com
+[ 174] denise.moore@dhs.state.tx.us
+[ 175] janie.aguayo@enron.com
+[ 176] lga@mother.com
+[ 177] lisa.king@enron.com
+[ 178] mark.powell@enron.com
+[ 179] egonzalez@gardere.com
+[ 180] sarah.wesner@enron.com
+[ 181] douglas.huth@enron.com
+[ 182] pperezalonso@rhm.com.mx
+[ 183] tanya.tamarchenko@enron.com
+[ 184] jdasovic@enron.com
+[ 185] peter.weidler@enron.com
+[ 186] cindy.richardson@enron.com
+[ 187] dorothy.youngblood@enron.com
+[ 188] meridetk@kochind.com, heather.hill@ac.com, mike.carson@enron.com
+[ 189] steven.leppard@enron.com
+[ 190] rufino.doroteo@enron.com, brad.carey@enron.com, kdavis2075@aol.com,
+       dana.davis@enron.com, nicole.mendez@enron.com, tammy.barta@enron.com
+[ 191] jcjcal02@aol.com
+[ 192] richard.tomaski@enron.com
+[ 193] luanne.giessen@gs.com
+[ 194] gtownsend@manorisd.net
+[ 195] bryant.frihart@enron.com
+[ 196] michelle.cash@enron.com, catherine.huynh@enron.com,
+       dolores.lenfest@enron.com, hoyt.thomas@enron.com, fran.mayes@enron.com
+[ 197] information.management@enron.com
+[ 198] diane.ellstrom@enron.com
+[ 199] sheila.walton@enron.com
+[ 200] beth.apollo@enron.com
+[ 201] tori.kuykendall@enron.com, rhaygood@darbylaw.com
+[ 202] jay.reitmeyer@enron.com, stadogb@email.msn.com, ralee@rmi.net,
+       debbielatham@uswest.net, mlenhart@juno.com,
+       harris_jennifer_r@lilly.com, asorelle@h-s.com, sdarrah@entergy.com,
+       matthew.lenhart@enron.com
+[ 203] virginia.thompson@enron.com
+[ 204] benjamin.freeman@enron.com
+[ 205] rodney.malcolm@enron.com
+[ 206] sean.crandall@enron.com
+[ 207] shawna.flynn@enron.com
+[ 208] pverleger@compuserve.com
+[ 209] john.suttle@enron.com
+[ 210] scottwl@hotmail.com
+[ 211] george.robinson@enron.com
+[ 212] pyoung@cliverunnells.com
+[ 213] gary.lamphier@enron.com
+[ 214] david.dupre@enron.com
+[ 215] tarm27@texas.net
+[ 216] tanya.rohauer@enron.com
+[ 217] david.gorte@enron.com, rick.buy@enron.com, michael.tribolet@enron.com
+[ 218] elizabeth.serralheiro@enron.com
+[ 219] tony.spruiell@enron.com
+[ 220] twanda.sweet@enron.com
+[ 221] carl.tricoli@enron.com
+[ 222] cara.semperger@enron.com
+[ 223] angela.davis@enron.com
+[ 224] stella.morris@enron.com
+[ 225] mcgowenj@epenergy.com
+[ 226] merlinm@uswest.net
+[ 227] jane.mcbride@enron.com
+[ 228] mike.mcconnell@enron.com, steve.nagy@enron.com,
+       george.mcclellan@enron.com
+[ 229] greg_carrow@valic.com
+[ 230] amy.fitzpatrick@enron.com
+[ 231] o'neal.winfree@enron.com
+[ 232] julia.murray@enron.com
+[ 233] beverly.aden@enron.com
+[ 234] william.fleenor@enron.com
+[ 235] paula.warren@enron.com
+[ 236] dora_thurmond@uniteddc.com
+[ 237] shirley.crenshaw@enron.com
+[ 238] kathleen.carnahan@enron.com
+[ 239] debi.vanwey@enron.com
+[ 240] ron.coker@enron.com
+[ 241] john.ambler@enron.com
+[ 242] eric.gillaspie@enron.com
+[ 243] brandon.neff@enron.com
+[ 244] sue.nord@enron.com
+[ 245] sshackl@swbell.net
+[ 246] jserio@nicor.com
+[ 247] stephen.thome@enron.com
+[ 248] william.stuart@enron.com
+[ 249] dfranklin@hanovermeasurement.com
+[ 250] marcie.milner@enron.com
+[ 251] laurie.ellis@enron.com
+[ 252] ryan.ruppert@exxonmobil.com
+[ 253] pyoung@pdq.net
+[ 254] james.prentice@enron.com
+[ 255] frank.vickers@enron.com
+[ 256] andrew.kelemen@enron.com
+[ 257] pallen70@hotmail.com
+[ 258] jworman@academyofhealth.com
+[ 259] jimboman@bigfoot.com
+[ 260] john.neslage@enron.com
+[ 261] mary.darveaux@enron.com
+[ 262] sarah.novosel@enron.com
+[ 263] richard.ring@enron.com
+[ 264] shauncy.mathews@enron.com
+[ 265] leasa.lopez@enron.com
+[ 266] kean@rice.edu
+[ 267] connie.sutton@enron.com
+[ 268] meredith.mitchell@enron.com
+[ 269] fran.chang@enron.com
+[ 270] maradams@medicine.nodak.edu
+[ 271] kskilling@ehshouston.org
+[ 272] donna.fulton@enron.com
+[ 273] lucy.ortiz@enron.com
+[ 274] cris.sherman@enron.com
+[ 275] debinorton@aol.com
+[ 276] robert.neustaedter@enron.com
+[ 277] lance.cunningham@enron.com
+[ 278] andrew.edison@enron.com
+[ 279] mlk@pkns.com
+[ 280] amber.limas@enron.com
+[ 281] david_teece@lecg.com
+[ 282] lqcolombo@aol.com
+[ 283] mjones@gc.edu
+[ 284] john.kiani@enron.com
+[ 285] marcus.polach@enron.com
+[ 286] hunter.shively@enron.com
+[ 287] donnie.myers@enron.com
+[ 288] pdrexel@columbiaenergygroup.com
+[ 289] steve.gillespie@enron.com
+[ 290] bruce.sukaly@enron.com
+[ 291] greg.krause@enron.com
+[ 292] pamela.sonnier@enron.com
+[ 293] rose.botello@enron.com
+[ 294] afac@tfts.tozzini.com.br
+[ 295] chris.abel@enron.com
+[ 296] j.kinser@enron.com
+[ 297] kaye.ellis@enron.com
+[ 298] sherry.anastas@enron.com
+[ 299] ben@macklowegallery.com
+[ 300] camille.gerard@enron.com
+[ 301] julie.ferrara@enron.com
+[ 302] nella.cappelletto@enron.com
+[ 303] gacox@gsi-net.com
+[ 304] kdirks@utilicorp.com
+[ 305] bradley.diebner@enron.com
+[ 306] russ.severson@enron.com
+[ 307] rosalyn.lum@enron.com
+[ 308] mark.greenberg@enron.com
+[ 309] robert.virgo@enron.com
+[ 310] amanda.huble@enron.com
+[ 311] susan.mara@enron.com
+[ 312] tlenhart@corealty.com
+[ 313] mark.koenig@enron.com
+[ 314] jim.talcott@enron.com
+[ 315] mzeleanor@juno.com
+[ 316] labdsc@womans.com
+[ 317] ricardo.perez@enron.com
+[ 318] emily.sellers@enron.com
+[ 319] randy.young@enron.com
+[ 320] jeffrey.porter@enron.com
+[ 321] greg.couch@enron.com
+[ 322] smutny@iepa.com
+[ 323] martin.wenzel@enron.com
+[ 324] caroline.abramo@enron.com
+[ 325] rogers.herndon@enron.com
+[ 326] monique.sanchez@enron.com
+[ 327] bryan.hull@enron.com
+[ 328] scott.earnest@enron.com
+[ 329] william.gang@enron.com
+[ 330] scott.dieball@enron.com
+[ 331] greg.piper@enron.com
+[ 332] dave.samuels@enron.com
+[ 333] william.smith@enron.com
+[ 334] hbinder@porterhedges.com
+[ 335] llewter@austin.rr.com
+[ 336] andrews@calpine.com
+[ 337] jennifer.bagwell@enron.com
+[ 338] jpeters@andrews-kurth.com
+[ 339] rob.walls@enron.com
+[ 340] kathy.ringblom@enron.com
+[ 341] christopher.calger@enron.com
+[ 342] clement.abrams@enron.com
+[ 343] mkahl@ka-pow.com
+[ 344] mark.fisher@enron.com
+[ 345] brooklyn.couch@enron.com
+[ 346] bjackson@sswpc.com
+[ 347] dave.kellermeyer@enron.com
+[ 348] chris.booth@enron.com
+[ 349] judy.hernandez@enron.com, jh306@netzero.net, angela.barnett@enron.com,
+       suhernan@llgm.com, sandra.mcnichols@enron.com,
+       melissa.rodriguez@enron.com, warren.perry@enron.com,
+       maria.sandoval@enron.com, yvonne.acosta@enron.com,
+       eve.puckett@enron.com, cbburrell@juno.com
+[ 350] kscully@pirnie.com
+[ 351] cooper.richey@enron.com
+[ 352] bwallace@zahrsecurities.com
+[ 353] jonathan.hoff@enron.com
+[ 354] treasa.kirby@enron.com
+[ 355] stacey.white@enron.com
+[ 356] samuel.wehn@enron.com
+[ 357] val.generes@ac.com
+[ 358] chris.long@enron.com
+[ 359] tanya.leslie@enron.com
+[ 360] kristin.walsh@enron.com
+[ 361] ruth.jensen@enron.com
+[ 362] michael.barnas@ps.ge.com
+[ 363] enron@eott.com
+[ 364] mgermany@ch2m.com
+[ 365] airam.arteaga@enron.com
+[ 366] stephen.swift@ps.ge.com
+[ 367] tom.nemila@enron.com
+[ 368] schoongl@sce.com
+[ 369] jesse.villarreal@enron.com
+[ 370] jilallen@dttus.com
+[ 371] sneal12@mindspring.com
+[ 372] adele.raspe2@pseg.com
+[ 373] gavin.dillingham@enron.com
+[ 374] james.barker@enron.com
+[ 375] dhunter@s-k-w.com
+[ 376] thomas.engel@enron.com
+[ 377] rudwell.johnson@enron.com
+[ 378] jeff.nogid@enron.com
+[ 379] dtucker@bracepatt.com
+[ 380] rgibbs@btubrokers.com
+[ 381] wayne.gresham@enron.com
+[ 382] ken.gustafson@enron.com
+[ 383] robbi.rossi@enron.com
+[ 384] kerri.thompson@enron.com
+[ 385] clement.lau@enron.com
+[ 386] maria.salvatore@pseg.com
+[ 387] kim.mayers@mail.sprint.com
+[ 388] brenda.barreda@enron.com
+[ 389] julie@lacima.co.uk
+[ 390] john.redding@gene.ge.com
+[ 391] joni.veselack@neg.pge.com
+[ 392] pulhamus@aol.com
+[ 393] tracy.wood@enron.com
+[ 394] annas@cobs.edu
+[ 395] chuck.ames@enron.com
+[ 396] stephen.abbanat@enron.com
+[ 397] tracee.bersani@enron.com
+[ 398] swanita_99@yahoo.com
+[ 399] scott.morrill@grubb-ellis.com
+[ 400] rebecca.ford@enron.com
+[ 401] hermannpk@aol.com
+[ 402] james.saunders@enron.com
+[ 403] sherri.sera@enron.com
+[ 404] randy.petersen@enron.com
+[ 405] drhunt@watervalley.net
+[ 406] lance.schuler-legal@enron.com
+[ 407] keith.petersen@enron.com, drew.fossum@enron.com
+[ 408] miguel.vasquez@enron.com
+[ 409] bruce.rudy@enron.com
+[ 410] jaime.williams@enron.com
+[ 411] staci.holtzman@enron.com
+[ 412] linda.bryan@enron.com
+[ 413] joseph.hirl@enron.com
+[ 414] shutteej@epenergy.com
+[ 415] mitch.robinson@enron.com
+[ 416] virginia@clarkfineart.com
+[ 417] mary.solmonson@enron.com
+[ 418] bperron@columbiaenergy.com
+[ 419] robert.superty@enron.com
+[ 420] victor.lamadrid@enron.com
+[ 421] rakesh.bharati@enron.com
+[ 422] peggy.mahoney@enron.com
+[ 423] darren.maloney@enron.com
+[ 424] jorge.garcia@enron.com
+[ 425] lisa.alfaro@enron.com
+[ 426] jay_liberman@ml.com
+[ 427] evan.hughes@enron.com
+[ 428] debbie.brackett@enron.com
+[ 429] rshapiro@enron.com
+[ 430] diane.anderson@enron.com
+[ 431] todagost@utmb.edu
+[ 432] dhooker@utilicorp.com
+[ 433] jared.kaiser@enron.com
+[ 434] jennifer.rudolph@enron.com
+[ 435] chris.foster@enron.com
+[ 436] gus.eghneim@enron.com
+[ 437] christina.liscano@enron.com
+[ 438] jesse.bryson@enron.com
+[ 439] molly.lafuze@enron.com
+[ 440] 6202354@skytel.com
+[ 441] sandi.braband@enron.com
+[ 442] susan.flynn@enron.com
+[ 443] drusso@reliant.com
+[ 444] jpelti@lsumc.edu
+[ 445] dttowns@swbell.net
+[ 446] jdeason@chbh.com
+[ 447] robert.bruce@enron.com
+[ 448] cheryl.nelson@enron.com
+[ 449] fishkinc@hotmail.com
+[ 450] rick.johnson@enron.com
+[ 451] rusty.stevens@enron.com
+[ 452] holli.krebs@enron.com
+[ 453] anita.dupont@enron.com
+[ 454] mike.maggi@enron.com
+[ 455] angela.cadena@enron.com
+[ 456] kathy.scully@milliman.com
+[ 457] andrew.lewis@enron.com
+[ 458] elizabeth.soto@enron.com
+[ 459] julieg@qualcomm.com
+[ 460] tracy.cooper@enron.com
+[ 461] tricia.bowen@enron.com
+[ 462] dmitchel@cwt.com
+[ 463] mike.riedel@enron.com
+[ 464] delene.travella@funb.com
+[ 465] neil.hong@enron.com
+[ 466] jjones@jonesenergy.com
+[ 467] margaret.allen@enron.com
+[ 468] katie99@tamu.edu
+[ 469] stephen.dyer@bakerbotts.com
+[ 470] mday@gmssr.com
+[ 471] elizabeth.linnell@enron.com
+[ 472] cashley@poha.com
+[ 473] derek.naten@roche.com
+[ 474] leslie.robinson@enron.com, susan.pereira@enron.com,
+       stevens_hollister@eott.com
+[ 475] brian.barto@enron.com
+[ 476] janel.guerrero@enron.com
+[ 477] yao.apasu@enron.com
+[ 478] legal.4@enron.com
+[ 479] sladana-anna.kulic@enron.com
+[ 480] brian.schwertner@enron.com
+[ 481] donald.lassere@enron.com
+[ 482] bhansen@lhom.com
+[ 483] eric.ledain@enron.com
+[ 484] david.fairley@enron.com
+[ 485] joe.hillings@enron.com
+[ 486] chris.gaskill@enron.com
+[ 487] mary.gray@enron.com
+[ 488] jean.mrha@enron.com
+[ 489] james.lewis@enron.com
+[ 490] james.javins@enron.com
+[ 491] jilallen@deloitte.com
+[ 492] mpalmer@enron.com
+[ 493] pat.shortridge@enron.com
+[ 494] tobin.carlson@enron.com
+[ 495] mcesario@ormet.com
+[ 496] sheetal.patel@enron.com
+[ 497] louis.soldano@enron.com
+[ 498] arlanz@mexis.com
+[ 499] mtuohey@velaw.com
+[ 500] kim.melodick@enron.com, michael.cowan@enron.com,
+       chris.dorland@enron.com
+[ 501] kriste.sullivan@enron.com
+[ 502] daniel.rogers@enron.com
+[ 503] stacey.brewer@enron.com
+[ 504] jenwhite7@zdnetonebox.com
+[ 505] pthompson@akllp.com
+[ 506] jcutaia@tupac.com
+[ 507] brian.redmond@enron.com
+[ 508] heather.kroll@enron.com
+[ 509] arnold.eisenstein@enron.com
+[ 510] peggy.banczak@enron.com
+[ 511] rmadden@gibbs-bruns.com
+[ 512] michele.marvin@enron.com
+[ 513] courtney_abernathy@yahoo.com
+[ 514] brenda.flores-cuellar@enron.com
+[ 515] pwright@llgm.com
+[ 516] cdalpho@columbiaenergygroup.com
+[ 517] doug.gilbert-smith@enron.com
+[ 518] steve.hooser@enron.com
+[ 519] jason.bass2@compaq.com
+[ 520] bernice.rodriguez@enron.com
+[ 521] merrill.haas@enron.com
+[ 522] charles200064@aol.com
+[ 523] iris.waser@enron.com
+[ 524] cntrybr279@cs.com
+[ 525] lisa.bills@enron.com
+[ 526] paulo.issler@enron.com
+[ 527] martin.rosell@enron.com
+[ 528] lisa.yoho@enron.com
+[ 529] janet.dietrich@enron.com
+[ 530] kennethbrawner@msn.com
+[ 531] kevin.a.boone@accenture.com
+[ 532] slafontaine@globalp.com
+[ 533] clayton.seigle@enron.com
+[ 534] dan.dorland@enron.com
+[ 535] brett.wiggs@enron.com
+[ 536] james.bouillion@enron.com
+[ 537] clare.godson@allenovery.com
+[ 538] natalie.baker@enron.com
+[ 539] kim.ward@enron.com
+[ 540] lou.stoler@enron.com
+[ 541] michael.neves@enron.com
+[ 542] ross.newlin@enron.com
+[ 543] dorothy.mccoppin@enron.com
+[ 544] karen.heathman@enron.com
+[ 545] john.griffith@enron.com
+[ 546] janisp@dialdata.com.br
+[ 547] cindy.olson@enron.com
+[ 548] jperdew@apbenergy.com
+[ 549] john.sherriff@enron.com
+[ 550] ksiles@hotmail.com, angela.hylton@enron.com, matt.smith@enron.com,
+       sharriman@pirnie.com
+[ 551] hollyw@email.msn.com
+[ 552] kbridge23@aol.com
+[ 553] james.steffes@enron.com
+[ 554] jeffrey.garten@yale.edu, rosalee.fleming@enron.com
+[ 555] john.schwartzenburg@enron.com
+[ 556] mike.jakubik@enron.com
+[ 557] ernie.j.zavaleta@fritolay.com
+[ 558] kevin.bosse@enron.com
+[ 559] dhunter@smithandkempton.com
+[ 560] jessie.patterson@enron.com
+[ 561] roths@orbitworld.net
+[ 562] becky.spencer@enron.com
+[ 563] lipsen@cisco.com
+[ 564] dan.leff@enron.com
+[ 565] rob.bradley@enron.com
+[ 566] alan.larsen@enron.com
+[ 567] virendra.patel@enron.com
+[ 568] brian.r.vassigh@accenture.com
+[ 569] jrogers@cinergy.com
+[ 570] lofeco@ev1.net
+[ 571] suzanneadams@att.net
+[ 572] bridgette.anderson@enron.com
+[ 573] rex.rogers@enron.com
+[ 574] andres.balmaceda@enron.com
+[ 575] susan.hadix@elpaso.com
+[ 576] john.goodpasture@enron.com
+[ 577] marc.r.cutler@bankamerica.com
+[ 578] gregg.penman@enron.com
+[ 579] omar.al-farisi@csfb.com
+[ 580] cwhite@viviance.com
+[ 581] gail.brownfeld@enron.com
+[ 582] bmccall@wcnet.net
+[ 583] mmolloy@oebi.com
+[ 584] jose.bestard@enron.com
+[ 585] kristen.clause@enron.com
+[ 586] lexi.elliott@enron.com
+[ 587] james.grace@enron.com
+[ 588] bill.iii@enron.com
+[ 589] leslie.smith@enron.com
+[ 590] stagecoachmama@hotmail.com
+[ 591] robert.hemstock@enron.com
+[ 592] joan.veselack@enron.com
+[ 593] michelle.blaine@enron.com
+[ 594] sylvia.pollan@enron.com
+[ 595] stuart.zisman@enron.com
+[ 596] pama9@flash.net
+[ 597] dana.daigle@enron.com
+[ 598] tom.swank@enron.com
+[ 599] timothy.detmering@enron.com
+[ 600] andrea.guillen@enron.com
+[ 601] sherry@radack.com
+[ 602] fernley.dyson@enron.com
+[ 603] j.nassos@pecorp.com
+[ 604] jenny.helton@enron.com
+[ 605] david.maxwell@enron.com
+[ 606] jay.fitzgerald@enron.com
+[ 607] kwpope@pdq.net
+[ 608] ingrid.immer@williams.com
+[ 609] tom.riley@enron.com
+[ 610] rachel.m.bonilla@ac.com
+[ 611] trogg522@aol.com
+[ 612] charles.cheek@enron.com
+[ 613] wmontjoy@brunini.com
+[ 614] edm1@home.com
+[ 615] mcyrus@cinergy.com
+[ 616] larry.lawyer@enron.com
+[ 617] dave.scott@enron.com
+[ 618] joe.quenet@enron.com
+[ 619] rita.wynne@enron.com
+[ 620] julian.poole@enron.com
+[ 621] kevin.hyatt@enron.com
+[ 622] mcarson@gtemail.net
+[ 623] clarissa.garcia@enron.com
+[ 624] ddorland@smednet.com
+[ 625] rjr@houston.rr.com
+[ 626] zimin.lu@enron.com
+[ 627] anita.patton@enron.com
+[ 628] mary.clark@enron.com
+[ 629] richard.zdunkewicz@enron.com
+[ 630] tyrell.harrison@enron.com
+[ 631] michael.miller@enron.com
+[ 632] tasha.lair@enron.com
+[ 633] hope.vargas@enron.com
+[ 634] scott.bolton@enron.com
+[ 635] cathy.phillips@enron.com
+[ 636] bob.chandler@enron.com
+[ 637] cwpfister@cps-satx.com
+[ 638] michelle.neville@enron.com
+[ 639] lschiffm@jonesday.com
+[ 640] lysherif@yahoo.com
+[ 641] mary.franklin@enron.com
+[ 642] frank.bay@enron.com
+[ 643] susan.rance@enron.com
+[ 644] lynn.aven@enron.com
+[ 645] lee.johnson@ss.ps.ge.com
+[ 646] kevin.radous@enron.com
+[ 647] laura.wente@enron.com
+[ 648] eric.letke@enron.com
+[ 649] samuel.schott@enron.com
+[ 650] heather.choate@enron.com
+[ 651] phil.clifford@enron.com
+[ 652] richard.deming@enron.com
+[ 653] wade.price@enron.com
+[ 654] janette.elbertson@enron.com
+[ 655] christie.patrick@enron.com
+[ 656] val.generes@accenture.com
+[ 657] veronica.espinoza@enron.com
+[ 658] sshackl@msn.com
+[ 659] sylvia.campos@enron.com
+[ 660] jim.homco@enron.com
+[ 661] linda.guinn@enron.com
+[ 662] mark.schlueter@enron.com
+[ 663] lisa.lees@enron.com
+[ 664] asalazar@pirnie.com
+[ 665] liz.taylor@enron.com
+[ 666] aduncan@kilstock.com
+[ 667] grant.oh@enron.com
+[ 668] fmackin@aol.com
+[ 669] mark.knippa@enron.com
+[ 670] kenneth.lay@enron.com
+[ 671] jan.king@enron.com
+[ 672] kent.shoemaker@ae.ge.com
+[ 673] jane.tholt@enron.com, msable@sdge.com
+[ 674] jim.little@enron.com
+[ 675] andrea.calo@enron.com
+[ 676] lola.willis@enron.com
+[ 677] dloon@uschamber.com
+[ 678] sami.arap@enron.com
+[ 679] erika.dupre@enron.com
+[ 680] patti.thompson@enron.com
+[ 681] mmmarcantel@equiva.com
+[ 682] michael.terraso@enron.com
+[ 683] rerodrigue@hotmail.com
+[ 684] mark.ruane@enron.com
+[ 685] kam.keiser@enron.com
+[ 686] kimberly.indelicato@enron.com
+[ 687] v.weldon@enron.com
+[ 688] brian.bierbach@enron.com
+[ 689] mark.evans@enron.com
+[ 690] steven.kessler@db.com
+[ 691] hgovenar@mail.acom2.com
+[ 692] kevin.hughes@enron.com
+[ 693] peter.vecchio@enron.com
+[ 694] debora.whitehead@enron.com
+[ 695] jerry.peters@enron.com, rod.hayslett@enron.com
+[ 696] edward.ondarza@enron.com
+[ 697] jbennett@gmssr.com
+[ 698] allan.sommer@enron.com
+[ 699] dominic.dimare@calchamber.com
+[ 700] mlenhart@ev1.net
+[ 701] dan.bump@enron.com
+[ 702] abraham5@flash.net
+[ 703] chris.mahoney@enron.com
+[ 704] mark.mcconnell@enron.com
+[ 705] anne.bike@enron.com
+[ 706] fran.deltoro@enron.com
+[ 707] joann.collins@enron.com
+[ 708] roseann.engeldorf@enron.com
+[ 709] pinnamaneni.krishnarao@enron.com
+[ 710] mjmcdermott@hotmail.com
+[ 711] angela.mcculloch@enron.com
+[ 712] steven.south@enron.com
+[ 713] sjensen@bracepatt.com
+[ 714] susan.harrison@enron.com
+[ 715] psellers@haas.berkeley.edu
+[ 716] deirdre.mccaffrey@enron.com
+[ 717] angela.schwarz@enron.com
+[ 718] trey.cash@enron.com
+[ 719] cassandra.schultz@enron.com
+[ 720] sharen.cason@enron.com
+[ 721] roger.yang@enron.com
+[ 722] cwhite@texas.usta.com
+[ 723] william.kendrick@enron.com
+[ 724] djenergy@dowjones.com
+[ 725] beverly.beaty@enron.com
+[ 726] david.oxley@enron.com
+[ 727] andrea.ring@enron.com
+[ 728] dgioffre@hotmail.com
+[ 729] karen.mcilvoy@enron.com
+[ 730] stacy.hardy@enron.com
+[ 731] james.hughes@enron.com
+[ 732] lynn.pikofsky@enron.com
+[ 733] titman@mail.utexas.edu
+[ 734] eric.thode@enron.com
+[ 735] lloyd.will@enron.com
+[ 736] acurry@velaw.com
+[ 737] steve.walker@enron.com
+[ 738] gpier@doubleclick.net
+[ 739] jason.williams@enron.com
+[ 740] peggy.hedstrom@enron.com
+[ 741] nwodka@bracepatt.com
+[ 742] cameron@perfect.com
+[ 743] wanda.curry@enron.com
+[ 744] per.sekse@enron.com
+[ 745] jeff.donahue@enron.com
+[ 746] leslie.reeves@enron.com
+[ 747] dee.madole@enron.com
+[ 748] kerrie_murray@telus.com
+[ 749] alison.keogh@enron.com
+[ 750] james.scribner@enron.com
+[ 751] luis.mena@enron.com
+[ 752] ozzie.pagan@enron.com
+[ 753] theresa.branney@enron.com
+[ 754] nmann@erac.com
+[ 755] mark.schroeder@enron.com
+[ 756] suew2@aol.com
+[ 757] kristin.albrecht@enron.com
+[ 758] dla6138201@aol.com
+[ 759] douglas.condon@enron.com
+[ 760] thomas.gros@enron.com
+[ 761] peter.feltman@enron.com
+[ 762] mike.jordan@enron.com
+[ 763] 9069761@skytel.com
+[ 764] dutch.quigley@enron.com
+[ 765] matthew.gockerman@enron.com
+[ 766] pat.radford@enron.com
+[ 767] bcherry@sempra.com
+[ 768] evelyn.metoyer@enron.com
+[ 769] sharon.dick@enron.com
+[ 770] dkinney@columbiaenergygroup.com
+[ 771] brian.schaffer@enron.com
+[ 772] mreuter@kslaw.com
+[ 773] kevin.ruscitti@enron.com
+[ 774] norma.villarreal@enron.com
+[ 775] steve.jackson@enron.com
+[ 776] cbpres@austin.rr.com
+[ 777] valarie.sabo@enron.com
+[ 778] bruce.mills@enron.com
+[ 779] marcelo_cosma@ml.com
+[ 780] paula.rieker@enron.com
+[ 781] stinson.gibner@enron.com
+[ 782] 8886424977@pagenetmessage.net
+[ 783] dick.jenkins@enron.com
+[ 784] markskilling@hotmail.com
+[ 785] sharon.smith@enron.com
+[ 786] debbielatham@realtor.com
+[ 787] margaret.carson@enron.com
+[ 788] peggy.fowler@enron.com
+[ 789] brian.dawson@enron.com
+[ 790] stephen.stock@enron.com
+[ 791] rmgarth@mediaone.net
+[ 792] ann.cohn@sce.com
+[ 793] brian.kristjansen@enron.com
+[ 794] rick.bergsieker@enron.com
+[ 795] kristina.mordaunt@enron.com
+[ 796] djhyvl@aep.com
+[ 797] cdade@bracepatt.com
+[ 798] chjohnson98@hotmail.com
+[ 799] carlos.sole@enron.com
+[ 800] edward.baughman@enron.com
+[ 801] joe.casas@enron.com
+[ 802] rtellis@milbank.com
+[ 803] james.ajello@enron.com
+[ 804] conway77@vision1mm.com
+[ 805] paul.w.juneau@usa.dupont.com
+[ 806] jeremiahdeberry@paulhastings.com
+[ 807] dick.varner@eweb.eugene.or.us
+[ 808] ryan.f.ruppert@exxon.sprint.com
+[ 809] jim.armogida@enron.com
+[ 810] michael.driscoll@enron.com
+[ 811] tchandler@velaw.com
+[ 812] lhayman@skadden.com
+[ 813] kimberly.allen@enron.com
+[ 814] ravi.thuraisingham@enron.com
+[ 815] rgrove@isda.org
+[ 816] david.roensch@enron.com
+[ 817] rbobo@iservco.com
+[ 818] martha.benner@enron.com
+[ 819] jalexander@gibbs-bruns.com
+[ 820] marde.driscoll@enron.com
+[ 821] shanna.funkhouser@enron.com
+[ 822] maureen.mcvicker@enron.com
+[ 823] barry.pearce@enron.com
+[ 824] bgabrielson@cdnam.com
+[ 825] mary.bailey@enron.com
+[ 826] andrew.fastow@enron.com
+[ 827] mark.muller@enron.com
+[ 828] jacqueline.adams@enron.com
+[ 829] gfergus@brobeck.com
+[ 830] rahil.jafry@enron.com
+[ 831] susan.musch@enron.com
+[ 832] laine.powell@enron.com
+[ 833] jennifer.cutaia@enron.com
+[ 834] john.pavetto@enron.com
+[ 835] bill.votaw@enron.com
+[ 836] timothy.blanchard@enron.com
+[ 837] daniel.kang@enron.com
+[ 838] dlove8847@aol.com
+[ 839] joan.quick@enron.com
+[ 840] john.shafer@enron.com
+[ 841] yolanda.cordova-gilbert@enron.com
+[ 842] leslie.lawner@enron.com
+[ 843] chris.gaffney@enron.com
+[ 844] audrey.robertson@enron.com
+[ 845] alicia.perkins@enron.com
+[ 846] robin.decker@enron.com
+[ 847] jonathan.mckay@enron.com
+[ 848] sheila.tweed@enron.com
+[ 849] felecia.acevedo@enron.com
+[ 850] doug.leach@enron.com
+[ 851] phillip.platter@enron.com
+[ 852] taffy.milligan@enron.com
+[ 853] mary.poorman@enron.com
+[ 854] cscott_korea@yahoo.com
+[ 855] mark.feldman@enron.com
+[ 856] hfl@fp.edu
+[ 857] molly.johnson@enron.com
+[ 858] carlew@flash.net
+[ 859] gayle.muench@enron.com
+[ 860] steve.irvin@enron.com
+[ 861] kathy.bass@enron.com
+[ 862] mona.petrochko@enron.com
+[ 863] marcus.nettelton@enron.com
+[ 864] fred.philipson@enron.com
+[ 865] kkw816@aol.com
+[ 866] cathy.corbin@enron.com
+[ 867] ryan.watt@enron.com
+[ 868] laird.dyer@enron.com
+[ 869] robert.walker@enron.com
+[ 870] alan.comnes@enron.com
+[ 871] julie.meyers@enron.com
+[ 872] tjfarmer@juno.com
+[ 873] thor.lien@enron.com
+[ 874] julia.chin@enron.com
+[ 875] rebecca.walker@enron.com
+[ 876] keith.holst@enron.com
+[ 877] 9069876@skytel.com
+[ 878] mbain@mail.bokf.com
+[ 879] triley@enron.com
+[ 880] paul.rodrigue@trin.net
+[ 881] delma.salazar@enron.com
+[ 882] ted.bland@enron.com
+[ 883] christine.stokes@enron.com
+[ 884] jubran.whalan@enron.com
+[ 885] isenberg@hmot.com
+[ 886] herman.manis@enron.com
+[ 887] jtownse@yahoo.com
+[ 888] pat.clynes@enron.com
+[ 889] ludkam@aol.com
+[ 890] barbara.gray@enron.com
+[ 891] jeffrey.mcmahon@enron.com
+[ 892] stephanie.piwetz@enron.com
+[ 893] jordan.mintz@enron.com
+[ 894] kenrcars@aol.com
+[ 895] nmanne@susmangodfrey.com
+[ 896] amber.ebow@enron.com
+[ 897] carla.hoffman@enron.com
+[ 898] mcunningham@isda.org
+[ 899] lisa.best@enron.com
+[ 900] ryan.o'rourke@enron.com
+[ 901] becky.pitre@enron.com
+[ 902] jake.thomas@enron.com
+[ 903] david.foti@enron.com
+[ 904] dana.gibbs@enron.com
+[ 905] fletcher.sturm@enron.com
+[ 906] matt.dawson@enron.com
+[ 907] kimat.singla@enron.com
+[ 908] dale.rasmussen@enron.com
+[ 909] randall.gay@enron.com
+[ 910] mlenhart@houston.rr.com
+[ 911] victoria.versen@enron.com
+[ 912] d.hall@enron.com
+[ 913] alex.huang@enron.com
+[ 914] alma.martinez@enron.com
+[ 915] bernadette.hawkins@enron.com
+[ 916] shanna.husser@enron.com
+[ 917] john.hardy@enron.com
+[ 918] aimee.lannou@enron.com
+[ 919] peterthompson@akllp.com
+[ 920] bill.cordes@enron.com
+[ 921] lizard_ar@yahoo.com
+[ 922] yyaish@exchange.ml.com
+[ 923] mark.thorne@enron.com
+[ 924] jacquestc@aol.com
+[ 925] nytasha.sims@dynegy.com
+[ 926] lenine.jeganathan@enron.com
+[ 927] glen.hass@enron.com
+[ 928] john.peyton@enron.com
+[ 929] rhett.jackson@enron.com
+[ 930] barry.tycholiz@enron.com
+[ 931] rkenned@rbcds.com
+[ 932] alove@talisman-energy.com
+[ 933] michael.spruiell@enron.com
+[ 934] katherine.kelly@enron.com
+[ 935] matt.maxwell@enron.com
+[ 936] edward.terry@enron.com
+[ 937] chad.landry@enron.com
+[ 938] souad.mahmassani@enron.com
+[ 939] expense.report@enron.com
+[ 940] adnan.patel@enron.com
+[ 941] mgeorge@deloitte.ca
+[ 942] julie@lacimagroup.com
+[ 943] diane.salcido@enron.com
+[ 944] knotestine@littler.com
+[ 945] gordon.mckillop@enron.com
+[ 946] bill.williams@enron.com
+[ 947] g7pwc3@stennis.navy.mil
+[ 948] denise.lagesse@enron.com
+[ 949] pederleifkjeseth@hotmail.com
+[ 950] charlotte.kraham@enron.com
+[ 951] scott.laidlaw@enron.com
+[ 952] peter.keavey@enron.com
+[ 953] thomas.suffield@enron.com
+[ 954] michael.moran@enron.com
+[ 955] robert.allwein@enron.com
+[ 956] cecilia.rodriguez@enron.com
+[ 957] drothrock@cmta.net
+[ 958] pla@marval.com.ar
+[ 959] jjw@ziplip.com
+[ 960] marty.sunde@enron.com
+[ 961] raislerk@sullcrom.com
+[ 962] kenneth.shulklapper@enron.com
+[ 963] john.malowney@enron.com
+[ 964] allison.mchenry@enron.com
+[ 965] sarah.mulholland@enron.com
+[ 966] germanj@basf-corp.com
+[ 967] kristi.giron@cfisd.net
+[ 968] deborah_macdonald@kindermorgan.com
+[ 969] lee.papayoti@enron.com
+[ 970] bruce.harris@enron.com
+[ 971] julia.white@enron.com
+[ 972] stelzer@aol.com
+[ 973] patrick.ryder@enron.com
+[ 974] brad.mckay@enron.com
+[ 975] kimberly.brown@enron.com
+[ 976] kkupiecki@arpartners.com
+[ 977] marlene.hilliard@enron.com
+[ 978] richard.sage@enron.com
+[ 979] kevin.sweeney@enron.com
+[ 980] hector.campos@enron.com
+[ 981] robert.cass@enron.com
+[ 982] holly.keiser@enron.com
+[ 983] shannon.mcpearson@enron.com
+[ 984] rick.loveless@enron.com
+[ 985] claudia.meraz@enron.com
+[ 986] michael.robison@enron.com
+[ 987] cbrashear@velaw.com
+[ 988] alan.aronowitz@enron.com
+[ 989] matthew.berry@enron.com
+[ 990] cgiron@mindspring.com
+[ 991] eric.gonzales@enron.com
+[ 992] cyndie.balfour-flanagan@enron.com
+[ 993] heidi.griffith@enron.com
+[ 994] david.onuscheck@us.abb.com
+[ 995] janine.juggins@enron.com
+[ 996] lorraine.lindberg@enron.com
+[ 997] crystal.hyde@enron.com
+[ 998] donald.black@enron.com
+[ 999] tamara.johnson@enron.com
+[1000] linda.robertson@enron.com
+[1001] mark.whitt@enron.com
+[1002] daphneco64@bigplanet.com
+[1003] nicholas.stephan@enron.com
+[1004] regina.blackshear@enron.com
+[1005] harry.kingerski@enron.com
+[1006] smara@enron.com
+[1007] jeldredge@velaw.com
+[1008] ami.chokshi@enron.com
+[1009] trpape@aol.com
+[1010] clint.freeland@enron.com
+[1011] philippe.bibi@enron.com
+[1012] walter.guidroz@enron.com
+[1013] carson@us.ibm.com
+[1014] joseph.deffner@enron.com
+[1015] martin.lin@enron.com
+[1016] mbtos@tozzini.com.br
+[1017] mary.gosnell@enron.com
+[1018] brbarkovich@earthlink.net
+[1019] lisa.shoemake@enron.com
+[1020] jeffery.fawcett@enron.com
+[1021] linda.sietzema@enron.com
+[1022] s.schnitzer@worldnet.att.net
+[1023] mark_guinney@watsonwyatt.com
+[1024] cary.carrabine@enron.com
+[1025] lia.halstead@enron.com
+[1026] robin.barbe@enron.com
+[1027] dari.dornan@enron.com
+[1028] chris.walker@enron.com
+[1029] kristin.gandy@enron.com
+[1030] wendi.lebrocq@enron.com
+[1031] kimberly.hillis@enron.com
+[1032] rlmichaelis@hormel.com
+[1033] bstclair@dellnet.com
+[1034] ameytina@bear.com
+[1035] scott.gahn@enron.com
+[1036] elizabeth.hernandez@enron.com
+[1037] cynthia.franklin@enron.com
+[1038] csilva@redsky.com
+[1039] robert.badeer@enron.com
+[1040] tpape@satake-usa.com
+[1041] chris.mallory@enron.com
+[1042] dovie.keprta@enron.com
+[1043] todd.johnson.b@bayer.com
+[1044] lysa.akin@enron.com
+[1045] marsha.suggs@enron.com
+[1046] david.marshall@enron.com
+[1047] dimeff@haas.berkeley.edu
+[1048] laynie.east@enron.com
+[1049] dgiron1@pdq.net
+[1050] cthompson@bracepatt.com
+[1051] maureen.smith@enron.com
+[1052] vladimir.gorny@enron.com
+[1053] mark.courtney@enron.com
+[1054] rachel.bonilla-kragel@accenture.com
+[1055] janelle.scheuer@enron.com
+[1056] john.llodra@enron.com
+[1057] karen.jones@enron.com
+[1058] gfl@blakes.com
+[1059] stephen.plauche@enron.com
+[1060] daniel.falcone@enron.com
+[1061] lys@a-klaw.com
+[1062] jhh1@email.msn.com
+[1063] isabel.parker@freshfields.com
+[1064] gacox@mail.gsi-net.com
+[1065] joe.hartsoe@enron.com
+[1066] harold.buchanan@enron.com
+[1067] rahmaan.mwongozi@enron.com
+[1068] brenda.whitehead@enron.com
+[1069] darren.vanek@enron.com
+[1070] karen.way@piperrudnick.com
+[1071] rae.meadows@enron.com
+[1072] dianne.seib@enron.com
+[1073] michele.winckowski@enron.com
+[1074] janice.moore@enron.com
+[1075] radack@dca.co.harris.tx.us
+[1076] mimsc@ops.org
+[1077] eugenio.perez@enron.com
+[1078] craig.sutter@enron.com
+[1079] kathy_nuernberg@yahoo.com
+[1080] denis.o'connell@enron.com
+[1081] kent.miller@enron.com
+[1082] jeff.messina@enron.com
+[1083] christine.piesco@oracle.com
+[1084] wdgermanyjr@dow.com
+[1085] ina.rangel@enron.com
+[1086] jeannie.mandelker@enron.com
+[1087] michael.olsen@enron.com
+[1088] iris.mack@enron.com
+[1089] darla.saucier@enron.com
+[1090] judy.walters@enron.com
+[1091] jefferson.sorenson@enron.com
+[1092] ken@kdscommunications.com
+[1093] chance.rabon@enron.com
+[1094] dpef@blakes.com
+[1095] kal.shah@enron.com
+[1096] dawn.kenne@enron.com
+[1097] jmunoz@mcnallytemple.com
+[1098] shelliott@dttus.com
+[1099] ken.choyce@enron.com
+[1100] gregorylang@paulhastings.com
+[1101] laura.luce@enron.com
+[1102] gbsonnta@utmb.edu
+[1103] choekenga@br-inc.com
+[1104] ryan.siurek@enron.com
+[1105] kayne.coulter@enron.com
+[1106] rosalinda.tijerina@enron.com
+[1107] roger.ondreko@enron.com
+[1108] john.shoobridge@enron.com
+[1109] vjw@cleanpower.org
+[1110] bswaldrop@aol.com
+[1111] dale.surbey@enron.com
+[1112] liz.bellamy@enron.com
+[1113] marie.heard@enron.com
+[1114] shirlet.williams@enron.com
+[1115] dennis.benevides@enron.com
+[1116] jeffery.ader@enron.com
+[1117] bill.donovan@enron.com
+[1118] scott.josey@enron.com
+[1119] sschroed@us.ca-indosuez.com
+[1120] sstojic@gbmdc.com
+[1121] andrew.miles@enron.com
+[1122] j_martin@baylor.edu
+[1123] rick.hopkinson@enron.com
+[1124] lee.huber@enron.com
+[1125] kdorland@titanelectric.com
+[1126] james.fallon@enron.com
+[1127] nicole.laporte@enron.com
+[1128] brettlawler@hotmail.com
+[1129] randal.maffett@enron.com
+[1130] ccobb@akllp.com
+[1131] eva.neufeld@enron.com
+[1132] 8915473@archwireless.net
+[1133] mvanrassel@rpmtec.com
+[1134] shirley.s.elliott@citicorp.com
+[1135] sandra.dial@enron.com
+[1136] janet.cones@enron.com
+[1137] sbishop@gibbs-bruns.com
+[1138] greg.wolfe@enron.com
+[1139] scott.pleus@enron.com
+[1140] gordon.heaney@enron.com
+[1141] angie.zeman@enron.com

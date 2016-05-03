@@ -1,112 +1,112 @@
 Weighted: false
-Num vertices: 577
-Num edges: 657
-Num components: 13
-Max degree: 128 (mona.petrochko@enron.com)
-Average path length: 5.0650174141
-Diameter: 11
-Global cluster coefficient: 0.0131816133393
-Average local cluster coefficient: 0.421661868234
+Num vertices: 1626
+Num edges: 2256
+Num components: 7
+Max degree: 218 (greg.whalley@enron.com)
+Average path length: 4.16702720032
+Diameter: 9
+Global cluster coefficient: 0.0215822876398
+Average local cluster coefficient: 0.491943114375
 
 
 PageRank centralities
-jeff.dasovich@enron.com, 0.0938006034633
-tana.jones@enron.com, 0.057342415699
-chris.germany@enron.com, 0.0425441926116
-kay.mann@enron.com, 0.0294147669189
-eric.bass@enron.com, 0.0178660331773
-sara.shackleton@enron.com, 0.0175485180069
-david.delainey@enron.com, 0.0167509565767
-phillip.love@enron.com, 0.0128286020873
-matthew.lenhart@enron.com, 0.0128284370618
-judy.hernandez@enron.com, 0.0113965811094
-sally.beck@enron.com, 0.0110386486806
-vince.kaminski@enron.com, 0.0104335081944
-mark.taylor@enron.com, 0.00983221335001
-darron.giron@enron.com, 0.00936614490125
-debra.perlingiere@enron.com, 0.00901024342109
+jeff.dasovich@enron.com, 0.0476345924936
+tana.jones@enron.com, 0.0316536855033
+chris.germany@enron.com, 0.0245201165235
+kay.mann@enron.com, 0.0236332928642
+sara.shackleton@enron.com, 0.0211333665476
+mark.haedicke@enron.com, 0.0162329580167
+vince.kaminski@enron.com, 0.0145936567982
+david.delainey@enron.com, 0.0144202559709
+gerald.nemec@enron.com, 0.0139517171107
+sally.beck@enron.com, 0.0126529433368
+richard.sanders@enron.com, 0.012553385791
+kate.symes@enron.com, 0.0120603033556
+steven.kean@enron.com, 0.0119327793459
+phillip.love@enron.com, 0.0111822606836
+matthew.lenhart@enron.com, 0.0109870315132
 
 Raw degrees (undirected)
-jeff.dasovich@enron.com, 128
-tana.jones@enron.com, 97
-chris.germany@enron.com, 54
-kay.mann@enron.com, 40
-sara.shackleton@enron.com, 33
-eric.bass@enron.com, 25
-david.delainey@enron.com, 24
-mark.taylor@enron.com, 19
-matthew.lenhart@enron.com, 19
-phillip.love@enron.com, 18
-sally.beck@enron.com, 16
-debra.perlingiere@enron.com, 15
-judy.hernandez@enron.com, 14
-darron.giron@enron.com, 13
-elizabeth.sager@enron.com, 13
+jeff.dasovich@enron.com, 218
+tana.jones@enron.com, 179
+sara.shackleton@enron.com, 118
+kay.mann@enron.com, 111
+chris.germany@enron.com, 101
+mark.haedicke@enron.com, 98
+david.delainey@enron.com, 79
+richard.sanders@enron.com, 69
+gerald.nemec@enron.com, 67
+mark.taylor@enron.com, 67
+vince.kaminski@enron.com, 65
+sally.beck@enron.com, 65
+steven.kean@enron.com, 64
+carol.clair@enron.com, 53
+phillip.love@enron.com, 53
 
 Hub scores
-jeff.dasovich@enron.com, 0.677754829648
-tana.jones@enron.com, 0.161108144987
-steven.kean@enron.com, 0.100333420898
-richard.sanders@enron.com, 0.0886865303927
-william.bradford@enron.com, 0.0801121647728
-edward.sacks@enron.com, 0.0801121647728
-sara.shackleton@enron.com, 0.0791481087551
-susan.scott@enron.com, 0.0704603580752
-linda.robertson@enron.com, 0.0679015049636
-joe.hartsoe@enron.com, 0.0679015049636
-richard.shapiro@enron.com, 0.0679015049636
-karen.denne@enron.com, 0.0679015049636
-james.steffes@enron.com, 0.0679015049636
-robert.williams@enron.com, 0.0668851146083
-gfergus@brobeck.com, 0.0668851146083
+tana.jones@enron.com, 0.415422321632
+mark.haedicke@enron.com, 0.29456222869
+sara.shackleton@enron.com, 0.278197447246
+mark.taylor@enron.com, 0.240337914233
+jeff.dasovich@enron.com, 0.214155530327
+carol.clair@enron.com, 0.172993991809
+richard.sanders@enron.com, 0.16447254003
+elizabeth.sager@enron.com, 0.150595196553
+david.delainey@enron.com, 0.116308453739
+kay.mann@enron.com, 0.110516204227
+steven.kean@enron.com, 0.103687165514
+jeffrey.hodge@enron.com, 0.0935148405939
+suzanne.adams@enron.com, 0.0837361473677
+john.lavorato@enron.com, 0.0797885772188
+mary.cook@enron.com, 0.0776157658252
 
 Authority centralities
-jeff.dasovich@enron.com, 0.677754829648
-tana.jones@enron.com, 0.161108144987
-steven.kean@enron.com, 0.100333420898
-richard.sanders@enron.com, 0.0886865303927
-william.bradford@enron.com, 0.0801121647728
-edward.sacks@enron.com, 0.0801121647728
-sara.shackleton@enron.com, 0.0791481087551
-susan.scott@enron.com, 0.0704603580752
-linda.robertson@enron.com, 0.0679015049636
-joe.hartsoe@enron.com, 0.0679015049636
-richard.shapiro@enron.com, 0.0679015049636
-karen.denne@enron.com, 0.0679015049636
-james.steffes@enron.com, 0.0679015049636
-robert.williams@enron.com, 0.0668851146083
-gfergus@brobeck.com, 0.0668851146083
+tana.jones@enron.com, 0.415422321632
+mark.haedicke@enron.com, 0.29456222869
+sara.shackleton@enron.com, 0.278197447246
+mark.taylor@enron.com, 0.240337914233
+jeff.dasovich@enron.com, 0.214155530327
+carol.clair@enron.com, 0.172993991809
+richard.sanders@enron.com, 0.16447254003
+elizabeth.sager@enron.com, 0.150595196553
+david.delainey@enron.com, 0.116308453739
+kay.mann@enron.com, 0.110516204227
+steven.kean@enron.com, 0.103687165514
+jeffrey.hodge@enron.com, 0.0935148405939
+suzanne.adams@enron.com, 0.0837361473677
+john.lavorato@enron.com, 0.0797885772188
+mary.cook@enron.com, 0.0776157658252
 
 Eigen vector centralities
-jeff.dasovich@enron.com, 0.677754829648
-tana.jones@enron.com, 0.161108144987
-steven.kean@enron.com, 0.100333420898
-richard.sanders@enron.com, 0.0886865303927
-edward.sacks@enron.com, 0.0801121647728
-william.bradford@enron.com, 0.0801121647728
-sara.shackleton@enron.com, 0.0791481087551
-susan.scott@enron.com, 0.0704603580752
-linda.robertson@enron.com, 0.0679015049636
-joe.hartsoe@enron.com, 0.0679015049636
-richard.shapiro@enron.com, 0.0679015049636
-karen.denne@enron.com, 0.0679015049636
-james.steffes@enron.com, 0.0679015049636
-robert.williams@enron.com, 0.0668851146083
-gfergus@brobeck.com, 0.0668851146083
+tana.jones@enron.com, 0.415632314602
+mark.haedicke@enron.com, 0.294621752415
+sara.shackleton@enron.com, 0.278334923014
+mark.taylor@enron.com, 0.240438181258
+jeff.dasovich@enron.com, 0.213980586741
+carol.clair@enron.com, 0.173086860915
+richard.sanders@enron.com, 0.164442244421
+elizabeth.sager@enron.com, 0.150647293548
+david.delainey@enron.com, 0.115987183826
+kay.mann@enron.com, 0.110551355135
+steven.kean@enron.com, 0.10359180348
+jeffrey.hodge@enron.com, 0.0935545590612
+suzanne.adams@enron.com, 0.083777706367
+john.lavorato@enron.com, 0.07952188329
+susan.bailey@enron.com, 0.077654912095
 
 Betweenness centralities
-tana.jones@enron.com, 78230.3312274
-jeff.dasovich@enron.com, 61950.5661414
-debra.perlingiere@enron.com, 34396.8397943
-chris.germany@enron.com, 26970.0
-john.singer@enron.com, 25960.0
-jeffrey.hodge@enron.com, 22641.4912898
-matthew.lenhart@enron.com, 22078.5791009
-david.delainey@enron.com, 19448.2326203
-mark.haedicke@enron.com, 18856.5798557
-lisa.gillette@enron.com, 18288.7297545
-kay.mann@enron.com, 18084.5652958
-william.bradford@enron.com, 16317.5815095
-edward.sacks@enron.com, 16317.5815095
-richard.sanders@enron.com, 12613.1530299
-susan.scott@enron.com, 10423.0821884
+jeff.dasovich@enron.com, 305821.761309
+tana.jones@enron.com, 258316.941247
+david.delainey@enron.com, 191969.045784
+mark.haedicke@enron.com, 171635.192544
+chris.germany@enron.com, 154369.027228
+kay.mann@enron.com, 128139.059106
+sara.shackleton@enron.com, 113929.607371
+sally.beck@enron.com, 96907.5963261
+richard.sanders@enron.com, 93604.2079142
+gerald.nemec@enron.com, 91777.7023664
+susan.scott@enron.com, 89810.3377927
+john.lavorato@enron.com, 89790.5744651
+matthew.lenhart@enron.com, 89080.3731634
+vince.kaminski@enron.com, 80508.5372762
+scott.neal@enron.com, 80318.504743
